@@ -11,13 +11,19 @@ At this moment, the repository is at the setup pre-implementation stage.
 - `.ai/` context system established.
 - **Phase 0 — Frontend Architecture Lock: STATUS: COMPLETE**
   - Architectural decisions finalized (Stack, Styling, Mocking, Testing rules).
+- **Phase 1 — Frontend Project Foundation: STATUS: COMPLETE**
+  - Vite, React, TypeScript scaffolded.
+  - Tailwind CSS v4 and shadcn/ui configured.
+  - ESLint, Prettier, Jest, Playwright tooling checked and passing.
+  - Shared UI/UX foundation components established.
+  - Core contexts (Auth, Tenant) created.
+  - Verification scripts (lint, typecheck, test, build) fully passing.
 
 ## NEXT
-- **Phase 1 — Frontend Project Foundation: STATUS: NOT STARTED**
-  - (Next exact task: Initialize Vite, TS, Tailwind, shadcn/ui framework foundation).
-
+- **Phase 2 — UI App Shell Implementation: STATUS: NOT STARTED**
+  - Integrate main layout and AuthContext properly into the App Shell.
+  
 ## NOT STARTED
-- Frontend application (NOT CREATED YET).
 - Backend implementation in this working tree (NOT PART OF CURRENT FRONTEND TASK).
 - API endpoints.
 - Database models.

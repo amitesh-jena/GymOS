@@ -1,0 +1,32 @@
+
+> frontend@0.0.0 test
+> jest
+
+FAIL tests/App.test.tsx
+  × renders app title (3 ms)
+
+  ● renders app title
+
+    TypeError: Cannot redefine property: Request
+        at Function.defineProperty (<anonymous>)
+
+      at recordRawFetchHeaders (node_modules/@mswjs/interceptors/lib/node/ClientRequest-2loAH7xM.cjs:182:9)
+      at ClientRequestInterceptor.setup (node_modules/@mswjs/interceptors/lib/node/ClientRequest-2loAH7xM.cjs:1039:3)
+      at ClientRequestInterceptor.apply (node_modules/@mswjs/interceptors/lib/node/fetchUtils-umV5xXBy.cjs:82:8)
+      at BatchInterceptor.setup (node_modules/@mswjs/interceptors/lib/node/BatchInterceptor-BGhH8z1z.cjs:19:16)
+      at BatchInterceptor.apply (node_modules/@mswjs/interceptors/lib/node/fetchUtils-umV5xXBy.cjs:82:8)
+      at InterceptorSource.enable (node_modules/msw/lib/core/experimental/sources/C:/Projects/GymOS/frontend/node_modules/msw/lib/core/experimental/sources/interceptor-source.js:42:23)
+      at node_modules/msw/lib/core/experimental/C:/Projects/GymOS/frontend/node_modules/msw/lib/core/experimental/define-network.js:105:23
+          at Array.map (<anonymous>)
+      at Object.enable (node_modules/msw/lib/core/experimental/C:/Projects/GymOS/frontend/node_modules/msw/lib/core/experimental/define-network.js:89:46)
+      at Object.listen (node_modules/msw/lib/node/C:/Projects/GymOS/frontend/node_modules/msw/lib/node/index.js:101:15)
+      at Object.<anonymous> (tests/C:/Projects/GymOS/frontend/tests/setup.ts:4:24)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        6.827 s
+Ran all test suites.
+Jest did not exit one second after the test run has completed.
+
+'This usually means that there are asynchronous operations that weren't stopped in your tests. Consider running Jest with `--detectOpenHandles` to troubleshoot this issue.

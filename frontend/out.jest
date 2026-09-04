@@ -1,0 +1,30 @@
+
+> frontend@0.0.0 test
+> jest
+
+FAIL tests/App.test.tsx
+  ● Test suite failed to run
+
+    ReferenceError: ReadableStream is not defined
+
+    [0m [90m  5 |[39m })[33m;[39m
+     [90m  6 |[39m
+    [31m[1m>[22m[39m[90m  7 |[39m [36mconst[39m { fetch[33m,[39m [33mBlob[39m[33m,[39m [33mFormData[39m[33m,[39m [33mRequest[39m[33m,[39m [33mResponse[39m[33m,[39m [33mHeaders[39m } [33m=[39m require([32m'undici'[39m)[33m;[39m
+     [90m    |[39m                                                               [31m[1m^[22m[39m
+     [90m  8 |[39m [33mObject[39m[33m.[39mdefineProperties(global[33m,[39m {
+     [90m  9 |[39m   fetch[33m:[39m { value[33m:[39m fetch[33m,[39m writable[33m:[39m [36mtrue[39m }[33m,[39m
+     [90m 10 |[39m   [33mBlob[39m[33m:[39m { value[33m:[39m [33mBlob[39m }[33m,[39m[0m
+
+      at Object.<anonymous> (node_modules/undici/lib/web/webidl/index.js:534:58)
+      at Object.<anonymous> (node_modules/undici/lib/web/fetch/util.js:12:20)
+      at Object.<anonymous> (node_modules/undici/lib/web/fetch/headers.js:11:5)
+      at Object.<anonymous> (node_modules/undici/lib/web/fetch/response.js:3:90)
+      at Object.<anonymous> (node_modules/undici/lib/web/fetch/index.js:12:5)
+      at Object.<anonymous> (node_modules/undici/index.js:124:19)
+      at Object.<anonymous> (jest.polyfills.cjs:7:63)
+
+Test Suites: 1 failed, 1 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        2.163 s
+Ran all test suites.

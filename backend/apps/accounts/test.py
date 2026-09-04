@@ -1,1 +1,1 @@
-print("sourav loves sneha")
+print("amitesh loves tarana")

@@ -1,0 +1,20 @@
+
+> frontend@0.0.0 test
+> jest
+
+FAIL tests/App.test.tsx
+  ● Test suite failed to run
+
+    ReferenceError: Request is not defined
+
+      at Object.<anonymous> (node_modules/@mswjs/interceptors/src/utils/fetchUtils.ts:11:35)
+      at Object.<anonymous> (node_modules/@mswjs/interceptors/lib/node/interceptors/ClientRequest/index.cjs:1:1)
+      at Object.<anonymous> (node_modules/msw/src/node/setup-server.ts:2:42)
+      at Object.<anonymous> (tests/C:/Projects/GymOS/frontend/tests/server.ts:1:1)
+      at Object.<anonymous> (tests/C:/Projects/GymOS/frontend/tests/setup.ts:2:1)
+
+Test Suites: 1 failed, 1 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        2.687 s
+Ran all test suites.

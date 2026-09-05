@@ -5,13 +5,13 @@ export default defineConfig({
   fullyParallel: true,
   retries: 0,
   webServer: {
-    command: 'npm run preview',
-    port: 4173,
+    command: 'npm run dev',
+    port: 5173,
     timeout: 1000 * 60,
     reuseExistingServer: !process.env.CI,
   },
   use: {
-    baseURL: 'http://localhost:4173',
+    baseURL: 'http://localhost:5173',
     trace: 'on-first-retry',
   },
   projects: [

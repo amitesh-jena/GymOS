@@ -20,18 +20,18 @@ test('App routing and responsive navigation flow', async ({ page }) => {
   await expect(page.locator('nav').locator('text=My Dashboard').first()).toBeAttached();
 
   // 4. Navigate using Sidebar
-  // Sidebar should have "My Workouts" for Member
-  await page.click('text=My Workouts');
+  // Sidebar should have "Workouts" for Member
+  await page.click('text=Workouts');
   await expect(page).toHaveURL(/.*\/member\/workouts/);
   await expect(page.locator('h2', { hasText: 'My Workouts' })).toBeVisible();
 
   // 5. Test 404
   await page.goto('/some-fake-route-404-test');
-  await expect(page.locator('h3', { hasText: '404 - Page Not Found' })).toBeVisible();
+  await expect(page.getByText('404 - Page Not Found').first()).toBeVisible();
   await page.click('button:has-text("Go Back")');
 
   // 6. Test 403 (Unauthorized Route)
   // Member trying to hit /dashboard (Owner route)
   await page.goto('/dashboard');
-  await expect(page.locator('h3', { hasText: 'Not Authorized' })).toBeVisible();
+  await expect(page.getByText('Access Denied').first()).toBeVisible();
 });

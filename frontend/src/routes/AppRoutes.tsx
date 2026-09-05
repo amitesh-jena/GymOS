@@ -10,6 +10,18 @@ import {
 import { ListArchitectureDemo, DestructiveActionDemo } from '@/features/demo/PatternScreens';
 import { AuthSimulator } from '@/features/auth/AuthSimulator';
 import { DesignSystemShowcase } from '@/app/_DesignSystemShowcase';
+import { MembersList } from '@/features/members/components/MembersList';
+import { MemberDetail } from '@/features/members/components/MemberDetail';
+import { MemberForm } from '@/features/members/components/MemberForm';
+import { TrainersList } from '@/features/trainers/components/TrainersList';
+import { TrainerDetail } from '@/features/trainers/components/TrainerDetail';
+import { TrainerForm } from '@/features/trainers/components/TrainerForm';
+import { PlansList } from '@/features/plans/components/PlansList';
+import { PlanForm } from '@/features/plans/components/PlanForm';
+import { MembershipsList } from '@/features/memberships/components/MembershipsList';
+import { MembershipForm } from '@/features/memberships/components/MembershipForm';
+import { AttendanceList } from '@/features/attendance/components/AttendanceList';
+import { CheckInForm } from '@/features/attendance/components/CheckInForm';
 
 // Generic placeholder for mocked business screens
 const PlaceholderScreen = ({ title }: { title: string }) => (
@@ -92,6 +104,52 @@ const AppRoutes = () => {
               <Route path="/branches" element={<PlaceholderScreen title="Gym Branches" />} />
               <Route path="/plans" element={<PlaceholderScreen title="Membership Plans" />} />
               <Route path="/settings" element={<PlaceholderScreen title="Global Settings" />} />
+            </Route>
+
+            {/* Owner / Admin / Manager Branch Routes */}
+            <Route
+              element={
+                <RequireRole
+                  allowedRoles={[
+                    ROLES.SUPER_ADMIN,
+                    ROLES.OWNER,
+                    ROLES.BRANCH_MANAGER,
+                    ROLES.RECEPTIONIST,
+                  ]}
+                />
+              }
+            >
+              <Route
+                path="/dashboard"
+                element={<PlaceholderScreen title="Management Dashboard" />}
+              />
+              <Route path="/members">
+                <Route index element={<MembersList />} />
+                <Route path="new" element={<MemberForm />} />
+                <Route path=":id" element={<MemberDetail />} />
+                <Route path=":id/edit" element={<MemberForm />} />
+              </Route>
+              <Route path="/trainers">
+                <Route index element={<TrainersList />} />
+                <Route path="new" element={<TrainerForm />} />
+                <Route path=":id" element={<TrainerDetail />} />
+                <Route path=":id/edit" element={<TrainerForm />} />
+              </Route>
+              <Route path="/plans">
+                <Route index element={<PlansList />} />
+                <Route path="new" element={<PlanForm />} />
+                <Route path=":id/edit" element={<PlanForm />} />
+              </Route>
+              <Route path="/memberships">
+                <Route index element={<MembershipsList />} />
+                <Route path="assign" element={<MembershipForm />} />
+                <Route path=":id/edit" element={<MembershipForm />} />
+              </Route>
+              <Route path="/attendance">
+                <Route index element={<AttendanceList />} />
+                <Route path="checkin" element={<CheckInForm />} />
+              </Route>
+              <Route path="/payments" element={<PlaceholderScreen title="Payments & Invoices" />} />
             </Route>
 
             {/* Trainer Routes */}

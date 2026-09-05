@@ -1,6 +1,17 @@
 import { http, HttpResponse } from 'msw';
 
+import { membersHandlers } from './handlers/members.handlers';
+import { trainersHandlers } from './handlers/trainers.handlers';
+import { plansHandlers } from './handlers/plans.handlers';
+import { membershipsHandlers } from './handlers/memberships.handlers';
+import { attendanceHandlers } from './handlers/attendance.handlers';
+
 export const handlers = [
+  ...membersHandlers,
+  ...trainersHandlers,
+  ...plansHandlers,
+  ...membershipsHandlers,
+  ...attendanceHandlers,
   http.get('/api/v1/health', () => {
     return HttpResponse.json({
       success: true,

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { DesignSystemShowcase } from '@/app/_DesignSystemShowcase';
 
 const PlaceholderLayout = () => (
   <div className="min-h-screen bg-background p-4">
@@ -36,9 +37,17 @@ const AppRoutes = () => {
           <Route path="reset-password" element={<h2>Reset Password (Placeholder)</h2>} />
         </Route>
 
+        {/* Development Route: Design System */}
+        <Route path="/_design" element={<DesignSystemShowcase />} />
+
         {/* Protected Routes inside Layout */}
-        <Route element={<ProtectedRoute><PlaceholderLayout /></ProtectedRoute>}>
-          
+        <Route
+          element={
+            <ProtectedRoute>
+              <PlaceholderLayout />
+            </ProtectedRoute>
+          }
+        >
           {/* Admin / Branch Manager */}
           <Route path="/">
             <Route index element={<h2>Dashboard (Placeholder)</h2>} />

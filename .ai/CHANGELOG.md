@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Added (Phase 8: Analytics & Reporting)
+- Integrated `AnalyticsDashboard` under the strict `/reports` operational boundary restricted safely isolated away from Trainers and Members.
+- Executed visual metric architectures building scalable `KPICard` and specialized decoupled Recharts representations including `RevenueChart`.
+- Created unified `DateRangeFilter` integration securely piping boundaries natively enforcing exact queries via `getAnalyticsOverview`.
+- Ensured completely valid deterministic behavior via newly authored `analytics.handlers.ts` mapping Trial boundaries exactly into MSW schemas.
+
 ### Added (Phase 7: SaaS Infrastructure Implementation)
 - Introduced comprehensive `SubscriptionSettingsView` nested deeply against the unified AppRoutes settings layout resolving exactly against the IA tree.
 - Built strictly-typed domain models for Subscriptions, SaaS Plans, and granular Entitlements utilizing exact documented configurations.

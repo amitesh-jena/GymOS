@@ -33,6 +33,7 @@ import { MemberWorkoutsList } from '@/features/workouts/components/MemberWorkout
 import { MemberDietView } from '@/features/diets/components/MemberDietView';
 import { MemberProgressView } from '@/features/progress/components/MemberProgressView';
 import { SubscriptionSettingsView } from '@/features/saas/components/SubscriptionSettingsView';
+import { AnalyticsDashboard } from '@/features/analytics/components/AnalyticsDashboard';
 
 // Generic placeholder for mocked business screens
 const PlaceholderScreen = ({ title }: { title: string }) => (
@@ -110,7 +111,7 @@ const AppRoutes = () => {
               }
             >
               <Route path="/trainers" element={<PlaceholderScreen title="Trainers" />} />
-              <Route path="/reports" element={<PlaceholderScreen title="Analytics Reports" />} />
+              <Route path="/reports" element={<AnalyticsDashboard />} />
             </Route>
 
             <Route element={<RequireRole allowedRoles={[ROLES.SUPER_ADMIN, ROLES.OWNER]} />}>

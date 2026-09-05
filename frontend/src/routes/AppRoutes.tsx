@@ -16,6 +16,9 @@ import { MemberForm } from '@/features/members/components/MemberForm';
 import { TrainersList } from '@/features/trainers/components/TrainersList';
 import { TrainerDetail } from '@/features/trainers/components/TrainerDetail';
 import { TrainerForm } from '@/features/trainers/components/TrainerForm';
+import { PaymentsList } from '@/features/payments/components/PaymentsList';
+import { InvoicesList } from '@/features/invoices/components/InvoicesList';
+import { ReceiptsList } from '@/features/receipts/components/ReceiptsList';
 import { PlansList } from '@/features/plans/components/PlansList';
 import { PlanForm } from '@/features/plans/components/PlanForm';
 import { MembershipsList } from '@/features/memberships/components/MembershipsList';
@@ -85,7 +88,9 @@ const AppRoutes = () => {
               />
               <Route path="/members" element={<PlaceholderScreen title="Members Directory" />} />
               <Route path="/attendance" element={<PlaceholderScreen title="Attendance Logs" />} />
-              <Route path="/payments" element={<PlaceholderScreen title="Payments & Invoices" />} />
+              <Route path="/payments" element={<PaymentsList />} />
+              <Route path="/invoices" element={<InvoicesList />} />
+              <Route path="/receipts" element={<ReceiptsList />} />
             </Route>
 
             {/* Owner / Admin Only Routes */}
@@ -149,7 +154,9 @@ const AppRoutes = () => {
                 <Route index element={<AttendanceList />} />
                 <Route path="checkin" element={<CheckInForm />} />
               </Route>
-              <Route path="/payments" element={<PlaceholderScreen title="Payments & Invoices" />} />
+              <Route path="/payments" element={<PaymentsList />} />
+              <Route path="/invoices" element={<InvoicesList />} />
+              <Route path="/receipts" element={<ReceiptsList />} />
             </Route>
 
             {/* Trainer Routes */}

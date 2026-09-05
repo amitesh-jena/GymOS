@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96% </span>
+                <span class="strong">96.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/25</span>
+                <span class='fraction'>27/28</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96% </span>
+                <span class="strong">96.42% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/25</span>
+                <span class='fraction'>27/28</span>
             </div>
         
             
@@ -248,7 +248,14 @@
 <a name='L183'></a><a href='#L183'>183</a>
 <a name='L184'></a><a href='#L184'>184</a>
 <a name='L185'></a><a href='#L185'>185</a>
-<a name='L186'></a><a href='#L186'>186</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -257,6 +264,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -432,6 +442,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ROLES } from '@/types/roles';
@@ -451,6 +465,9 @@ import { MemberForm } from '@/features/members/components/MemberForm';
 import { TrainersList } from '@/features/trainers/components/TrainersList';
 import { TrainerDetail } from '@/features/trainers/components/TrainerDetail';
 import { TrainerForm } from '@/features/trainers/components/TrainerForm';
+import { PaymentsList } from '@/features/payments/components/PaymentsList';
+import { InvoicesList } from '@/features/invoices/components/InvoicesList';
+import { ReceiptsList } from '@/features/receipts/components/ReceiptsList';
 import { PlansList } from '@/features/plans/components/PlansList';
 import { PlanForm } from '@/features/plans/components/PlanForm';
 import { MembershipsList } from '@/features/memberships/components/MembershipsList';
@@ -520,7 +537,9 @@ const AppRoutes = () =&gt; {
               /&gt;
               &lt;Route path="/members" element={&lt;PlaceholderScreen title="Members Directory" /&gt;} /&gt;
               &lt;Route path="/attendance" element={&lt;PlaceholderScreen title="Attendance Logs" /&gt;} /&gt;
-              &lt;Route path="/payments" element={&lt;PlaceholderScreen title="Payments &amp; Invoices" /&gt;} /&gt;
+              &lt;Route path="/payments" element={&lt;PaymentsList /&gt;} /&gt;
+              &lt;Route path="/invoices" element={&lt;InvoicesList /&gt;} /&gt;
+              &lt;Route path="/receipts" element={&lt;ReceiptsList /&gt;} /&gt;
             &lt;/Route&gt;
 &nbsp;
             {/* Owner / Admin Only Routes */}
@@ -584,7 +603,9 @@ const AppRoutes = () =&gt; {
                 &lt;Route index element={&lt;AttendanceList /&gt;} /&gt;
                 &lt;Route path="checkin" element={&lt;CheckInForm /&gt;} /&gt;
               &lt;/Route&gt;
-              &lt;Route path="/payments" element={&lt;PlaceholderScreen title="Payments &amp; Invoices" /&gt;} /&gt;
+              &lt;Route path="/payments" element={&lt;PaymentsList /&gt;} /&gt;
+              &lt;Route path="/invoices" element={&lt;InvoicesList /&gt;} /&gt;
+              &lt;Route path="/receipts" element={&lt;ReceiptsList /&gt;} /&gt;
             &lt;/Route&gt;
 &nbsp;
             {/* Trainer Routes */}
@@ -625,7 +646,7 @@ export default AppRoutes;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-05T09:45:59.220Z
+                at 2026-09-05T10:01:45.689Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

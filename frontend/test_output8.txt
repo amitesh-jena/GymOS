@@ -1,0 +1,137 @@
+
+> frontend@0.0.0 test
+> jest --coverage
+
+PASS tests/guards.test.tsx (5.436 s)
+FAIL tests/layout.test.tsx
+  ● Test suite failed to run
+
+    ReferenceError: FileSignature is not defined
+
+      at Object.FileSignature (src/routes/C:/Projects/GymOS/frontend/src/routes/config.ts:41:11)
+      at Object.require (src/components/layout/C:/Projects/GymOS/frontend/src/components/layout/Sidebar.tsx:3:1)
+      at Object.require (src/components/layout/C:/Projects/GymOS/frontend/src/components/layout/AppShell.tsx:3:1)
+      at Object.<anonymous> (tests/C:/Projects/GymOS/frontend/tests/layout.test.tsx:6:1)
+
+FAIL tests/App.test.tsx
+  ● Test suite failed to run
+
+    ReferenceError: FileSignature is not defined
+
+      at Object.FileSignature (src/routes/C:/Projects/GymOS/frontend/src/routes/config.ts:41:11)
+      at Object.require (src/components/layout/C:/Projects/GymOS/frontend/src/components/layout/Sidebar.tsx:3:1)
+      at Object.require (src/components/layout/C:/Projects/GymOS/frontend/src/components/layout/AppShell.tsx:3:1)
+      at Object.require (src/routes/C:/Projects/GymOS/frontend/src/routes/AppRoutes.tsx:4:1)
+      at Object.require (src/app/C:/Projects/GymOS/frontend/src/app/App.tsx:5:1)
+      at Object.<anonymous> (tests/C:/Projects/GymOS/frontend/tests/App.test.tsx:2:1)
+
+PASS tests/components.test.tsx (6.283 s)
+PASS tests/features.test.tsx (6.725 s)
+FAIL tests/revenue.test.tsx (6.897 s)
+  ● Revenue Components › renders PaymentForm
+
+    TypeError: Right-hand side of 'instanceof' is not an object
+
+      at data (node_modules/react-hook-form/src/utils/cloneObject.ts:15:17)
+      at cloneObject (node_modules/react-hook-form/src/useForm.ts:61:10)
+      at mountStateImpl (node_modules/react-dom/cjs/react-dom-client.development.js:8268:24)
+      at mountState (node_modules/react-dom/cjs/react-dom-client.development.js:8289:22)
+      at Object.useState (node_modules/react-dom/cjs/react-dom-client.development.js:26243:18)
+      at Object.process.env.NODE_ENV.exports.useState (node_modules/react/cjs/react.development.js:1263:34)
+      at useState (node_modules/react-hook-form/src/useForm.ts:59:46)
+      at PaymentForm (src/features/payments/components/C:/Projects/GymOS/frontend/src/features/payments/components/PaymentForm.tsx:31:23)
+      at Object.react_stack_bottom_frame (node_modules/react-dom/cjs/react-dom-client.development.js:25904:20)
+      at renderWithHooks (node_modules/react-dom/cjs/react-dom-client.development.js:7662:22)
+      at updateFunctionComponent (node_modules/react-dom/cjs/react-dom-client.development.js:10166:19)
+      at beginWork (node_modules/react-dom/cjs/react-dom-client.development.js:11778:18)
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at performUnitOfWork (node_modules/react-dom/cjs/react-dom-client.development.js:17641:22)
+      at workLoopSync (node_modules/react-dom/cjs/react-dom-client.development.js:17469:41)
+      at renderRootSync (node_modules/react-dom/cjs/react-dom-client.development.js:17450:11)
+      at performWorkOnRoot (node_modules/react-dom/cjs/react-dom-client.development.js:16583:35)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-dom/cjs/react-dom-client.development.js:18957:7)
+      at flushActQueue (node_modules/react/cjs/react.development.js:590:34)
+      at process.env.NODE_ENV.exports.act (node_modules/react/cjs/react.development.js:884:10)
+      at node_modules/@testing-library/react/dist/act-compat.js:46:25
+      at renderRoot (node_modules/@testing-library/react/dist/pure.js:198:26)
+      at render (node_modules/@testing-library/react/dist/pure.js:300:10)
+      at renderWithProviders (tests/C:/Projects/GymOS/frontend/tests/revenue.test.tsx:52:16)
+      at Object.<anonymous> (tests/C:/Projects/GymOS/frontend/tests/revenue.test.tsx:81:5)
+
+A worker process has failed to exit gracefully and has been force exited. This is likely caused by tests leaking due to improper teardown. Try running with --detectOpenHandles to find leaks. Active timers can also cause this, ensure that .unref() was called on them.
+-------------------------------------|---------|----------|---------|---------|----------------------------------------
+File                                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                      
+-------------------------------------|---------|----------|---------|---------|----------------------------------------
+All files                            |   64.73 |     33.2 |   32.99 |   67.03 |                                        
+ src/components/ui                   |   82.64 |    33.33 |   53.73 |   81.97 |                                        
+  avatar.tsx                         |     100 |      100 |     100 |     100 |                                        
+  badge.tsx                          |     100 |      100 |     100 |     100 |                                        
+  button.tsx                         |     100 |     87.5 |     100 |     100 | 42                                     
+  card.tsx                           |    92.3 |      100 |   66.66 |   90.47 | 37,50                                  
+  checkbox.tsx                       |     100 |      100 |     100 |     100 |                                        
+  dialog.tsx                         |   97.22 |      100 |   83.33 |   97.22 | 60                                     
+  input.tsx                          |     100 |      100 |     100 |     100 |                                        
+  label.tsx                          |     100 |      100 |     100 |     100 |                                        
+  pagination.tsx                     |   78.12 |        0 |       0 |   78.12 | 8,19,25,35,53,66,79                    
+  select.tsx                         |   94.73 |      100 |   71.42 |   94.73 | 97,132                                 
+  separator.tsx                      |     100 |       50 |     100 |     100 | 8-15                                   
+  skeleton.tsx                       |     100 |      100 |     100 |     100 |                                        
+  switch.tsx                         |     100 |      100 |     100 |     100 |                                        
+  table.tsx                          |   94.11 |      100 |      75 |   92.59 | 33,86                                  
+  tabs.tsx                           |     100 |      100 |     100 |     100 |                                        
+  textarea.tsx                       |     100 |      100 |     100 |     100 |                                        
+  use-toast.ts                       |   28.07 |        0 |    5.55 |   26.41 | 25-26,56-68,72-117,127-157,168-172,180 
+ src/components/ux                   |   88.88 |       25 |      50 |   85.71 |                                        
+  EmptyState.tsx                     |     100 |        0 |     100 |     100 | 3                                      
+  ErrorState.tsx                     |      80 |        0 |       0 |      75 | 11                                     
+  LoadingState.tsx                   |      75 |        0 |       0 |   66.66 | 4                                      
+  NotAuthorizedState.tsx             |     100 |      100 |     100 |     100 |                                        
+ src/contexts                        |      50 |    33.33 |      40 |      48 |                                        
+  AuthContext.tsx                    |      50 |    33.33 |      40 |      48 | 22-26,37-39,43-45,54-56                
+ src/features/attendance/components  |    86.2 |    56.25 |   66.66 |    92.3 |                                        
+  AttendanceList.tsx                 |    86.2 |    56.25 |   66.66 |    92.3 | 28,45                                  
+ src/features/invoices/components    |      85 |    41.17 |   66.66 |     100 |                                        
+  InvoicesList.tsx                   |      85 |    41.17 |   66.66 |     100 | 21-80                                  
+ src/features/members/components     |    62.5 |    36.84 |      20 |   69.44 |                                        
+  MembersList.tsx                    |    62.5 |    36.84 |      20 |   69.44 | 41-44,51,61-74,116-159                 
+ src/features/memberships/components |   52.54 |    22.22 |   13.33 |   55.35 |                                        
+  MembershipsList.tsx                |   67.74 |     37.5 |      25 |   72.41 | 29,40,71-134                           
+  RenewMembershipDialog.tsx          |   35.71 |        0 |       0 |   37.03 | 21-71                                  
+ src/features/payments/components    |   74.13 |       40 |      30 |   77.35 |                                        
+  PaymentForm.tsx                    |   65.62 |       25 |   16.66 |   64.51 | 28,45-98                               
+  PaymentsList.tsx                   |   84.61 |    47.05 |      50 |   95.45 | 54                                     
+ src/features/payments/schemas       |   66.66 |        0 |       0 |   66.66 |                                        
+  index.ts                           |   66.66 |        0 |       0 |   66.66 | 9                                      
+ src/features/plans/components       |   66.66 |       40 |      25 |   73.33 |                                        
+  PlansList.tsx                      |   66.66 |       40 |      25 |   73.33 | 33-36,48-61,91-114                     
+ src/features/receipts/components    |   84.21 |    54.54 |   66.66 |     100 |                                        
+  ReceiptsList.tsx                   |   84.21 |    54.54 |   66.66 |     100 | 20-65                                  
+ src/features/system                 |      80 |      100 |      40 |      80 |                                        
+  SystemScreens.tsx                  |      80 |      100 |      40 |      80 | 17,30,36                               
+ src/features/trainers/components    |   62.85 |    36.84 |   22.22 |   68.75 |                                        
+  TrainersList.tsx                   |   62.85 |    36.84 |   22.22 |   68.75 | 33-36,50-63,93-130                     
+ src/mocks                           |    90.9 |      100 |       0 |    90.9 |                                        
+  handlers.ts                        |    90.9 |      100 |       0 |    90.9 | 22                                     
+ src/mocks/handlers                  |   15.18 |        0 |       0 |   17.26 |                                        
+  attendance.handlers.ts             |   21.42 |        0 |       0 |   21.42 | 18-59                                  
+  invoices.handlers.ts               |   33.33 |        0 |       0 |   42.85 | 24-37                                  
+  members.handlers.ts                |   10.71 |        0 |       0 |      12 | 35-90                                  
+  memberships.handlers.ts            |   10.34 |        0 |       0 |      12 | 17-19,25-78                            
+  payments.handlers.ts               |   23.07 |        0 |       0 |   27.27 | 21-47                                  
+  plans.handlers.ts                  |   10.71 |        0 |       0 |      12 | 33-88                                  
+  receipts.handlers.ts               |   33.33 |        0 |       0 |   42.85 | 19-32                                  
+  trainers.handlers.ts               |   10.71 |        0 |       0 |      12 | 22-77                                  
+ src/routes                          |      70 |       45 |      75 |      70 |                                        
+  Guards.tsx                         |      70 |       45 |      75 |      70 | 17-24,31,38,45,53                      
+ src/types                           |     100 |      100 |     100 |     100 |                                        
+  roles.ts                           |     100 |      100 |     100 |     100 |                                        
+ src/utils                           |     100 |      100 |     100 |     100 |                                        
+  cn.ts                              |     100 |      100 |     100 |     100 |                                        
+ tests                               |     100 |      100 |     100 |     100 |                                        
+  server.ts                          |     100 |      100 |     100 |     100 |                                        
+-------------------------------------|---------|----------|---------|---------|----------------------------------------
+Test Suites: 3 failed, 3 passed, 6 total
+Tests:       1 failed, 23 passed, 24 total
+Snapshots:   0 total
+Time:        12.017 s
+Ran all test suites.

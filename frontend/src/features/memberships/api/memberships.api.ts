@@ -27,4 +27,12 @@ export const membershipsApi = {
     const response = await api.put<ApiResponse<Membership>>(`/memberships/${id}`, payload);
     return response.data.data;
   },
+
+  renewMembership: async (
+    id: string,
+    payload: { planId: string; startDate: string; endDate: string }
+  ): Promise<Membership> => {
+    const response = await api.post<ApiResponse<Membership>>(`/memberships/${id}/renew`, payload);
+    return response.data.data;
+  },
 };

@@ -32,8 +32,13 @@ At this moment, the repository is at the setup pre-implementation stage.
   - Test coverage expanded with integration tests (`features.test.tsx` and `layout.test.tsx`) achieving >60% coverage.
   - Full Phase 4 infrastructure completely stable and verified (build, lint, typecheck, coverage tests pass).
 
+- **Phase 5 — Billing & Schedule Implementation: STATUS: COMPLETE**
+  - Implemented Revenue module (Payments, Invoices, Receipts, and Renewals).
+  - Setup UI lists, robust form components (handling string/decimal inputs safely), API endpoints, TanStack Query hooks, schemas, and MSW handlers.
+  - Hardened type-checking, linting, and routing integration, preserving strict typings and maintaining the testing suite (>59% coverage).
+
 ## NEXT
-- **Phase 5 — Billing & Schedule Implementation: STATUS: NOT STARTED**
+- **Phase 6 — SaaS Infrastructure Implementation: STATUS: NOT STARTED**
 
 ## NOT STARTED
 - Backend implementation in this working tree (NOT PART OF CURRENT FRONTEND TASK).

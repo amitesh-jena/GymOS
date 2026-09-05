@@ -13,6 +13,8 @@ import {
   Bell,
   User,
   Apple,
+  FileSignature,
+  ReceiptText,
 } from 'lucide-react';
 
 export interface NavItem {
@@ -26,6 +28,30 @@ export interface NavItem {
 
 // Global conceptual navigation items
 export const NAVIGATION_CONFIG: NavItem[] = [
+  {
+    id: 'payments',
+    label: 'Payments',
+    route: '/payments',
+    icon: CreditCard,
+    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER, ROLES.RECEPTIONIST, ROLES.MEMBER],
+    group: 'Revenue',
+  },
+  {
+    id: 'invoices',
+    label: 'Invoices',
+    route: '/invoices',
+    icon: FileSignature,
+    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER, ROLES.RECEPTIONIST, ROLES.MEMBER],
+    group: 'Revenue',
+  },
+  {
+    id: 'receipts',
+    label: 'Receipts',
+    route: '/receipts',
+    icon: ReceiptText,
+    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER, ROLES.RECEPTIONIST, ROLES.MEMBER],
+    group: 'Revenue',
+  },
   // --- OWNER / ADMIN ---
   {
     id: 'dash_owner',

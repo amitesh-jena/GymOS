@@ -81,3 +81,31 @@ export const useUpdateMembership = (id: string) => {
     },
   });
 };
+
+export const useRenewMembership = (id: string) => {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: (payload: { planId: string; startDate: string; endDate: string }) =>
+      membershipsApi.renewMembership(id, payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: MEMBERSHIP_KEYS.detail(id) });
+      queryClient.invalidateQueries({ queryKey: MEMBERSHIP_KEYS.lists() });
+      toast({
+        title: 'Success',
+        description: 'Membership renewed successfully',
+        variant: 'success',
+      });
+    },
+    onError: (error: unknown) => {
+      toast({
+        title: 'Error',
+        description:
+          (isAxiosError<ApiError>(error) ? error.response?.data?.error?.message : undefined) ||
+          'Failed to renew membership',
+        variant: 'destructive',
+      });
+    },
+  });
+};

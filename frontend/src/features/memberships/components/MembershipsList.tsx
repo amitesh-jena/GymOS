@@ -6,7 +6,9 @@ import { EmptyState } from '@/components/ux/EmptyState';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Plus, FileEdit } from 'lucide-react';
+import { Plus, FileEdit, RefreshCw } from 'lucide-react';
+import { RenewMembershipDialog } from './RenewMembershipDialog';
+import { useState } from 'react';
 import {
   Table,
   TableBody,
@@ -18,6 +20,7 @@ import {
 
 export function MembershipsList() {
   const navigate = useNavigate();
+  const [renewId, setRenewId] = useState<string | null>(null);
 
   const { data, isLoading, isError, refetch } = useMemberships();
 
@@ -98,8 +101,20 @@ export function MembershipsList() {
                         size="icon"
                         onClick={(e) => {
                           e.stopPropagation();
+                          setRenewId(mshp.id);
+                        }}
+                        title="Renew"
+                      >
+                        <RefreshCw className="h-4 w-4 text-muted-foreground hover:text-primary" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={(e) => {
+                          e.stopPropagation();
                           navigate(`/memberships/${mshp.id}/edit`);
                         }}
+                        title="Edit"
                       >
                         <FileEdit className="h-4 w-4 text-muted-foreground" />
                       </Button>
@@ -111,6 +126,14 @@ export function MembershipsList() {
           )}
         </CardContent>
       </Card>
+
+      {renewId && (
+        <RenewMembershipDialog
+          membershipId={renewId}
+          open={!!renewId}
+          onOpenChange={(open) => !open && setRenewId(null)}
+        />
+      )}
     </div>
   );
 }

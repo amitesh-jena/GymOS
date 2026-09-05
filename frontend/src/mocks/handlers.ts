@@ -11,6 +11,7 @@ import { progressHandlers } from './handlers/progress.handlers';
 import { paymentsHandlers } from './handlers/payments.handlers';
 import { invoicesHandlers } from './handlers/invoices.handlers';
 import { receiptsHandlers } from './handlers/receipts.handlers';
+import { saasHandlers } from './handlers/saas.handlers';
 
 export const handlers = [
   ...membersHandlers,
@@ -24,6 +25,7 @@ export const handlers = [
   ...paymentsHandlers,
   ...invoicesHandlers,
   ...receiptsHandlers,
+  ...saasHandlers,
   http.get('/api/v1/health', () => {
     return HttpResponse.json({
       success: true,

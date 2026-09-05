@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+### Added (Phase 7: SaaS Infrastructure Implementation)
+- Introduced comprehensive `SubscriptionSettingsView` nested deeply against the unified AppRoutes settings layout resolving exactly against the IA tree.
+- Built strictly-typed domain models for Subscriptions, SaaS Plans, and granular Entitlements utilizing exact documented configurations.
+- Integrated `useCurrentSubscription`, `useAvailablePlans`, `useChangePlan`, and `useCancelSubscription` TanStack Query mutations routing against unified MSW REST endpoints.
+- Orchestrated deterministic lifecycle scenarios (TRIAL vs ACTIVE vs GRACE_PERIOD) mapped specifically over UI boundaries.
+- Solidified strict E2E coverage explicitly traversing Role-Based Access Isolation via the `AuthSimulator`.
+
 ### Added (Phase 6: Member Experience)
 - Implement unified Member Dashboard layout, metrics routing, and check-in history views.
 - Harden strict-typing (`no-explicit-any`) across Member Payments, Member Invoices, and API utilities.

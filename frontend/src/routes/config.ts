@@ -143,6 +143,14 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     allowedRoles: [ROLES.OWNER],
     group: 'Admin',
   },
+  {
+    id: 'subscription_owner',
+    label: 'Subscription',
+    route: '/settings/subscription',
+    icon: CreditCard,
+    allowedRoles: [ROLES.OWNER],
+    group: 'Admin',
+  },
 
   // --- TRAINER ---
   {

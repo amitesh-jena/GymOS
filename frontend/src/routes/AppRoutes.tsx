@@ -32,6 +32,7 @@ import { MemberAttendanceList } from '@/features/attendance/components/MemberAtt
 import { MemberWorkoutsList } from '@/features/workouts/components/MemberWorkoutsList';
 import { MemberDietView } from '@/features/diets/components/MemberDietView';
 import { MemberProgressView } from '@/features/progress/components/MemberProgressView';
+import { SubscriptionSettingsView } from '@/features/saas/components/SubscriptionSettingsView';
 
 // Generic placeholder for mocked business screens
 const PlaceholderScreen = ({ title }: { title: string }) => (
@@ -115,7 +116,10 @@ const AppRoutes = () => {
             <Route element={<RequireRole allowedRoles={[ROLES.SUPER_ADMIN, ROLES.OWNER]} />}>
               <Route path="/branches" element={<PlaceholderScreen title="Gym Branches" />} />
               <Route path="/plans" element={<PlaceholderScreen title="Membership Plans" />} />
-              <Route path="/settings" element={<PlaceholderScreen title="Global Settings" />} />
+              <Route path="/settings">
+                <Route index element={<PlaceholderScreen title="Global Settings" />} />
+                <Route path="subscription" element={<SubscriptionSettingsView />} />
+              </Route>
             </Route>
 
             {/* Owner / Admin / Manager Branch Routes */}

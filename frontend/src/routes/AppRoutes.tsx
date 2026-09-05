@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ROLES } from '@/types/roles';
 import { RequireAuth, RequireNoAuth, RequireRole, RedirectToRoleDashboard } from './Guards';
 import { AppShell } from '@/components/layout/AppShell';
@@ -10,6 +10,11 @@ import {
 import { ListArchitectureDemo, DestructiveActionDemo } from '@/features/demo/PatternScreens';
 import { AuthSimulator } from '@/features/auth/AuthSimulator';
 import { DesignSystemShowcase } from '@/app/_DesignSystemShowcase';
+import { SettingsLayout } from '@/features/settings/components/SettingsLayout';
+import { ProfileSettingsView } from '@/features/settings/components/ProfileSettingsView';
+import { AppearanceSettingsView } from '@/features/settings/components/AppearanceSettingsView';
+import { SecuritySettingsView } from '@/features/settings/components/SecuritySettingsView';
+import { TenantSettingsView } from '@/features/settings/components/TenantSettingsView';
 import { MembersList } from '@/features/members/components/MembersList';
 import { MemberDetail } from '@/features/members/components/MemberDetail';
 import { MemberForm } from '@/features/members/components/MemberForm';
@@ -77,8 +82,20 @@ const AppRoutes = () => {
             <Route path="/" element={<RedirectToRoleDashboard />} />
 
             {/* General Authed Routes */}
-            <Route path="/profile" element={<PlaceholderScreen title="My Profile" />} />
+            {/* General Authed Routes */}
             <Route path="/notifications" element={<PlaceholderScreen title="Notifications" />} />
+
+            <Route path="/settings" element={<SettingsLayout />}>
+              <Route index element={<Navigate to="profile" replace />} />
+              <Route path="profile" element={<ProfileSettingsView />} />
+              <Route path="appearance" element={<AppearanceSettingsView />} />
+              <Route path="security" element={<SecuritySettingsView />} />
+
+              <Route element={<RequireRole allowedRoles={[ROLES.SUPER_ADMIN, ROLES.OWNER]} />}>
+                <Route path="organization" element={<TenantSettingsView />} />
+                <Route path="subscription" element={<SubscriptionSettingsView />} />
+              </Route>
+            </Route>
 
             {/* Owner / Admin / Manager Branch Routes */}
             <Route
@@ -119,10 +136,6 @@ const AppRoutes = () => {
             <Route element={<RequireRole allowedRoles={[ROLES.SUPER_ADMIN, ROLES.OWNER]} />}>
               <Route path="/branches" element={<PlaceholderScreen title="Gym Branches" />} />
               <Route path="/plans" element={<PlaceholderScreen title="Membership Plans" />} />
-              <Route path="/settings">
-                <Route index element={<PlaceholderScreen title="Global Settings" />} />
-                <Route path="subscription" element={<SubscriptionSettingsView />} />
-              </Route>
             </Route>
 
             {/* Platform Super Admin Only Routes */}

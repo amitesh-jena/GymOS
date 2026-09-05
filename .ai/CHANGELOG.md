@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Added (Phase 10: Production Hardening & Settings)
+- Stabilized Application layout enveloping all internal navigation under a global fallback `ErrorBoundary`.
+- Authored the core Application Themes context scaling CSS classes bridging across four custom aesthetics seamlessly maintaining preference sync via local-storage.
+- Configured a dedicated `<SettingsLayout />` injecting comprehensive cross-object settings (Profile, Appearance, Security, Organization) with Zod-schema validations.
+- Fortified standard E2E suites extending Playwright structural assertions to capture RBAC settings exclusions effectively maintaining member perimeter logic.
+
 ### Added (Phase 9: SaaS Platform Administration)
 - Integrated `AdminTenantsList` and `AdminTenantDetail` to provide Super Admins deep overarching visibility over Tenant resources and Subscription limits.
 - Upgraded the unified `RequireRole` AppRouting constraints preventing unauthorized horizontal scaling from lesser bounds.

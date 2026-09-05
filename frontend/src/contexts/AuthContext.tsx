@@ -15,17 +15,33 @@ interface AuthContextType extends AuthState {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [authState, setAuthState] = useState<AuthState>({
-    isAuthenticated: false,
-    user: null,
-    token: null,
+  const [authState, setAuthState] = useState<AuthState>(() => {
+    const token = localStorage.getItem('auth_token');
+    const userStr = localStorage.getItem('user_data');
+    if (token && userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        return { isAuthenticated: true, user, token };
+      } catch (e) {
+        console.warn('Failed to parse auth data:', e);
+      }
+    }
+    return {
+      isAuthenticated: false,
+      user: null,
+      token: null,
+    };
   });
 
   const login = (token: string, user: AuthState['user']) => {
+    localStorage.setItem('auth_token', token);
+    localStorage.setItem('user_data', JSON.stringify(user));
     setAuthState({ isAuthenticated: true, user, token });
   };
 
   const logout = () => {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('user_data');
     setAuthState({ isAuthenticated: false, user: null, token: null });
   };
 

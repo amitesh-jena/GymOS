@@ -1,0 +1,11 @@
+
+> frontend@0.0.0 lint
+> eslint src --report-unused-disable-directives --max-warnings 0
+
+
+C:\Projects\GymOS\frontend\src\features\payments\components\PaymentForm.tsx
+  21:11  warning  'toast' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  94:46  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+
+✖ 2 problems (1 error, 1 warning)
+

@@ -22,3 +22,16 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Testing and verification artifacts
+coverage/
+test-results/
+playwright-report/
+blob-report/
+*.out
+tsc.txt
+lint.txt
+coverage_out.txt
+playwright_out.txt
+pw.txt
+test_err.json

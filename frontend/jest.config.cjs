@@ -5,6 +5,9 @@ module.exports = {
   testEnvironmentOptions: {
     customExportConditions: [''],
   },
+  testMatch: [
+    '<rootDir>/tests/**/*.test.{ts,tsx}'
+  ],
   setupFiles: ['<rootDir>/jest.polyfills.cjs'],
   setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   moduleNameMapper: {

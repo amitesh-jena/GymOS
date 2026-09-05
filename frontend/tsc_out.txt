@@ -1,0 +1,12 @@
+
+> frontend@0.0.0 typecheck
+> tsc --noEmit
+
+src/app/_DesignSystemShowcase.tsx(8,3): error TS6133: 'CardDescription' is declared but its value is never read.
+src/app/_DesignSystemShowcase.tsx(10,3): error TS6133: 'CardFooter' is declared but its value is never read.
+src/app/_DesignSystemShowcase.tsx(393,15): error TS2322: Type '{ title: string; message: string; actionLabel: string; onAction: () => void; }' is not assignable to type 'IntrinsicAttributes & SuccessStateProps'.
+  Property 'actionLabel' does not exist on type 'IntrinsicAttributes & SuccessStateProps'.
+src/app/_DesignSystemShowcase.tsx(398,15): error TS2322: Type '{ title: string; message: string; }' is not assignable to type 'IntrinsicAttributes & { title?: string | undefined; description?: string | undefined; }'.
+  Property 'message' does not exist on type 'IntrinsicAttributes & { title?: string | undefined; description?: string | undefined; }'.
+src/app/_DesignSystemShowcase.tsx(401,27): error TS2322: Type '{ message: string; }' is not assignable to type 'IntrinsicAttributes & { text?: string | undefined; }'.
+  Property 'message' does not exist on type 'IntrinsicAttributes & { text?: string | undefined; }'.

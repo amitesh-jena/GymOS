@@ -4,8 +4,8 @@ export const handlers = [
   http.get('/api/v1/health', () => {
     return HttpResponse.json({
       success: true,
-      message: "Health check passed",
-      data: { status: "ok" }
+      message: 'Health check passed',
+      data: { status: 'ok' },
     });
   }),
 ];

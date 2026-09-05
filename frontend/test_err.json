@@ -1,0 +1,25 @@
+
+> frontend@0.0.0 test
+> jest --json
+
+FAIL tests/App.test.tsx
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/dom' from 'node_modules/@testing-library/jest-dom/dist/matchers-3ed9c960.js'
+
+    Require stack:
+      node_modules/@testing-library/jest-dom/dist/matchers-3ed9c960.js
+      node_modules/@testing-library/jest-dom/dist/index.js
+      tests/setup.ts
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/index.js:1031:11)
+      at Object.<anonymous> (node_modules/@testing-library/jest-dom/dist/matchers-3ed9c960.js:3:11)
+      at Object.<anonymous> (node_modules/@testing-library/jest-dom/dist/index.js:3:16)
+      at Object.<anonymous> (tests/C:/Projects/GymOS/frontend/tests/setup.ts:1:1)
+
+Test Suites: 1 failed, 1 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        3.065 s
+Ran all test suites.
+{"numFailedTestSuites":1,"numFailedTests":0,"numPassedTestSuites":0,"numPassedTests":0,"numPendingTestSuites":0,"numPendingTests":0,"numRuntimeErrorTestSuites":1,"numTodoTests":0,"numTotalTestSuites":1,"numTotalTests":0,"openHandles":[],"snapshot":{"added":0,"didUpdate":false,"failure":false,"filesAdded":0,"filesRemoved":0,"filesRemovedList":[],"filesUnmatched":0,"filesUpdated":0,"matched":0,"total":0,"unchecked":0,"uncheckedKeysByFile":[],"unmatched":0,"updated":0},"startTime":1788515976105,"success":false,"testResults":[{"assertionResults":[],"coverage":{},"endTime":1788515979174,"message":"  ● Test suite failed to run\n\n    Cannot find module '@testing-library/dom' from 'node_modules/@testing-library/jest-dom/dist/matchers-3ed9c960.js'\n\n    Require stack:\n      node_modules/@testing-library/jest-dom/dist/matchers-3ed9c960.js\n      node_modules/@testing-library/jest-dom/dist/index.js\n      tests/setup.ts\n\n      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/index.js:1031:11)\n      at Object.<anonymous> (node_modules/@testing-library/jest-dom/dist/matchers-3ed9c960.js:3:11)\n      at Object.<anonymous> (node_modules/@testing-library/jest-dom/dist/index.js:3:16)\n      at Object.<anonymous> (tests/C:/Projects/GymOS/frontend/tests/setup.ts:1:1)\n","name":"C:\\Projects\\GymOS\\frontend\\tests\\App.test.tsx","startTime":1788515979174,"status":"failed","summary":""}],"wasInterrupted":false}

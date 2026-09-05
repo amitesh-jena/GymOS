@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased]
+
+### Added (Phase 3: UX / Information Architecture)
+- Centralized `src/routes/config.ts` defining structured IA, Roles, and Navigation definitions.
+- Responsive UX AppShell leveraging structural Sidebar and dynamic Header with Breadcrumbs.
+- Strongly-typed `roles.ts` bridging `SUPER_ADMIN`, `OWNER`, `BRANCH_MANAGER`, `RECEPTIONIST`, `TRAINER`, `MEMBER`.
+- Created unified `ROUTE GUARDS` (`RequireAuth`, `RequireRole`, `RedirectToRoleDashboard`) dictating redirect patterns.
+- Mock UX views (403 Forbidden, 404 Not Found, Maintenance).
+- AuthSimulator view bridging unauthenticated developer test routes directly into the responsive layout.
+- Destructive Action & List screen pattern stubs establishing standard behavior.
+- Added comprehensive unit testing and Playwright E2E coverage for navigation flow and role isolation.
+
 ## [2026-09-04] - Phase 2 Design System Established
 - Configured native CSS variables (Light/Dark themes) using HSL semantics for GymOS (Electric Green, Deep Navy colors mapped to success/info/warning).
 - Integrated correct `tailwindcss` and `components.json` settings.

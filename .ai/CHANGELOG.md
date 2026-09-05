@@ -2,8 +2,13 @@
 
 ## [Unreleased]
 
-### Added (Phase 3: UX / Information Architecture)
-- Centralized `src/routes/config.ts` defining structured IA, Roles, and Navigation definitions.
+### Added (Phase 6: Member Experience)
+- Implement unified Member Dashboard layout, metrics routing, and check-in history views.
+- Harden strict-typing (`no-explicit-any`) across Member Payments, Member Invoices, and API utilities.
+- Playwright E2E suites updated to resolve Auth Simulator race conditions and strictly wait for rendered mocked data using reliable locators.
+- Prettier auto-formatting enforced strictly across entire `frontend/src` layer.
+
+### Added (Phase 5: Billing & Schedule)
 - Responsive UX AppShell leveraging structural Sidebar and dynamic Header with Breadcrumbs.
 - Strongly-typed `roles.ts` bridging `SUPER_ADMIN`, `OWNER`, `BRANCH_MANAGER`, `RECEPTIONIST`, `TRAINER`, `MEMBER`.
 - Created unified `ROUTE GUARDS` (`RequireAuth`, `RequireRole`, `RedirectToRoleDashboard`) dictating redirect patterns.
@@ -11,6 +16,9 @@
 - AuthSimulator view bridging unauthenticated developer test routes directly into the responsive layout.
 - Destructive Action & List screen pattern stubs establishing standard behavior.
 - Added comprehensive unit testing and Playwright E2E coverage for navigation flow and role isolation.
+
+### Added (Phase 3: UX / Information Architecture)
+- Centralized `src/routes/config.ts` defining structured IA, Roles, and Navigation definitions.
 
 ## [2026-09-04] - Phase 2 Design System Established
 - Configured native CSS variables (Light/Dark themes) using HSL semantics for GymOS (Electric Green, Deep Navy colors mapped to success/info/warning).

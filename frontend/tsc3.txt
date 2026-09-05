@@ -1,0 +1,12 @@
+src/features/attendance/components/MemberAttendanceList.tsx(7,1): error TS6133: 'Badge' is declared but its value is never read.
+src/features/invoices/api/invoices.api.ts(6,11): error TS2339: Property 'data' does not exist on type 'Boolean'.
+src/features/invoices/api/invoices.api.ts(6,34): error TS2693: 'ApiResponse' only refers to a type, but is being used as a value here.
+src/features/invoices/api/invoices.api.ts(10,11): error TS2339: Property 'data' does not exist on type 'Invoice'.
+src/features/memberships/components/MemberMembershipView.tsx(33,70): error TS2367: This comparison appears to be unintentional because the types '"INACTIVE" | "FROZEN" | "EXPIRED" | "SUSPENDED"' and '"ACTIVE"' have no overlap.
+src/features/payments/api/payments.api.ts(6,11): error TS2339: Property 'data' does not exist on type 'Boolean'.
+src/features/payments/api/payments.api.ts(6,34): error TS2693: 'ApiResponse' only refers to a type, but is being used as a value here.
+src/features/payments/api/payments.api.ts(11,11): error TS2339: Property 'data' does not exist on type 'Payment'.
+src/features/payments/api/payments.api.ts(16,11): error TS2339: Property 'data' does not exist on type 'Payment'.
+src/features/receipts/api/receipts.api.ts(6,11): error TS2339: Property 'data' does not exist on type 'Boolean'.
+src/features/receipts/api/receipts.api.ts(6,34): error TS2693: 'ApiResponse' only refers to a type, but is being used as a value here.
+src/features/receipts/api/receipts.api.ts(10,11): error TS2339: Property 'data' does not exist on type 'Receipt'.

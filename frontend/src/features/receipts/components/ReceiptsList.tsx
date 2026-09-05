@@ -1,5 +1,6 @@
 import React from 'react';
 import { useReceipts } from '../hooks/useReceipts';
+import { Receipt } from '../types';
 import {
   Table,
   TableBody,
@@ -11,7 +12,6 @@ import {
 import { LoadingState } from '@/components/ux/LoadingState';
 import { ErrorState } from '@/components/ux/ErrorState';
 import { EmptyState } from '@/components/ux/EmptyState';
-
 
 export const ReceiptsList: React.FC = () => {
   const page = 1;
@@ -44,7 +44,7 @@ export const ReceiptsList: React.FC = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {receipts.map((receipt) => (
+              {receipts.map((receipt: Receipt) => (
                 <TableRow key={receipt.id}>
                   <TableCell className="font-mono text-sm">{receipt.id.split('-')[0]}</TableCell>
                   <TableCell className="font-medium">{receipt.memberName}</TableCell>
@@ -62,11 +62,7 @@ export const ReceiptsList: React.FC = () => {
             </TableBody>
           </Table>
 
-          {data && data.count > 10 && (
-            <div className="p-4 border-t flex justify-center">
-              
-            </div>
-          )}
+          {data && data.count > 10 && <div className="p-4 border-t flex justify-center"></div>}
         </div>
       )}
     </div>

@@ -25,6 +25,13 @@ import { MembershipsList } from '@/features/memberships/components/MembershipsLi
 import { MembershipForm } from '@/features/memberships/components/MembershipForm';
 import { AttendanceList } from '@/features/attendance/components/AttendanceList';
 import { CheckInForm } from '@/features/attendance/components/CheckInForm';
+import { MemberDashboard } from '@/features/member-dashboard/components/MemberDashboard';
+import { MemberMembershipView } from '@/features/memberships/components/MemberMembershipView';
+import { MemberPaymentsList } from '@/features/payments/components/MemberPaymentsList';
+import { MemberAttendanceList } from '@/features/attendance/components/MemberAttendanceList';
+import { MemberWorkoutsList } from '@/features/workouts/components/MemberWorkoutsList';
+import { MemberDietView } from '@/features/diets/components/MemberDietView';
+import { MemberProgressView } from '@/features/progress/components/MemberProgressView';
 
 // Generic placeholder for mocked business screens
 const PlaceholderScreen = ({ title }: { title: string }) => (
@@ -171,13 +178,13 @@ const AppRoutes = () => {
 
             {/* Member Routes */}
             <Route path="/member" element={<RequireRole allowedRoles={[ROLES.MEMBER]} />}>
-              <Route path="dashboard" element={<PlaceholderScreen title="Member Dashboard" />} />
-              <Route path="membership" element={<PlaceholderScreen title="My Subscription" />} />
-              <Route path="payments" element={<PlaceholderScreen title="My Payments" />} />
-              <Route path="attendance" element={<PlaceholderScreen title="My Attendance" />} />
-              <Route path="workouts" element={<PlaceholderScreen title="My Workouts" />} />
-              <Route path="diet" element={<PlaceholderScreen title="My Diet Plan" />} />
-              <Route path="progress" element={<PlaceholderScreen title="My Progress Tracking" />} />
+              <Route path="dashboard" element={<MemberDashboard />} />
+              <Route path="membership" element={<MemberMembershipView />} />
+              <Route path="payments" element={<MemberPaymentsList />} />
+              <Route path="attendance" element={<MemberAttendanceList />} />
+              <Route path="workouts" element={<MemberWorkoutsList />} />
+              <Route path="diet" element={<MemberDietView />} />
+              <Route path="progress" element={<MemberProgressView />} />
             </Route>
 
             {/* 404 Catch-All inside Chrome */}

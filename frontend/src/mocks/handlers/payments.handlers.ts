@@ -1,4 +1,5 @@
 import { http, HttpResponse } from 'msw';
+import { Payment } from '../../features/payments/types';
 
 const MOCK_PAYMENTS = [
   {
@@ -34,7 +35,7 @@ export const paymentsHandlers = [
     return HttpResponse.json({ success: true, data: payment });
   }),
   http.post('/api/v1/payments', async ({ request }) => {
-    const payload = await request.json() as Record<string, unknown>;
+    const payload = (await request.json()) as Record<string, unknown>;
     const payment = {
       ...payload,
       id: 'pay-' + Date.now(),
@@ -43,7 +44,7 @@ export const paymentsHandlers = [
       updatedAt: new Date().toISOString(),
       memberName: 'Unknown Member',
     };
-    MOCK_PAYMENTS.push(payment as unknown);
+    MOCK_PAYMENTS.push(payment as unknown as Payment);
     return HttpResponse.json({ success: true, data: payment });
   }),
 ];

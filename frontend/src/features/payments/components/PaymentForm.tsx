@@ -16,11 +16,10 @@ import {
 
 import { useMembers } from '@/features/members/hooks/useMembers';
 
-
 export const PaymentForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
   const createMutation = useCreatePayment();
   const { data: membersData } = useMembers();
-  
+
   const [todaysDate] = useState(new Date().toISOString().split('T')[0]);
 
   const form = useForm<PaymentFormData>({

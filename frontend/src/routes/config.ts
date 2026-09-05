@@ -15,6 +15,7 @@ import {
   Apple,
   FileSignature,
   ReceiptText,
+  Database,
 } from 'lucide-react';
 
 export interface NavItem {
@@ -69,6 +70,15 @@ export const NAVIGATION_CONFIG: NavItem[] = [
       ROLES.MEMBER,
     ],
     group: 'Revenue',
+  },
+  // --- SUPER ADMIN (PLATFORM) ---
+  {
+    id: 'admin_tenants',
+    label: 'Tenants',
+    route: '/admin/tenants',
+    icon: Database,
+    allowedRoles: [ROLES.SUPER_ADMIN],
+    group: 'Platform',
   },
   // --- OWNER / ADMIN ---
   {

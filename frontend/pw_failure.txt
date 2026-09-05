@@ -1,0 +1,62 @@
+
+Running 2 tests using 2 workers
+
+  ✘  1 [chromium] › e2e\admin-saas.spec.ts:4:3 › Platform Admin Flow › should allow Super Admin to view platform tenants and access tenant details (7.6s)
+  ✘  2 [chromium] › e2e\admin-saas.spec.ts:34:3 › Platform Admin Flow › should block Owner from accessing Super Admin tenants route (7.7s)
+
+
+  1) [chromium] › e2e\admin-saas.spec.ts:4:3 › Platform Admin Flow › should allow Super Admin to view platform tenants and access tenant details 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('navigation')
+    Expected: visible
+    Error: strict mode violation: getByRole('navigation') resolved to 2 elements:
+        1) <nav class="flex-1 px-4 space-y-6">…</nav> aka getByText('RevenuePaymentsInvoicesReceiptsPlatformTenantsUserNotificationsProfile')
+        2) <nav class="hidden sm:flex" aria-label="breadcrumb">…</nav> aka getByRole('navigation', { name: 'breadcrumb' })
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for getByRole('navigation')
+
+
+      11 |     // Verify redirected to dashboard (usually falls back to global settings or tenants)
+      12 |     // Wait for sidebar to appear
+    > 13 |     await expect(page.getByRole('navigation')).toBeVisible();
+         |                                                ^
+      14 |
+      15 |     // Use navigation to go to Analytics (Reports) just to ensure standard navigation
+      16 |     // Note: Super admins lack standard dashboards right now unless configured. We want to click 'Tenants'
+        at C:\Projects\GymOS\frontend\e2e\admin-saas.spec.ts:13:48
+
+    Error Context: test-results\admin-saas-Platform-Admin--59f94-s-and-access-tenant-details-chromium\error-context.md
+
+  2) [chromium] › e2e\admin-saas.spec.ts:34:3 › Platform Admin Flow › should block Owner from accessing Super Admin tenants route 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('navigation')
+    Expected: visible
+    Error: strict mode violation: getByRole('navigation') resolved to 2 elements:
+        1) <nav class="flex-1 px-4 space-y-6">…</nav> aka getByText('RevenuePaymentsInvoicesReceiptsCoreDashboardMembersStaffTrainersAdminBranchesPla')
+        2) <nav class="hidden sm:flex" aria-label="breadcrumb">…</nav> aka getByRole('navigation', { name: 'breadcrumb' })
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for getByRole('navigation')
+
+
+      37 |     // Login as Gym Owner instead
+      38 |     await page.getByRole('button', { name: 'Login as Gym Owner' }).click();
+    > 39 |     await expect(page.getByRole('navigation')).toBeVisible();
+         |                                                ^
+      40 |
+      41 |     // Directly navigate to admin route
+      42 |     await page.goto('/admin/tenants');
+        at C:\Projects\GymOS\frontend\e2e\admin-saas.spec.ts:39:48
+
+    Error Context: test-results\admin-saas-Platform-Admin--a3f48-g-Super-Admin-tenants-route-chromium\error-context.md
+
+  2 failed
+    [chromium] › e2e\admin-saas.spec.ts:4:3 › Platform Admin Flow › should allow Super Admin to view platform tenants and access tenant details 
+    [chromium] › e2e\admin-saas.spec.ts:34:3 › Platform Admin Flow › should block Owner from accessing Super Admin tenants route 

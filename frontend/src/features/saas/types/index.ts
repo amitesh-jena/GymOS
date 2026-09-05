@@ -35,3 +35,22 @@ export interface SaaSSubscription {
   trialEnd?: string;
   plan?: SaaSPlan; // populated from backend usually
 }
+
+export type TenantStatus = 'ACTIVE' | 'SUSPENDED' | 'PROVISIONING';
+
+export interface PlatformTenant {
+  id: string;
+  name: string;
+  ownerName: string;
+  ownerEmail: string;
+  status: TenantStatus;
+  subscription: SaaSSubscription;
+  memberCount: number;
+  branchCount: number;
+  createdAt: string;
+}
+
+export interface AdminTenantsFilter {
+  search?: string;
+  status?: string; // e.g. ACTIVE, SUSPENDED, or SubscriptionStatus
+}

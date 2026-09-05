@@ -34,6 +34,8 @@ import { MemberDietView } from '@/features/diets/components/MemberDietView';
 import { MemberProgressView } from '@/features/progress/components/MemberProgressView';
 import { SubscriptionSettingsView } from '@/features/saas/components/SubscriptionSettingsView';
 import { AnalyticsDashboard } from '@/features/analytics/components/AnalyticsDashboard';
+import { AdminTenantsList } from '@/features/saas/components/AdminTenantsList';
+import { AdminTenantDetail } from '@/features/saas/components/AdminTenantDetail';
 
 // Generic placeholder for mocked business screens
 const PlaceholderScreen = ({ title }: { title: string }) => (
@@ -120,6 +122,14 @@ const AppRoutes = () => {
               <Route path="/settings">
                 <Route index element={<PlaceholderScreen title="Global Settings" />} />
                 <Route path="subscription" element={<SubscriptionSettingsView />} />
+              </Route>
+            </Route>
+
+            {/* Platform Super Admin Only Routes */}
+            <Route element={<RequireRole allowedRoles={[ROLES.SUPER_ADMIN]} />}>
+              <Route path="/admin/tenants">
+                <Route index element={<AdminTenantsList />} />
+                <Route path=":id" element={<AdminTenantDetail />} />
               </Route>
             </Route>
 

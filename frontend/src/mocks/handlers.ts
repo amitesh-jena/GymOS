@@ -13,6 +13,7 @@ import { invoicesHandlers } from './handlers/invoices.handlers';
 import { receiptsHandlers } from './handlers/receipts.handlers';
 import { saasHandlers } from './handlers/saas.handlers';
 import { analyticsHandlers } from './handlers/analytics.handlers';
+import { adminHandlers } from './handlers/admin.handlers';
 
 export const handlers = [
   ...membersHandlers,
@@ -28,6 +29,7 @@ export const handlers = [
   ...receiptsHandlers,
   ...saasHandlers,
   ...analyticsHandlers,
+  ...adminHandlers,
   http.get('/api/v1/health', () => {
     return HttpResponse.json({
       success: true,

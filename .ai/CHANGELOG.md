@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Added (Phase 9: SaaS Platform Administration)
+- Integrated `AdminTenantsList` and `AdminTenantDetail` to provide Super Admins deep overarching visibility over Tenant resources and Subscription limits.
+- Upgraded the unified `RequireRole` AppRouting constraints preventing unauthorized horizontal scaling from lesser bounds.
+- Augmented MSW definitions routing structured platform payloads resolving `memberCount` and `branchCount` statistics.
+- Finalized exhaustive E2E and Jest coverage guaranteeing structural integrity across all strict layout integrations.
+
 ### Added (Phase 8: Analytics & Reporting)
 - Integrated `AnalyticsDashboard` under the strict `/reports` operational boundary restricted safely isolated away from Trainers and Members.
 - Executed visual metric architectures building scalable `KPICard` and specialized decoupled Recharts representations including `RevenueChart`.

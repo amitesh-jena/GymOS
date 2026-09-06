@@ -92,6 +92,9 @@ export const useRenewMembership = (id: string) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: MEMBERSHIP_KEYS.detail(id) });
       queryClient.invalidateQueries({ queryKey: MEMBERSHIP_KEYS.lists() });
+      queryClient.invalidateQueries({ queryKey: ['payments'] });
+      queryClient.invalidateQueries({ queryKey: ['invoices'] });
+      queryClient.invalidateQueries({ queryKey: ['receipts'] });
       toast({
         title: 'Success',
         description: 'Membership renewed successfully',

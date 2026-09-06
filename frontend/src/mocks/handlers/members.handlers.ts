@@ -1,7 +1,7 @@
 import { http, HttpResponse, delay } from 'msw';
 import { Member, CreateMemberPayload } from '@/features/members/types';
 
-let mockMembers: Member[] = [
+export let mockMembers: Member[] = [
   {
     id: 'mem-101',
     tenantId: 'gym-demo',

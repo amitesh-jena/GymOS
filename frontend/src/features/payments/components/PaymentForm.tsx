@@ -54,7 +54,7 @@ export const PaymentForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) 
         <div className="space-y-2">
           <Label htmlFor="memberId">Member</Label>
           <Select value={memberIdVal} onValueChange={(val) => form.setValue('memberId', val)}>
-            <SelectTrigger>
+            <SelectTrigger id="memberId">
               <SelectValue placeholder="Select member" />
             </SelectTrigger>
             <SelectContent>
@@ -92,7 +92,7 @@ export const PaymentForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) 
               form.setValue('method', val)
             }
           >
-            <SelectTrigger>
+            <SelectTrigger id="method">
               <SelectValue placeholder="Select method" />
             </SelectTrigger>
             <SelectContent>

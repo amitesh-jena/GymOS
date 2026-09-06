@@ -4,6 +4,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { memberSchema, MemberFormData } from '../schemas';
 import { useMember, useCreateMember, useUpdateMember } from '../hooks/useMembers';
+import { useTrainers } from '@/features/trainers/hooks/useTrainers';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,6 +27,7 @@ export function MemberForm() {
   const navigate = useNavigate();
 
   const { data: member, isLoading, isError, refetch } = useMember(id || '');
+  const { data: trainersData } = useTrainers();
   const createMutation = useCreateMember();
   const updateMutation = useUpdateMember(id || '');
 
@@ -40,6 +42,7 @@ export function MemberForm() {
       status: 'ACTIVE',
       joinDate: new Date().toISOString().split('T')[0],
       notes: '',
+      trainerId: 'none',
     },
   });
 
@@ -54,15 +57,21 @@ export function MemberForm() {
         status: member.status,
         joinDate: member.joinDate.split('T')[0],
         notes: member.notes || '',
+        trainerId: member.trainerId || 'none',
       });
     }
   }, [isEdit, member, form]);
 
   const statusValue = useWatch({ control: form.control, name: 'status' });
+  const trainerIdValue = useWatch({ control: form.control, name: 'trainerId' });
 
   const onSubmit = async (values: MemberFormData) => {
+    const payload = { ...values };
+    if (payload.trainerId === 'none') {
+      delete payload.trainerId;
+    }
     if (isEdit) {
-      await updateMutation.mutateAsync(values);
+      await updateMutation.mutateAsync(payload);
       navigate(`/members/${id}`);
     } else {
       const newMember = await createMutation.mutateAsync(values);
@@ -154,6 +163,31 @@ export function MemberForm() {
                 </Select>
                 {form.formState.errors.status && (
                   <p className="text-xs text-destructive">{form.formState.errors.status.message}</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="trainerId">Assign Trainer</Label>
+                <Select
+                  value={trainerIdValue}
+                  onValueChange={(val: string) => form.setValue('trainerId', val)}
+                >
+                  <SelectTrigger id="trainerId">
+                    <SelectValue placeholder="No Trainer" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">No Trainer</SelectItem>
+                    {trainersData?.results?.map((t) => (
+                      <SelectItem key={t.id} value={t.id}>
+                        {t.firstName} {t.lastName}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {form.formState.errors.trainerId && (
+                  <p className="text-xs text-destructive">
+                    {form.formState.errors.trainerId.message}
+                  </p>
                 )}
               </div>
 

@@ -1,5 +1,0 @@
-src/mocks/handlers/memberships.handlers.ts(17,5): error TS1137: Expression or comma expected.
-src/mocks/handlers/memberships.handlers.ts(20,3): error TS1128: Declaration or statement expected.
-src/mocks/handlers/memberships.handlers.ts(20,4): error TS1128: Declaration or statement expected.
-src/mocks/handlers/memberships.handlers.ts(20,5): error TS1128: Declaration or statement expected.
-src/mocks/handlers/memberships.handlers.ts(21,1): error TS1128: Declaration or statement expected.

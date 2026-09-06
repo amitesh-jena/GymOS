@@ -1,7 +1,11 @@
 import { http, HttpResponse } from 'msw';
 import { Payment } from '../../features/payments/types';
+import { mockMembers } from './members.handlers';
+import { mockMemberships } from './memberships.handlers';
+import { MOCK_INVOICES } from './invoices.handlers';
+import { MOCK_RECEIPTS } from './receipts.handlers';
 
-const MOCK_PAYMENTS = [
+export let MOCK_PAYMENTS: Payment[] = [
   {
     id: 'pay-1',
     tenantId: 'tenant-1',
@@ -25,7 +29,7 @@ export const paymentsHandlers = [
         count: MOCK_PAYMENTS.length,
         next: null,
         previous: null,
-        results: MOCK_PAYMENTS,
+        results: [...MOCK_PAYMENTS].reverse(),
       },
     });
   }),
@@ -36,15 +40,74 @@ export const paymentsHandlers = [
   }),
   http.post('/api/v1/payments', async ({ request }) => {
     const payload = (await request.json()) as Record<string, unknown>;
+    const paymentId = 'pay-' + Date.now();
+
+    const memberId = payload.memberId as string | undefined;
+    let memberName = 'Unknown Member';
+
+    if (memberId) {
+      const member = mockMembers.find((m) => m.id === memberId);
+      if (member) {
+        memberName = `${member.firstName} ${member.lastName}`;
+        member.status = 'ACTIVE';
+      }
+    }
+
+    const membershipId = payload.membershipId as string | undefined;
+    if (membershipId) {
+      const ms = mockMemberships.find((m) => m.id === membershipId);
+      if (ms) {
+        ms.status = 'ACTIVE';
+        ms.updatedAt = new Date().toISOString();
+      }
+    }
+
     const payment = {
       ...payload,
-      id: 'pay-' + Date.now(),
+      id: paymentId,
       status: 'COMPLETED',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      memberName: 'Unknown Member',
+      memberName,
     };
+
     MOCK_PAYMENTS.push(payment as unknown as Payment);
-    return HttpResponse.json({ success: true, data: payment });
+
+    MOCK_INVOICES.push({
+      id: 'inv-' + Date.now(),
+      tenantId: 'gym-demo',
+      memberId: (payload.memberId as string) || '',
+      memberName: memberName || 'Unknown Member',
+      invoiceDate: new Date().toISOString(),
+      dueDate: new Date().toISOString(),
+      status: 'PAID',
+      subtotal: (payload.amount as string) || '0.00',
+      tax: '0.00',
+      discount: '0.00',
+      total: (payload.amount as string) || '0.00',
+      lineItems: [
+        {
+          id: 'li-1',
+          description: 'Membership Payment',
+          amount: (payload.amount as string) || '0.00',
+        },
+      ],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+
+    MOCK_RECEIPTS.push({
+      id: 'rec-' + Date.now(),
+      tenantId: 'gym-demo',
+      memberId: (payload.memberId as string) || '',
+      memberName: memberName || 'Unknown Member',
+      paymentId: payment.id,
+      amount: (payload.amount as string) || '0.00',
+      receiptDate: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+
+    return HttpResponse.json({ success: true, data: payment }, { status: 201 });
   }),
 ];

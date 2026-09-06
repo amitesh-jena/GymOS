@@ -74,7 +74,13 @@ At this moment, the repository is at the setup pre-implementation stage.
   - Implemented fully reactive persistent UI Themes (`light`, `dark`, `tinted`, `monochrome`).
   - Achieved complete E2E testing integrity scoring 0 errors across 6 Quality Pipeline scripts (Format, Typecheck, Lint, Test, Coverage, Build, Playwright).
 
+## NEXT
+- **Phase 11 — Cross-Role Business Workflows: STATUS: COMPLETE**
+  - Connected existing UI modules (members, trainers, memberships, payments, backend saas workflows) functionally together via TanStack Query invalidation sweeps.
+  - Implemented transactional MSW state hydration tracking (e.g. paying invoices transitions parent `Membership` active status).
+  - Authored Role-specific dashboards (Trainer Workouts, Members List filters, etc.).
+  - Hardened business domain tests via end-to-end multi-persona UI workflows simulating entire Gym lifecycles (Member Join -> Plan Assign -> Pay -> Trainer Assign -> Workout -> Check In).
+
 ## NOT STARTED
-- Phase 11 / Product Handoff (or backend migrations)
-- API endpoints.
+- Backend implementation / Product Handoff
 - Database models.

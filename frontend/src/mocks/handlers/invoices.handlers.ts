@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw';
+import { Invoice } from '@/features/invoices/types';
 
-const MOCK_INVOICES = [
+export let MOCK_INVOICES: Invoice[] = [
   {
     id: 'inv-1',
     tenantId: 'tenant-1',

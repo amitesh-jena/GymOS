@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { usePlatformTenant } from '../hooks/useAdmin';
+import { usePlatformTenant, useUpdateTenantStatus } from '../hooks/useAdmin';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -11,6 +11,7 @@ export const AdminTenantDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { data: tenant, isLoading, isError } = usePlatformTenant(id || '');
+  const updateMut = useUpdateTenantStatus(id || '');
 
   if (isLoading) {
     return (
@@ -48,6 +49,25 @@ export const AdminTenantDetail: React.FC = () => {
           <p className="text-muted-foreground mt-1 text-sm">
             Tenant ID: {tenant.id} | Created: {new Date(tenant.createdAt).toLocaleDateString()}
           </p>
+        </div>
+        <div className="ml-auto">
+          {tenant.status === 'ACTIVE' ? (
+            <Button
+              variant="destructive"
+              onClick={() => updateMut.mutate('SUSPENDED')}
+              disabled={updateMut.isPending}
+            >
+              {updateMut.isPending ? 'Suspending...' : 'Suspend Tenant'}
+            </Button>
+          ) : (
+            <Button
+              variant="default"
+              onClick={() => updateMut.mutate('ACTIVE')}
+              disabled={updateMut.isPending}
+            >
+              {updateMut.isPending ? 'Activating...' : 'Activate Tenant'}
+            </Button>
+          )}
         </div>
       </div>
 

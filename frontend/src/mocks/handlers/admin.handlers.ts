@@ -30,7 +30,7 @@ const mockTenants: PlatformTenant[] = [
         price: 99.0,
         currency: 'USD',
         entitlements: [
-          ...mockEntitlements,
+          ...mockEntitlements.filter((e) => !['max_branches', 'analytics'].includes(e.featureKey)),
           { featureKey: 'max_branches', name: 'Max Branches', enabled: true, limit: 3 },
           { featureKey: 'analytics', name: 'Advanced Analytics', enabled: true },
         ],
@@ -122,6 +122,15 @@ export const adminHandlers = [
     if (!tenant) {
       return new HttpResponse(null, { status: 404 });
     }
+    return HttpResponse.json({ success: true, data: tenant });
+  }),
+
+  http.patch('/api/v1/admin/tenants/:id/status', async ({ request, params }) => {
+    await delay(500);
+    const tenant = mockTenants.find((t) => t.id === params.id);
+    if (!tenant) return new HttpResponse(null, { status: 404 });
+    const { status } = (await request.json()) as { status: 'ACTIVE' | 'SUSPENDED' };
+    tenant.status = status;
     return HttpResponse.json({ success: true, data: tenant });
   }),
 ];

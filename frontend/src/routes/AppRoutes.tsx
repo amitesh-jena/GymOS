@@ -41,6 +41,8 @@ import { SubscriptionSettingsView } from '@/features/saas/components/Subscriptio
 import { AnalyticsDashboard } from '@/features/analytics/components/AnalyticsDashboard';
 import { AdminTenantsList } from '@/features/saas/components/AdminTenantsList';
 import { AdminTenantDetail } from '@/features/saas/components/AdminTenantDetail';
+import { TrainerMembersList } from '@/features/trainers/components/TrainerMembersList';
+import { TrainerWorkoutsWorkspace } from '@/features/workouts/components/TrainerWorkoutsWorkspace';
 
 // Generic placeholder for mocked business screens
 const PlaceholderScreen = ({ title }: { title: string }) => (
@@ -197,8 +199,8 @@ const AppRoutes = () => {
             {/* Trainer Routes */}
             <Route path="/trainer" element={<RequireRole allowedRoles={[ROLES.TRAINER]} />}>
               <Route path="dashboard" element={<PlaceholderScreen title="Trainer Dashboard" />} />
-              <Route path="members" element={<PlaceholderScreen title="My Assigned Members" />} />
-              <Route path="workouts" element={<PlaceholderScreen title="Workout Programs" />} />
+              <Route path="members" element={<TrainerMembersList />} />
+              <Route path="workouts" element={<TrainerWorkoutsWorkspace />} />
               <Route path="diets" element={<PlaceholderScreen title="Diet Plans" />} />
               <Route path="progress" element={<PlaceholderScreen title="Client Progress" />} />
               <Route path="sessions" element={<PlaceholderScreen title="My Coaching Sessions" />} />

@@ -1,6 +1,12 @@
 # Changelog
 
 ## [Unreleased]
+### Added (Phase 11: Cross-Role Business Workflows)
+- Connected independent Domain modules (Memberships, Receivables, Workouts, Tenancy) via robust cross-context state hydration inside TanStack query layer.
+- Enforced Role-based view transformations (Trainers accessing specialized `TrainerMembersList` and `TrainerWorkoutsWorkspace` bounded exclusively to their managed targets).
+- Simulated complete, atomic state lifecycles within `msw` implementations (e.g. paying invoices directly alters associated global mock schemas: Invoice, Receipt, Membership).
+- Expanded Playwright structural assertions capturing deterministic multi-hop operations across the GymOS application.
+
 
 ### Added (Phase 10: Production Hardening & Settings)
 - Stabilized Application layout enveloping all internal navigation under a global fallback `ErrorBoundary`.

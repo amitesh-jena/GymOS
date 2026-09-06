@@ -49,7 +49,7 @@ describe('PaymentForm', () => {
 
     await waitFor(() => {
       // The zod validation requires memberId
-      expect(screen.getByText(/member is required/i)).toBeInTheDocument();
+      expect(screen.getByText(/Member selection is required/i)).toBeInTheDocument();
     });
   });
 });

@@ -22,6 +22,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogDescription,
 } from '@/components/ui/dialog';
 import { PaymentForm } from './PaymentForm';
 
@@ -51,6 +52,9 @@ export const PaymentsList: React.FC = () => {
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Record New Payment</DialogTitle>
+              <DialogDescription className="sr-only">
+                Record a new payment transaction
+              </DialogDescription>
             </DialogHeader>
             <PaymentForm onSuccess={() => setFormOpen(false)} />
           </DialogContent>

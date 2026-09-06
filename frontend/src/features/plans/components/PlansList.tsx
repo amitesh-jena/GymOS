@@ -115,6 +115,7 @@ export function PlansList() {
                         }}
                       >
                         <FileEdit className="h-4 w-4 text-muted-foreground" />
+                        <span className="sr-only">Edit plan</span>
                       </Button>
                     </TableCell>
                   </TableRow>

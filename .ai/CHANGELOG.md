@@ -1,6 +1,13 @@
 # Changelog
 
 ## [Unreleased]
+
+### Added (Phase 14: Accessibility & UX Audit)
+- Injected `aria-invalid` and `aria-describedby` into Radix and native HTML `<Input>`, `<SelectTrigger>`, and `<Textarea>` elements mapping closely to `react-hook-form` validation states across core workflows.
+- Audited `Dialog` definitions globally injecting missing `<DialogDescription>` metadata establishing accessible names.
+- Enforced screen reader semantics (`sr-only` labeling) comprehensively for Icon-only structural components (`ArrowLeft`, `FileEdit`, `ChevronRight`).
+- Authored robust `accessibility.test.tsx` integration test guarding regression on key form structures successfully bumping codebase coverage.
+
 ### Added (Phase 13: Frontend Testing)
 - Stabilized Jest open-handle teardown issues originating from React JSDOM timers (MESSAGEPORT).
 - Resolved `ts-jest` ESM transpilation failures for module-level `api.ts` configurations by factoring out `import.meta.env` to Vite definitions.

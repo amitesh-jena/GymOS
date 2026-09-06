@@ -94,6 +94,7 @@ export function MemberForm() {
           onClick={() => navigate(isEdit ? `/members/${id}` : '/members')}
         >
           <ArrowLeft className="h-4 w-4" />
+          <span className="sr-only">Back to members</span>
         </Button>
         <div>
           <h2 className="text-2xl font-bold tracking-tight text-primary">
@@ -111,18 +112,28 @@ export function MemberForm() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label htmlFor="firstName">First Name</Label>
-                <Input id="firstName" {...form.register('firstName')} />
+                <Input
+                  id="firstName"
+                  {...form.register('firstName')}
+                  aria-invalid={!!form.formState.errors.firstName}
+                  aria-describedby="firstName-error"
+                />
                 {form.formState.errors.firstName && (
-                  <p className="text-xs text-destructive">
+                  <p id="firstName-error" className="text-xs text-destructive">
                     {form.formState.errors.firstName.message}
                   </p>
                 )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="lastName">Last Name</Label>
-                <Input id="lastName" {...form.register('lastName')} />
+                <Input
+                  id="lastName"
+                  {...form.register('lastName')}
+                  aria-invalid={!!form.formState.errors.lastName}
+                  aria-describedby="lastName-error"
+                />
                 {form.formState.errors.lastName && (
-                  <p className="text-xs text-destructive">
+                  <p id="lastName-error" className="text-xs text-destructive">
                     {form.formState.errors.lastName.message}
                   </p>
                 )}
@@ -130,16 +141,32 @@ export function MemberForm() {
 
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" {...form.register('email')} />
+                <Input
+                  id="email"
+                  type="email"
+                  {...form.register('email')}
+                  aria-invalid={!!form.formState.errors.email}
+                  aria-describedby="email-error"
+                />
                 {form.formState.errors.email && (
-                  <p className="text-xs text-destructive">{form.formState.errors.email.message}</p>
+                  <p id="email-error" className="text-xs text-destructive">
+                    {form.formState.errors.email.message}
+                  </p>
                 )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone</Label>
-                <Input id="phone" type="tel" {...form.register('phone')} />
+                <Input
+                  id="phone"
+                  type="tel"
+                  {...form.register('phone')}
+                  aria-invalid={!!form.formState.errors.phone}
+                  aria-describedby="phone-error"
+                />
                 {form.formState.errors.phone && (
-                  <p className="text-xs text-destructive">{form.formState.errors.phone.message}</p>
+                  <p id="phone-error" className="text-xs text-destructive">
+                    {form.formState.errors.phone.message}
+                  </p>
                 )}
               </div>
 
@@ -151,7 +178,11 @@ export function MemberForm() {
                     form.setValue('status', val as 'ACTIVE' | 'INACTIVE' | 'FROZEN' | 'LEAD')
                   }
                 >
-                  <SelectTrigger id="status">
+                  <SelectTrigger
+                    id="status"
+                    aria-invalid={!!form.formState.errors.status}
+                    aria-describedby="status-error"
+                  >
                     <SelectValue placeholder="Select status" />
                   </SelectTrigger>
                   <SelectContent>
@@ -162,7 +193,9 @@ export function MemberForm() {
                   </SelectContent>
                 </Select>
                 {form.formState.errors.status && (
-                  <p className="text-xs text-destructive">{form.formState.errors.status.message}</p>
+                  <p id="status-error" className="text-xs text-destructive">
+                    {form.formState.errors.status.message}
+                  </p>
                 )}
               </div>
 
@@ -172,7 +205,11 @@ export function MemberForm() {
                   value={trainerIdValue}
                   onValueChange={(val: string) => form.setValue('trainerId', val)}
                 >
-                  <SelectTrigger id="trainerId">
+                  <SelectTrigger
+                    id="trainerId"
+                    aria-invalid={!!form.formState.errors.trainerId}
+                    aria-describedby="trainerId-error"
+                  >
                     <SelectValue placeholder="No Trainer" />
                   </SelectTrigger>
                   <SelectContent>
@@ -185,7 +222,7 @@ export function MemberForm() {
                   </SelectContent>
                 </Select>
                 {form.formState.errors.trainerId && (
-                  <p className="text-xs text-destructive">
+                  <p id="trainerId-error" className="text-xs text-destructive">
                     {form.formState.errors.trainerId.message}
                   </p>
                 )}
@@ -193,9 +230,15 @@ export function MemberForm() {
 
               <div className="space-y-2">
                 <Label htmlFor="joinDate">Join Date</Label>
-                <Input id="joinDate" type="date" {...form.register('joinDate')} />
+                <Input
+                  id="joinDate"
+                  type="date"
+                  {...form.register('joinDate')}
+                  aria-invalid={!!form.formState.errors.joinDate}
+                  aria-describedby="joinDate-error"
+                />
                 {form.formState.errors.joinDate && (
-                  <p className="text-xs text-destructive">
+                  <p id="joinDate-error" className="text-xs text-destructive">
                     {form.formState.errors.joinDate.message}
                   </p>
                 )}
@@ -210,7 +253,9 @@ export function MemberForm() {
                   placeholder="Optional internal notes..."
                 />
                 {form.formState.errors.notes && (
-                  <p className="text-xs text-destructive">{form.formState.errors.notes.message}</p>
+                  <p id="notes-error" className="text-xs text-destructive">
+                    {form.formState.errors.notes.message}
+                  </p>
                 )}
               </div>
             </div>

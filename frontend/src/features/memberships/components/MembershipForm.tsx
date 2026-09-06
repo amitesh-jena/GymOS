@@ -91,6 +91,7 @@ export function MembershipForm() {
       <div className="flex items-center gap-4">
         <Button variant="outline" size="icon" onClick={() => navigate('/memberships')}>
           <ArrowLeft className="h-4 w-4" />
+          <span className="sr-only">Back to memberships</span>
         </Button>
         <div>
           <h2 className="text-2xl font-bold tracking-tight text-primary">
@@ -112,7 +113,11 @@ export function MembershipForm() {
                   value={memberIdValue}
                   onValueChange={(val: string) => form.setValue('memberId', val)}
                 >
-                  <SelectTrigger id="memberId">
+                  <SelectTrigger
+                    id="memberId"
+                    aria-invalid={!!form.formState.errors.memberId}
+                    aria-describedby="memberId-error"
+                  >
                     <SelectValue placeholder="Select member" />
                   </SelectTrigger>
                   <SelectContent>
@@ -124,7 +129,7 @@ export function MembershipForm() {
                   </SelectContent>
                 </Select>
                 {form.formState.errors.memberId && (
-                  <p className="text-xs text-destructive">
+                  <p id="memberId-error" className="text-xs text-destructive">
                     {form.formState.errors.memberId.message}
                   </p>
                 )}
@@ -136,7 +141,11 @@ export function MembershipForm() {
                   value={planIdValue}
                   onValueChange={(val: string) => form.setValue('planId', val)}
                 >
-                  <SelectTrigger id="planId">
+                  <SelectTrigger
+                    id="planId"
+                    aria-invalid={!!form.formState.errors.planId}
+                    aria-describedby="planId-error"
+                  >
                     <SelectValue placeholder="Select plan" />
                   </SelectTrigger>
                   <SelectContent>
@@ -148,15 +157,23 @@ export function MembershipForm() {
                   </SelectContent>
                 </Select>
                 {form.formState.errors.planId && (
-                  <p className="text-xs text-destructive">{form.formState.errors.planId.message}</p>
+                  <p id="planId-error" className="text-xs text-destructive">
+                    {form.formState.errors.planId.message}
+                  </p>
                 )}
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="startDate">Start Date</Label>
-                <Input id="startDate" type="date" {...form.register('startDate')} />
+                <Input
+                  id="startDate"
+                  type="date"
+                  {...form.register('startDate')}
+                  aria-invalid={!!form.formState.errors.startDate}
+                  aria-describedby="startDate-error"
+                />
                 {form.formState.errors.startDate && (
-                  <p className="text-xs text-destructive">
+                  <p id="startDate-error" className="text-xs text-destructive">
                     {form.formState.errors.startDate.message}
                   </p>
                 )}
@@ -164,9 +181,15 @@ export function MembershipForm() {
 
               <div className="space-y-2">
                 <Label htmlFor="endDate">End Date</Label>
-                <Input id="endDate" type="date" {...form.register('endDate')} />
+                <Input
+                  id="endDate"
+                  type="date"
+                  {...form.register('endDate')}
+                  aria-invalid={!!form.formState.errors.endDate}
+                  aria-describedby="endDate-error"
+                />
                 {form.formState.errors.endDate && (
-                  <p className="text-xs text-destructive">
+                  <p id="endDate-error" className="text-xs text-destructive">
                     {form.formState.errors.endDate.message}
                   </p>
                 )}
@@ -183,7 +206,11 @@ export function MembershipForm() {
                     )
                   }
                 >
-                  <SelectTrigger id="status">
+                  <SelectTrigger
+                    id="status"
+                    aria-invalid={!!form.formState.errors.status}
+                    aria-describedby="status-error"
+                  >
                     <SelectValue placeholder="Select status" />
                   </SelectTrigger>
                   <SelectContent>
@@ -195,7 +222,9 @@ export function MembershipForm() {
                   </SelectContent>
                 </Select>
                 {form.formState.errors.status && (
-                  <p className="text-xs text-destructive">{form.formState.errors.status.message}</p>
+                  <p id="status-error" className="text-xs text-destructive">
+                    {form.formState.errors.status.message}
+                  </p>
                 )}
               </div>
             </div>

@@ -121,6 +121,7 @@ export function TrainersList() {
                         }}
                       >
                         <FileEdit className="h-4 w-4 text-muted-foreground" />
+                        <span className="sr-only">Edit trainer</span>
                       </Button>
                       <Button
                         variant="ghost"
@@ -131,6 +132,7 @@ export function TrainersList() {
                         }}
                       >
                         <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                        <span className="sr-only">View trainer details</span>
                       </Button>
                     </TableCell>
                   </TableRow>

@@ -55,6 +55,7 @@ export function CheckInForm() {
       <div className="flex items-center gap-4">
         <Button variant="outline" size="icon" onClick={() => navigate('/attendance')}>
           <ArrowLeft className="h-4 w-4" />
+          <span className="sr-only">Back</span>
         </Button>
         <div>
           <h2 className="text-2xl font-bold tracking-tight text-primary">Manual Check-In</h2>
@@ -71,7 +72,11 @@ export function CheckInForm() {
                 value={memberIdValue}
                 onValueChange={(val: string) => form.setValue('memberId', val)}
               >
-                <SelectTrigger id="memberId">
+                <SelectTrigger
+                  id="memberId"
+                  aria-invalid={!!form.formState.errors.memberId}
+                  aria-describedby="memberId-error"
+                >
                   <SelectValue placeholder="Search member..." />
                 </SelectTrigger>
                 <SelectContent>
@@ -83,7 +88,9 @@ export function CheckInForm() {
                 </SelectContent>
               </Select>
               {form.formState.errors.memberId && (
-                <p className="text-xs text-destructive">{form.formState.errors.memberId.message}</p>
+                <p id="memberId-error" className="text-xs text-destructive">
+                  {form.formState.errors.memberId.message}
+                </p>
               )}
             </div>
 
@@ -99,9 +106,13 @@ export function CheckInForm() {
                 rows={2}
                 {...form.register('notes')}
                 placeholder="Optional note for this entry."
+                aria-invalid={!!form.formState.errors.notes}
+                aria-describedby="source-error"
               />
               {form.formState.errors.notes && (
-                <p className="text-xs text-destructive">{form.formState.errors.notes.message}</p>
+                <p id="notes-error" className="text-xs text-destructive">
+                  {form.formState.errors.notes.message}
+                </p>
               )}
             </div>
 

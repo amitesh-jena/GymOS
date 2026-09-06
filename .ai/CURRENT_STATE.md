@@ -96,6 +96,13 @@ At this moment, the repository is at the setup pre-implementation stage.
   - Achieved `63.35%` line coverage, satisfying the `>=60%` frontend component coverage baseline.
   - Implemented component tests covering high-value schemas and mocked service functions.
 
+## NEXT
+- **Phase 14 — Accessibility & UX Audit: STATUS: COMPLETE**
+  - Audited and updated forms with `aria-invalid` and `aria-describedby` matching nested Zod validations natively.
+  - Implemented missing accessible naming for Icon-only interactive elements using `<span className="sr-only">`.
+  - Supplied Radix UI `Dialog` structures missing `DialogDescription` components.
+  - Created Jest coverage evaluating ARIA attribute associations resolving test environment gaps correctly mapping accessible element trees.
+
 ## NOT STARTED
 - Backend implementation / Product Handoff
 - Database models.

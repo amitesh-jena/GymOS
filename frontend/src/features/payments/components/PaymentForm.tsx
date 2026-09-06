@@ -58,7 +58,11 @@ export const PaymentForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) 
             onValueChange={(val) => form.setValue('memberId', val)}
             disabled={isLoadingMembers}
           >
-            <SelectTrigger id="memberId">
+            <SelectTrigger
+              id="memberId"
+              aria-invalid={!!form.formState.errors.memberId}
+              aria-describedby="memberId-error"
+            >
               <SelectValue
                 placeholder={isLoadingMembers ? 'Loading members...' : 'Select member'}
               />
@@ -72,7 +76,9 @@ export const PaymentForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) 
             </SelectContent>
           </Select>
           {form.formState.errors.memberId && (
-            <p className="text-sm text-destructive">{form.formState.errors.memberId.message}</p>
+            <p id="memberId-error" className="text-sm text-destructive">
+              {form.formState.errors.memberId.message}
+            </p>
           )}
         </div>
 
@@ -84,9 +90,13 @@ export const PaymentForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) 
             step="0.01"
             placeholder="0.00"
             {...form.register('amount')}
+            aria-invalid={!!form.formState.errors.amount}
+            aria-describedby="amount-error"
           />
           {form.formState.errors.amount && (
-            <p className="text-sm text-destructive">{form.formState.errors.amount.message}</p>
+            <p id="amount-error" className="text-sm text-destructive">
+              {form.formState.errors.amount.message}
+            </p>
           )}
         </div>
 
@@ -98,7 +108,11 @@ export const PaymentForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) 
               form.setValue('method', val)
             }
           >
-            <SelectTrigger id="method">
+            <SelectTrigger
+              id="method"
+              aria-invalid={!!form.formState.errors.method}
+              aria-describedby="method-error"
+            >
               <SelectValue placeholder="Select method" />
             </SelectTrigger>
             <SelectContent>
@@ -112,12 +126,24 @@ export const PaymentForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) 
 
         <div className="space-y-2">
           <Label htmlFor="transactionId">Transaction ID (Optional)</Label>
-          <Input id="transactionId" placeholder="Txn ID" {...form.register('transactionId')} />
+          <Input
+            id="transactionId"
+            placeholder="Txn ID"
+            {...form.register('transactionId')}
+            aria-invalid={!!form.formState.errors.transactionId}
+            aria-describedby="transactionId-error"
+          />
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="paymentDate">Payment Date</Label>
-          <Input id="paymentDate" type="date" {...form.register('paymentDate')} />
+          <Input
+            id="paymentDate"
+            type="date"
+            {...form.register('paymentDate')}
+            aria-invalid={!!form.formState.errors.paymentDate}
+            aria-describedby="paymentDate-error"
+          />
         </div>
       </div>
 

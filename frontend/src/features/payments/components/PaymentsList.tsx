@@ -16,15 +16,9 @@ import { ErrorState } from '@/components/ux/ErrorState';
 import { EmptyState } from '@/components/ux/EmptyState';
 import { Plus } from 'lucide-react';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogDescription,
-} from '@/components/ui/dialog';
-import { PaymentForm } from './PaymentForm';
+const LazyPaymentFormDialog = React.lazy(() =>
+  import('./PaymentFormDialog').then((m) => ({ default: m.PaymentFormDialog }))
+);
 
 export const PaymentsList: React.FC = () => {
   const page = 1;
@@ -43,22 +37,14 @@ export const PaymentsList: React.FC = () => {
           <h2 className="text-3xl font-bold tracking-tight text-primary">Payments</h2>
           <p className="text-muted-foreground mt-1">Manage incoming member payments.</p>
         </div>
-        <Dialog open={formOpen} onOpenChange={setFormOpen}>
-          <DialogTrigger asChild>
-            <Button className="gap-2">
-              <Plus className="h-4 w-4" /> Record Payment
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>Record New Payment</DialogTitle>
-              <DialogDescription className="sr-only">
-                Record a new payment transaction
-              </DialogDescription>
-            </DialogHeader>
-            <PaymentForm onSuccess={() => setFormOpen(false)} />
-          </DialogContent>
-        </Dialog>
+        <Button className="gap-2" onClick={() => setFormOpen(true)}>
+          <Plus className="h-4 w-4" /> Record Payment
+        </Button>
+        {formOpen && (
+          <React.Suspense fallback={null}>
+            <LazyPaymentFormDialog open={formOpen} onOpenChange={setFormOpen} />
+          </React.Suspense>
+        )}
       </div>
 
       {payments.length === 0 ? (

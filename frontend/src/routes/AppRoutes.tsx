@@ -2,6 +2,19 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ROLES } from '@/types/roles';
 import { RequireAuth, RequireNoAuth, RequireRole, RedirectToRoleDashboard } from './Guards';
 import { AppShell } from '@/components/layout/AppShell';
+import React from 'react';
+import { LoadingState } from '@/components/ux/LoadingState';
+
+const lazyRoute = (
+  factory: () => Promise<{ default: React.ComponentType<Record<string, unknown>> }>
+) => {
+  const LazyComponent = React.lazy(factory);
+  return (props: Record<string, unknown>) => (
+    <React.Suspense fallback={<LoadingState />}>
+      <LazyComponent {...props} />
+    </React.Suspense>
+  );
+};
 import {
   NotFoundScreen,
   ForbiddenScreen,
@@ -17,17 +30,27 @@ import { SecuritySettingsView } from '@/features/settings/components/SecuritySet
 import { TenantSettingsView } from '@/features/settings/components/TenantSettingsView';
 import { MembersList } from '@/features/members/components/MembersList';
 import { MemberDetail } from '@/features/members/components/MemberDetail';
-import { MemberForm } from '@/features/members/components/MemberForm';
+const MemberForm = lazyRoute(() =>
+  import('@/features/members/components/MemberForm').then((m) => ({ default: m.MemberForm }))
+);
 import { TrainersList } from '@/features/trainers/components/TrainersList';
 import { TrainerDetail } from '@/features/trainers/components/TrainerDetail';
-import { TrainerForm } from '@/features/trainers/components/TrainerForm';
+const TrainerForm = lazyRoute(() =>
+  import('@/features/trainers/components/TrainerForm').then((m) => ({ default: m.TrainerForm }))
+);
 import { PaymentsList } from '@/features/payments/components/PaymentsList';
 import { InvoicesList } from '@/features/invoices/components/InvoicesList';
 import { ReceiptsList } from '@/features/receipts/components/ReceiptsList';
 import { PlansList } from '@/features/plans/components/PlansList';
-import { PlanForm } from '@/features/plans/components/PlanForm';
+const PlanForm = lazyRoute(() =>
+  import('@/features/plans/components/PlanForm').then((m) => ({ default: m.PlanForm }))
+);
 import { MembershipsList } from '@/features/memberships/components/MembershipsList';
-import { MembershipForm } from '@/features/memberships/components/MembershipForm';
+const MembershipForm = lazyRoute(() =>
+  import('@/features/memberships/components/MembershipForm').then((m) => ({
+    default: m.MembershipForm,
+  }))
+);
 import { AttendanceList } from '@/features/attendance/components/AttendanceList';
 import { CheckInForm } from '@/features/attendance/components/CheckInForm';
 import { MemberDashboard } from '@/features/member-dashboard/components/MemberDashboard';
@@ -38,11 +61,19 @@ import { MemberWorkoutsList } from '@/features/workouts/components/MemberWorkout
 import { MemberDietView } from '@/features/diets/components/MemberDietView';
 import { MemberProgressView } from '@/features/progress/components/MemberProgressView';
 import { SubscriptionSettingsView } from '@/features/saas/components/SubscriptionSettingsView';
-import { AnalyticsDashboard } from '@/features/analytics/components/AnalyticsDashboard';
+const AnalyticsDashboard = lazyRoute(() =>
+  import('@/features/analytics/components/AnalyticsDashboard').then((m) => ({
+    default: m.AnalyticsDashboard,
+  }))
+);
 import { AdminTenantsList } from '@/features/saas/components/AdminTenantsList';
 import { AdminTenantDetail } from '@/features/saas/components/AdminTenantDetail';
 import { TrainerMembersList } from '@/features/trainers/components/TrainerMembersList';
-import { TrainerWorkoutsWorkspace } from '@/features/workouts/components/TrainerWorkoutsWorkspace';
+const TrainerWorkoutsWorkspace = lazyRoute(() =>
+  import('@/features/workouts/components/TrainerWorkoutsWorkspace').then((m) => ({
+    default: m.TrainerWorkoutsWorkspace,
+  }))
+);
 
 // Generic placeholder for mocked business screens
 const PlaceholderScreen = ({ title }: { title: string }) => (
@@ -97,30 +128,6 @@ const AppRoutes = () => {
                 <Route path="organization" element={<TenantSettingsView />} />
                 <Route path="subscription" element={<SubscriptionSettingsView />} />
               </Route>
-            </Route>
-
-            {/* Owner / Admin / Manager Branch Routes */}
-            <Route
-              element={
-                <RequireRole
-                  allowedRoles={[
-                    ROLES.SUPER_ADMIN,
-                    ROLES.OWNER,
-                    ROLES.BRANCH_MANAGER,
-                    ROLES.RECEPTIONIST,
-                  ]}
-                />
-              }
-            >
-              <Route
-                path="/dashboard"
-                element={<PlaceholderScreen title="Management Dashboard" />}
-              />
-              <Route path="/members" element={<PlaceholderScreen title="Members Directory" />} />
-              <Route path="/attendance" element={<PlaceholderScreen title="Attendance Logs" />} />
-              <Route path="/payments" element={<PaymentsList />} />
-              <Route path="/invoices" element={<InvoicesList />} />
-              <Route path="/receipts" element={<ReceiptsList />} />
             </Route>
 
             {/* Owner / Admin Only Routes */}

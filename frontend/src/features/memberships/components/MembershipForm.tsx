@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -33,6 +33,13 @@ export function MembershipForm() {
   const { id } = useParams<{ id: string }>();
   const isEdit = !!id;
   const navigate = useNavigate();
+  const mounted = useRef(true);
+
+  useEffect(() => {
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
 
   const {
     data: membership,
@@ -73,7 +80,9 @@ export function MembershipForm() {
     } else {
       await createMutation.mutateAsync(values);
     }
-    navigate('/memberships');
+    if (mounted.current) {
+      navigate('/memberships');
+    }
   };
 
   const isSaving = createMutation.isPending || updateMutation.isPending;
@@ -104,6 +113,7 @@ export function MembershipForm() {
       </div>
 
       <Card>
+        {/* eslint-disable-next-line react-hooks/refs */}
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardContent className="pt-6 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

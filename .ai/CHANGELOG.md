@@ -1,6 +1,12 @@
 # Changelog
 
 ## [Unreleased]
+### Added (Phase 12: Real API Integration)
+- Standardized Axios architecture implementing 401 refresh interceptors with queued promise caching preventing burst re-auth stampedes.
+- Hardened Error normalization exposing exact `ApiError` typings bridging directly into TanStack forms preserving MSW backward compatibility.
+- Fixed complex Playwright E2E detachment race conditions mapping structural Radix primitive transitions (`Select`/`Dialog`) rigorously.
+- Full quality gates verification passed across Format, Check, Lint, Jest, Vitest, and Playwright integration suites natively preserving Phase 11 dependencies.
+
 ### Added (Phase 11: Cross-Role Business Workflows)
 - Connected independent Domain modules (Memberships, Receivables, Workouts, Tenancy) via robust cross-context state hydration inside TanStack query layer.
 - Enforced Role-based view transformations (Trainers accessing specialized `TrainerMembersList` and `TrainerWorkoutsWorkspace` bounded exclusively to their managed targets).

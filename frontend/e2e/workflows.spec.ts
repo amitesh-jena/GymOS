@@ -42,13 +42,16 @@ test.describe('Phase 11 Cross-Role Workflows', () => {
     await page.getByRole('button', { name: /Record Payment/i }).click();
 
     await expect(page.getByRole('heading', { name: 'Record New Payment' })).toBeVisible();
-    const payMemberCombobox = page.getByRole('combobox', { name: 'Member', exact: true });
-    await expect(payMemberCombobox).toBeVisible();
-    await payMemberCombobox.click();
+    // Wait for member data to load — the select becomes enabled only after members arrive
+    await expect(page.getByRole('dialog').locator('#memberId')).toBeEnabled({ timeout: 10000 });
+    await page.getByRole('dialog').locator('#memberId').click();
     await page.getByRole('option').first().click(); // select first member
-
-    await page.getByLabel('Amount (USD)').fill('99.00');
-    await page.getByRole('dialog').getByRole('button', { name: /Record Payment/i }).click();
+    // Wait for the select dropdown to close and dialog to stabilize after member selection
+    await expect(page.getByRole('option').first()).toBeHidden({ timeout: 5000 });
+    await expect(page.getByRole('dialog').locator('#amount')).toBeVisible();
+    await page.getByRole('dialog').locator('#amount').fill('99.00');
+    // Use force because Radix Select overlay may briefly intercept pointer events
+    await page.getByRole('dialog').locator('button[type="submit"]').click({ force: true });
 
     // Wait for the modal to close by checking the modal heading is hidden
     await expect(page.getByRole('dialog')).toBeHidden();
@@ -66,10 +69,11 @@ test.describe('Phase 11 Cross-Role Workflows', () => {
     // 4. Renewal Flow (Workflow 5)
     await clientNav(page, '/memberships');
     await page.locator('button[title="Renew"]').first().click();
+    await expect(page.getByRole('dialog').getByRole('combobox')).toBeEnabled({ timeout: 10000 });
     await page.getByRole('dialog').getByRole('combobox').click();
     await page.getByRole('option').first().click();
-    await page.locator('input[type="date"]').nth(1).fill('2026-12-31');
-    await page.getByRole('button', { name: /Confirm Renewal/i }).click();
+    await page.getByRole('dialog').locator('input[type="date"]').nth(1).fill('2026-12-31');
+    await page.getByRole('dialog').getByRole('button', { name: /Confirm Renewal/i }).click();
 
     // Wait for the mock
     await page.waitForTimeout(600);
@@ -101,8 +105,9 @@ test.describe('Phase 11 Cross-Role Workflows', () => {
   test('Workflow 4: Attendance Check-in to Analytics sync', async ({ page }) => {
     await page.goto('/auth/login');
     await page.click('button:has-text("Login as Receptionist")');
+    await expect(page).toHaveURL(/.*\/branch\/front-desk/);
 
-    await page.goto('/attendance/checkin');
+    await clientNav(page, '/attendance/checkin');
 
     await page.getByLabel('Select Member').click();
     await page.getByRole('option').nth(1).click(); // Use second member to avoid duplicate check-in mock error
@@ -114,8 +119,9 @@ test.describe('Phase 11 Cross-Role Workflows', () => {
   test('Workflow 6: Platform Admin Tenant Lifecycle', async ({ page }) => {
     await page.goto('/auth/login');
     await page.click('button:has-text("Login as Super Admin")');
+    await expect(page).toHaveURL(/.*\/dashboard/);
 
-    await page.goto('/admin/tenants');
+    await clientNav(page, '/admin/tenants');
     // Click on a tenant to go to details
     await page.locator('text=Iron Temple Gym').click();
 

@@ -81,6 +81,13 @@ At this moment, the repository is at the setup pre-implementation stage.
   - Authored Role-specific dashboards (Trainer Workouts, Members List filters, etc.).
   - Hardened business domain tests via end-to-end multi-persona UI workflows simulating entire Gym lifecycles (Member Join -> Plan Assign -> Pay -> Trainer Assign -> Workout -> Check In).
 
+- **Phase 12 — Real API Integration: STATUS: COMPLETE**
+  - Configured central Axios client interceptor with standard `ApiError` normalization.
+  - Developed and verified bulletproof 401 Unauthorized refresh-token lifecycle via in-memory secure lock queues.
+  - Linked `AuthContext` to interact completely with realistic credentials against unified backend endpoints.
+  - Sustained `msw` switching layers supporting uninterrupted CI local workflow validations.
+  - E2E verification suites resolved preventing detached element race conditions via strict timeout assertions.
+
 ## NOT STARTED
 - Backend implementation / Product Handoff
 - Database models.

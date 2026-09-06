@@ -22,7 +22,7 @@ export const RenewMembershipDialog: React.FC<{
   const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
   const [endDate, setEndDate] = useState('');
 
-  const { data: plansData } = usePlans();
+  const { data: plansData, isLoading: isLoadingPlans } = usePlans();
   const renewMut = useRenewMembership(membershipId);
 
   const handleRenew = async () => {
@@ -40,9 +40,9 @@ export const RenewMembershipDialog: React.FC<{
         <div className="space-y-4 pt-4">
           <div className="space-y-2">
             <Label>Plan</Label>
-            <Select value={planId} onValueChange={setPlanId}>
+            <Select value={planId} onValueChange={setPlanId} disabled={isLoadingPlans}>
               <SelectTrigger>
-                <SelectValue placeholder="Select Plan" />
+                <SelectValue placeholder={isLoadingPlans ? 'Loading plans...' : 'Select Plan'} />
               </SelectTrigger>
               <SelectContent>
                 {plansData?.results.map((p) => (

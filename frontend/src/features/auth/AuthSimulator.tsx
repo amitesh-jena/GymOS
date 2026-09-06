@@ -1,23 +1,20 @@
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
 import { ROLES, Role } from '@/types/roles';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { useLogin } from './hooks/useAuthMutations';
 
 export function AuthSimulator() {
-  const { login } = useAuth();
+  const { mutate: doLogin } = useLogin();
   const navigate = useNavigate();
 
   const handleSimulateLogin = (role: Role) => {
-    login('mock-token', {
-      id: 'usr-' + Math.random().toString(36).substring(2, 9),
-      name: `Mock ${role} User`,
-      role: role,
-      tenantId: 'tnt-gym-001',
-    });
-    // RequireAuth / RedirectToRoleDashboard will automatically catch and route correctly
-    // depending on where they wanted to go, but since this is manual, we will navigate to `/` to let Guard handle redirect.
-    navigate('/');
+    doLogin(
+      { email: `mock-${role.toLowerCase()}@gymos.local`, roleHint: role },
+      {
+        onSuccess: () => navigate('/'),
+      }
+    );
   };
 
   return (

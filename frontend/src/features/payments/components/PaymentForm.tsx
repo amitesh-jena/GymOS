@@ -18,7 +18,7 @@ import { useMembers } from '@/features/members/hooks/useMembers';
 
 export const PaymentForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
   const createMutation = useCreatePayment();
-  const { data: membersData } = useMembers();
+  const { data: membersData, isLoading: isLoadingMembers } = useMembers();
 
   const [todaysDate] = useState(new Date().toISOString().split('T')[0]);
 
@@ -53,9 +53,15 @@ export const PaymentForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <Label htmlFor="memberId">Member</Label>
-          <Select value={memberIdVal} onValueChange={(val) => form.setValue('memberId', val)}>
+          <Select
+            value={memberIdVal}
+            onValueChange={(val) => form.setValue('memberId', val)}
+            disabled={isLoadingMembers}
+          >
             <SelectTrigger id="memberId">
-              <SelectValue placeholder="Select member" />
+              <SelectValue
+                placeholder={isLoadingMembers ? 'Loading members...' : 'Select member'}
+              />
             </SelectTrigger>
             <SelectContent>
               {membersData?.results.map((m) => (

@@ -13,11 +13,6 @@ let mockMemberships: Membership[] = [
     createdAt: '2025-01-15T08:00:00Z',
     updatedAt: '2025-01-15T08:00:00Z',
   },
-  http.post('/api/v1/memberships/:id/renew', ({ params }) => {
-    const m = mockMemberships.find((x) => x.id === params.id);
-    if (!m) return new HttpResponse(null, { status: 404 });
-    return HttpResponse.json({ success: true, data: m as unknown });
-  }),
 ];
 
 export const membershipsHandlers = [

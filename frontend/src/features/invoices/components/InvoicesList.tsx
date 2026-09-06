@@ -1,5 +1,6 @@
 import React from 'react';
 import { useInvoices } from '../hooks/useInvoices';
+import { Invoice } from '../types';
 import {
   Table,
   TableBody,
@@ -12,7 +13,6 @@ import { Badge } from '@/components/ui/badge';
 import { LoadingState } from '@/components/ux/LoadingState';
 import { ErrorState } from '@/components/ux/ErrorState';
 import { EmptyState } from '@/components/ux/EmptyState';
-
 
 export const InvoicesList: React.FC = () => {
   const page = 1;
@@ -46,7 +46,7 @@ export const InvoicesList: React.FC = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {invoices.map((invoice) => (
+              {invoices.map((invoice: Invoice) => (
                 <TableRow key={invoice.id}>
                   <TableCell className="font-mono text-sm">{invoice.id.split('-')[0]}</TableCell>
                   <TableCell className="font-medium">{invoice.memberName}</TableCell>
@@ -77,11 +77,7 @@ export const InvoicesList: React.FC = () => {
             </TableBody>
           </Table>
 
-          {data && data.count > 10 && (
-            <div className="p-4 border-t flex justify-center">
-              
-            </div>
-          )}
+          {data && data.count > 10 && <div className="p-4 border-t flex justify-center"></div>}
         </div>
       )}
     </div>

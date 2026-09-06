@@ -2,8 +2,38 @@
 
 ## [Unreleased]
 
-### Added (Phase 3: UX / Information Architecture)
-- Centralized `src/routes/config.ts` defining structured IA, Roles, and Navigation definitions.
+### Added (Phase 10: Production Hardening & Settings)
+- Stabilized Application layout enveloping all internal navigation under a global fallback `ErrorBoundary`.
+- Authored the core Application Themes context scaling CSS classes bridging across four custom aesthetics seamlessly maintaining preference sync via local-storage.
+- Configured a dedicated `<SettingsLayout />` injecting comprehensive cross-object settings (Profile, Appearance, Security, Organization) with Zod-schema validations.
+- Fortified standard E2E suites extending Playwright structural assertions to capture RBAC settings exclusions effectively maintaining member perimeter logic.
+
+### Added (Phase 9: SaaS Platform Administration)
+- Integrated `AdminTenantsList` and `AdminTenantDetail` to provide Super Admins deep overarching visibility over Tenant resources and Subscription limits.
+- Upgraded the unified `RequireRole` AppRouting constraints preventing unauthorized horizontal scaling from lesser bounds.
+- Augmented MSW definitions routing structured platform payloads resolving `memberCount` and `branchCount` statistics.
+- Finalized exhaustive E2E and Jest coverage guaranteeing structural integrity across all strict layout integrations.
+
+### Added (Phase 8: Analytics & Reporting)
+- Integrated `AnalyticsDashboard` under the strict `/reports` operational boundary restricted safely isolated away from Trainers and Members.
+- Executed visual metric architectures building scalable `KPICard` and specialized decoupled Recharts representations including `RevenueChart`.
+- Created unified `DateRangeFilter` integration securely piping boundaries natively enforcing exact queries via `getAnalyticsOverview`.
+- Ensured completely valid deterministic behavior via newly authored `analytics.handlers.ts` mapping Trial boundaries exactly into MSW schemas.
+
+### Added (Phase 7: SaaS Infrastructure Implementation)
+- Introduced comprehensive `SubscriptionSettingsView` nested deeply against the unified AppRoutes settings layout resolving exactly against the IA tree.
+- Built strictly-typed domain models for Subscriptions, SaaS Plans, and granular Entitlements utilizing exact documented configurations.
+- Integrated `useCurrentSubscription`, `useAvailablePlans`, `useChangePlan`, and `useCancelSubscription` TanStack Query mutations routing against unified MSW REST endpoints.
+- Orchestrated deterministic lifecycle scenarios (TRIAL vs ACTIVE vs GRACE_PERIOD) mapped specifically over UI boundaries.
+- Solidified strict E2E coverage explicitly traversing Role-Based Access Isolation via the `AuthSimulator`.
+
+### Added (Phase 6: Member Experience)
+- Implement unified Member Dashboard layout, metrics routing, and check-in history views.
+- Harden strict-typing (`no-explicit-any`) across Member Payments, Member Invoices, and API utilities.
+- Playwright E2E suites updated to resolve Auth Simulator race conditions and strictly wait for rendered mocked data using reliable locators.
+- Prettier auto-formatting enforced strictly across entire `frontend/src` layer.
+
+### Added (Phase 5: Billing & Schedule)
 - Responsive UX AppShell leveraging structural Sidebar and dynamic Header with Breadcrumbs.
 - Strongly-typed `roles.ts` bridging `SUPER_ADMIN`, `OWNER`, `BRANCH_MANAGER`, `RECEPTIONIST`, `TRAINER`, `MEMBER`.
 - Created unified `ROUTE GUARDS` (`RequireAuth`, `RequireRole`, `RedirectToRoleDashboard`) dictating redirect patterns.
@@ -11,6 +41,9 @@
 - AuthSimulator view bridging unauthenticated developer test routes directly into the responsive layout.
 - Destructive Action & List screen pattern stubs establishing standard behavior.
 - Added comprehensive unit testing and Playwright E2E coverage for navigation flow and role isolation.
+
+### Added (Phase 3: UX / Information Architecture)
+- Centralized `src/routes/config.ts` defining structured IA, Roles, and Navigation definitions.
 
 ## [2026-09-04] - Phase 2 Design System Established
 - Configured native CSS variables (Light/Dark themes) using HSL semantics for GymOS (Electric Green, Deep Navy colors mapped to success/info/warning).

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { usePayments } from '../hooks/usePayments';
+import { Payment } from '../types';
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -75,7 +76,7 @@ export const PaymentsList: React.FC = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {payments.map((payment) => (
+              {payments.map((payment: Payment) => (
                 <TableRow key={payment.id}>
                   <TableCell className="font-medium">{payment.memberName}</TableCell>
                   <TableCell>{new Date(payment.paymentDate).toLocaleDateString()}</TableCell>
@@ -107,11 +108,7 @@ export const PaymentsList: React.FC = () => {
             </TableBody>
           </Table>
 
-          {data && data.count > 10 && (
-            <div className="p-4 border-t flex justify-center">
-              
-            </div>
-          )}
+          {data && data.count > 10 && <div className="p-4 border-t flex justify-center"></div>}
         </div>
       )}
     </div>

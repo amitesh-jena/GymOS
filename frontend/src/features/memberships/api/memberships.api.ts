@@ -1,5 +1,5 @@
 import api from '@/services/api';
-import { ApiResponse, PaginatedData } from '@/types/api';
+import type { ApiResponse, PaginatedData } from '@/types/api';
 import { Membership, CreateMembershipPayload } from '../types';
 
 export const membershipsApi = {

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ROLES } from '@/types/roles';
 import { RequireAuth, RequireNoAuth, RequireRole, RedirectToRoleDashboard } from './Guards';
 import { AppShell } from '@/components/layout/AppShell';
@@ -10,6 +10,11 @@ import {
 import { ListArchitectureDemo, DestructiveActionDemo } from '@/features/demo/PatternScreens';
 import { AuthSimulator } from '@/features/auth/AuthSimulator';
 import { DesignSystemShowcase } from '@/app/_DesignSystemShowcase';
+import { SettingsLayout } from '@/features/settings/components/SettingsLayout';
+import { ProfileSettingsView } from '@/features/settings/components/ProfileSettingsView';
+import { AppearanceSettingsView } from '@/features/settings/components/AppearanceSettingsView';
+import { SecuritySettingsView } from '@/features/settings/components/SecuritySettingsView';
+import { TenantSettingsView } from '@/features/settings/components/TenantSettingsView';
 import { MembersList } from '@/features/members/components/MembersList';
 import { MemberDetail } from '@/features/members/components/MemberDetail';
 import { MemberForm } from '@/features/members/components/MemberForm';
@@ -25,6 +30,17 @@ import { MembershipsList } from '@/features/memberships/components/MembershipsLi
 import { MembershipForm } from '@/features/memberships/components/MembershipForm';
 import { AttendanceList } from '@/features/attendance/components/AttendanceList';
 import { CheckInForm } from '@/features/attendance/components/CheckInForm';
+import { MemberDashboard } from '@/features/member-dashboard/components/MemberDashboard';
+import { MemberMembershipView } from '@/features/memberships/components/MemberMembershipView';
+import { MemberPaymentsList } from '@/features/payments/components/MemberPaymentsList';
+import { MemberAttendanceList } from '@/features/attendance/components/MemberAttendanceList';
+import { MemberWorkoutsList } from '@/features/workouts/components/MemberWorkoutsList';
+import { MemberDietView } from '@/features/diets/components/MemberDietView';
+import { MemberProgressView } from '@/features/progress/components/MemberProgressView';
+import { SubscriptionSettingsView } from '@/features/saas/components/SubscriptionSettingsView';
+import { AnalyticsDashboard } from '@/features/analytics/components/AnalyticsDashboard';
+import { AdminTenantsList } from '@/features/saas/components/AdminTenantsList';
+import { AdminTenantDetail } from '@/features/saas/components/AdminTenantDetail';
 
 // Generic placeholder for mocked business screens
 const PlaceholderScreen = ({ title }: { title: string }) => (
@@ -66,8 +82,20 @@ const AppRoutes = () => {
             <Route path="/" element={<RedirectToRoleDashboard />} />
 
             {/* General Authed Routes */}
-            <Route path="/profile" element={<PlaceholderScreen title="My Profile" />} />
+            {/* General Authed Routes */}
             <Route path="/notifications" element={<PlaceholderScreen title="Notifications" />} />
+
+            <Route path="/settings" element={<SettingsLayout />}>
+              <Route index element={<Navigate to="profile" replace />} />
+              <Route path="profile" element={<ProfileSettingsView />} />
+              <Route path="appearance" element={<AppearanceSettingsView />} />
+              <Route path="security" element={<SecuritySettingsView />} />
+
+              <Route element={<RequireRole allowedRoles={[ROLES.SUPER_ADMIN, ROLES.OWNER]} />}>
+                <Route path="organization" element={<TenantSettingsView />} />
+                <Route path="subscription" element={<SubscriptionSettingsView />} />
+              </Route>
+            </Route>
 
             {/* Owner / Admin / Manager Branch Routes */}
             <Route
@@ -102,13 +130,20 @@ const AppRoutes = () => {
               }
             >
               <Route path="/trainers" element={<PlaceholderScreen title="Trainers" />} />
-              <Route path="/reports" element={<PlaceholderScreen title="Analytics Reports" />} />
+              <Route path="/reports" element={<AnalyticsDashboard />} />
             </Route>
 
             <Route element={<RequireRole allowedRoles={[ROLES.SUPER_ADMIN, ROLES.OWNER]} />}>
               <Route path="/branches" element={<PlaceholderScreen title="Gym Branches" />} />
               <Route path="/plans" element={<PlaceholderScreen title="Membership Plans" />} />
-              <Route path="/settings" element={<PlaceholderScreen title="Global Settings" />} />
+            </Route>
+
+            {/* Platform Super Admin Only Routes */}
+            <Route element={<RequireRole allowedRoles={[ROLES.SUPER_ADMIN]} />}>
+              <Route path="/admin/tenants">
+                <Route index element={<AdminTenantsList />} />
+                <Route path=":id" element={<AdminTenantDetail />} />
+              </Route>
             </Route>
 
             {/* Owner / Admin / Manager Branch Routes */}
@@ -171,13 +206,13 @@ const AppRoutes = () => {
 
             {/* Member Routes */}
             <Route path="/member" element={<RequireRole allowedRoles={[ROLES.MEMBER]} />}>
-              <Route path="dashboard" element={<PlaceholderScreen title="Member Dashboard" />} />
-              <Route path="membership" element={<PlaceholderScreen title="My Subscription" />} />
-              <Route path="payments" element={<PlaceholderScreen title="My Payments" />} />
-              <Route path="attendance" element={<PlaceholderScreen title="My Attendance" />} />
-              <Route path="workouts" element={<PlaceholderScreen title="My Workouts" />} />
-              <Route path="diet" element={<PlaceholderScreen title="My Diet Plan" />} />
-              <Route path="progress" element={<PlaceholderScreen title="My Progress Tracking" />} />
+              <Route path="dashboard" element={<MemberDashboard />} />
+              <Route path="membership" element={<MemberMembershipView />} />
+              <Route path="payments" element={<MemberPaymentsList />} />
+              <Route path="attendance" element={<MemberAttendanceList />} />
+              <Route path="workouts" element={<MemberWorkoutsList />} />
+              <Route path="diet" element={<MemberDietView />} />
+              <Route path="progress" element={<MemberProgressView />} />
             </Route>
 
             {/* 404 Catch-All inside Chrome */}

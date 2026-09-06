@@ -1,0 +1,184 @@
+
+> frontend@0.0.0 test
+> jest tests/member.test.tsx
+
+FAIL tests/member.test.tsx (6.565 s)
+  Member Experience Components
+    √ renders Member Dashboard (324 ms)
+    × renders Member Membership View (1029 ms)
+    √ renders Member Payments List (44 ms)
+    × renders Member Attendance List (1030 ms)
+    √ renders Member Workouts List (374 ms)
+    √ renders Member Diet View (371 ms)
+    √ renders Member Progress View (388 ms)
+
+  ● Member Experience Components › renders Member Membership View
+
+    Unable to find an element with the text: /My Membership/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"space-y-6 max-w-3xl mx-auto"[39m
+        [36m>[39m
+          [36m<div>[39m
+            [36m<h2[39m
+              [33mclass[39m=[32m"text-3xl font-bold tracking-tight"[39m
+            [36m>[39m
+              [0mMy Subscription[0m
+            [36m</h2>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"text-muted-foreground mt-1"[39m
+            [36m>[39m
+              [0mReview your current gym access plan.[0m
+            [36m</p>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border bg-card text-card-foreground shadow-sm"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex flex-col space-y-1.5 p-6 pb-4"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"flex justify-between items-start border-b pb-4"[39m
+              [36m>[39m
+                [36m<div>[39m
+                  [36m<h3[39m
+                    [33mclass[39m=[32m"font-semibold tracking-tight text-2xl"[39m
+                  [36m>[39m
+                    [0mMembership Plan[0m
+                  [36m</h3>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"text-muted-foreground mt-1 text-sm font-mono"[39m
+                  [36m>[39m
+                    [0mmshp-401[0m
+                  [36m</div>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"inline-flex items-center rounded-full border px-2.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80 text-sm py-1"[39m
+                [36m>[39m
+                  [0mACTIVE[0m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"p-6 pt-0"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"grid grid-cols-2 gap-4"[39m
+              [36m>[39m
+                [36m<div>[39m
+                  [36m<p[39m
+                    [33mclass[39m=[32m"text-sm text-muted-foreground mb-1"[39m
+                  [36m>[39m
+                    [0mStart Date[0m
+                  [36m</p>[39m
+                  [36m<p[39m
+                    [33mclass[39m=[32m"font-medium"[39m
+                  [36m>[39m
+                    [0m15/1/2025[0m
+                  [36m</p>[39m
+                [36m</div>[39m
+                [36m<div>[39m
+                  [36m<p[39m
+                    [33mclass[39m=[32m"text-sm text-muted-foreground mb-1"[39m
+                  [36m>[39m
+                    [0mEnd Date[0m
+                  [36m</p>[39m
+                  [36m<p[39m
+                    [33mclass[39m=[32m"font-medium"[39m
+                  [36m>[39m
+                    [0m15/2/2025[0m
+                  [36m</p>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+
+      at waitForWrapper (node_modules/@testing-library/dom/dist/wait-for.js:163:27)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+      at Object.<anonymous> (tests/C:/Projects/GymOS/frontend/tests/member.test.tsx:41:25)
+
+  ● Member Experience Components › renders Member Attendance List
+
+    Unable to find an element with the text: /My Attendance/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"space-y-6 max-w-3xl mx-auto"[39m
+        [36m>[39m
+          [36m<div>[39m
+            [36m<h2[39m
+              [33mclass[39m=[32m"text-3xl font-bold tracking-tight"[39m
+            [36m>[39m
+              [0mCheck-in History[0m
+            [36m</h2>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"text-muted-foreground mt-1"[39m
+            [36m>[39m
+              [0mReview your gym visits.[0m
+            [36m</p>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border bg-card text-card-foreground shadow-sm"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"p-0"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"divide-y"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"p-4 flex justify-between items-center hover:bg-muted/30"[39m
+                [36m>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"flex items-center gap-4"[39m
+                  [36m>[39m
+                    [36m<div[39m
+                      [33mclass[39m=[32m"bg-primary/10 text-primary p-3 rounded-full flex flex-col items-center justify-center min-w-16"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"text-xs font-semibold uppercase"[39m
+                      [36m>[39m
+                        [0mSept[0m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"text-xl font-bold leading-none mt-1"[39m
+                      [36m>[39m
+                        [0m5[0m
+                      [36m</span>[39m
+                    [36m</div>[39m
+                    [36m<div>[39m
+                      [36m<p[39m
+                        [33mclass[39m=[32m"font-medium text-lg"[39m
+                      [36m>[39m
+                        [0m10:34 pm[0m
+                      [36m</p>[39m
+                    [36m</div>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+
+      at waitForWrapper (node_modules/@testing-library/dom/dist/wait-for.js:163:27)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+      at Object.<anonymous> (tests/C:/Projects/GymOS/frontend/tests/member.test.tsx:51:25)
+
+Test Suites: 1 failed, 1 total
+Tests:       2 failed, 5 passed, 7 total
+Snapshots:   0 total
+Time:        8.878 s
+Ran all test suites matching tests/member.test.tsx.
+Jest did not exit one second after the test run has completed.
+
+'This usually means that there are asynchronous operations that weren't stopped in your tests. Consider running Jest with `--detectOpenHandles` to troubleshoot this issue.

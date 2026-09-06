@@ -15,6 +15,7 @@ import {
   Apple,
   FileSignature,
   ReceiptText,
+  Database,
 } from 'lucide-react';
 
 export interface NavItem {
@@ -33,7 +34,13 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Payments',
     route: '/payments',
     icon: CreditCard,
-    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER, ROLES.RECEPTIONIST, ROLES.MEMBER],
+    allowedRoles: [
+      ROLES.SUPER_ADMIN,
+      ROLES.OWNER,
+      ROLES.BRANCH_MANAGER,
+      ROLES.RECEPTIONIST,
+      ROLES.MEMBER,
+    ],
     group: 'Revenue',
   },
   {
@@ -41,7 +48,13 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Invoices',
     route: '/invoices',
     icon: FileSignature,
-    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER, ROLES.RECEPTIONIST, ROLES.MEMBER],
+    allowedRoles: [
+      ROLES.SUPER_ADMIN,
+      ROLES.OWNER,
+      ROLES.BRANCH_MANAGER,
+      ROLES.RECEPTIONIST,
+      ROLES.MEMBER,
+    ],
     group: 'Revenue',
   },
   {
@@ -49,8 +62,23 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Receipts',
     route: '/receipts',
     icon: ReceiptText,
-    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER, ROLES.RECEPTIONIST, ROLES.MEMBER],
+    allowedRoles: [
+      ROLES.SUPER_ADMIN,
+      ROLES.OWNER,
+      ROLES.BRANCH_MANAGER,
+      ROLES.RECEPTIONIST,
+      ROLES.MEMBER,
+    ],
     group: 'Revenue',
+  },
+  // --- SUPER ADMIN (PLATFORM) ---
+  {
+    id: 'admin_tenants',
+    label: 'Tenants',
+    route: '/admin/tenants',
+    icon: Database,
+    allowedRoles: [ROLES.SUPER_ADMIN],
+    group: 'Platform',
   },
   // --- OWNER / ADMIN ---
   {
@@ -125,6 +153,14 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     allowedRoles: [ROLES.OWNER],
     group: 'Admin',
   },
+  {
+    id: 'subscription_owner',
+    label: 'Subscription',
+    route: '/settings/subscription',
+    icon: CreditCard,
+    allowedRoles: [ROLES.OWNER],
+    group: 'Admin',
+  },
 
   // --- TRAINER ---
   {
@@ -190,6 +226,14 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Payments',
     route: '/member/payments',
     icon: CreditCard,
+    allowedRoles: [ROLES.MEMBER],
+    group: 'Personal',
+  },
+  {
+    id: 'attendance_member',
+    label: 'Attendance',
+    route: '/member/attendance',
+    icon: CalendarCheck,
     allowedRoles: [ROLES.MEMBER],
     group: 'Personal',
   },

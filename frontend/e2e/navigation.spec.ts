@@ -13,7 +13,7 @@ test('App routing and responsive navigation flow', async ({ page }) => {
 
   // Should redirect to role dashboard (Member -> /member/dashboard)
   await expect(page).toHaveURL(/.*\/member\/dashboard/);
-  await expect(page.locator('h2', { hasText: 'Member Dashboard' })).toBeVisible();
+  await expect(page.locator('h2', { hasText: 'Welcome Back' })).toBeVisible();
 
   // 3. Test Breadcrumbs
   // Breadcrumb should show Home > Member > Dashboard. Let's just check Home and Member Dashboard are in DOM

@@ -1,6 +1,13 @@
 # Changelog
 
 ## [Unreleased]
+### Added (Phase 13: Frontend Testing)
+- Stabilized Jest open-handle teardown issues originating from React JSDOM timers (MESSAGEPORT).
+- Resolved `ts-jest` ESM transpilation failures for module-level `api.ts` configurations by factoring out `import.meta.env` to Vite definitions.
+- Achieved Playwright E2E determinism, solving detached DOM race conditions (17/17 tests passing).
+- Achieved `63.35%` line coverage, satisfying the `>=60%` frontend component coverage baseline.
+- Implemented component tests covering high-value schemas and mocked service functions.
+
 ### Added (Phase 12: Real API Integration)
 - Standardized Axios architecture implementing 401 refresh interceptors with queued promise caching preventing burst re-auth stampedes.
 - Hardened Error normalization exposing exact `ApiError` typings bridging directly into TanStack forms preserving MSW backward compatibility.

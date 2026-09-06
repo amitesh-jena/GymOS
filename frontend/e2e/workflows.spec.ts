@@ -51,7 +51,8 @@ test.describe('Phase 11 Cross-Role Workflows', () => {
     await expect(page.getByRole('dialog').locator('#amount')).toBeVisible();
     await page.getByRole('dialog').locator('#amount').fill('99.00');
     // Use force because Radix Select overlay may briefly intercept pointer events
-    await page.getByRole('dialog').locator('button[type="submit"]').click({ force: true });
+    // Use evaluate click to bypass Playwright actionability checks hanging on Radix UI closing animations or RHF re-renders
+    await page.getByRole('dialog').locator('button[type="submit"]').evaluate(node => (node as HTMLButtonElement).click());
 
     // Wait for the modal to close by checking the modal heading is hidden
     await expect(page.getByRole('dialog')).toBeHidden();

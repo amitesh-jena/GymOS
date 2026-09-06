@@ -2,7 +2,10 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { ApiError } from '@/types/api';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api/v1',
+  baseURL:
+    typeof process !== 'undefined' && process.env.VITE_API_BASE_URL
+      ? process.env.VITE_API_BASE_URL
+      : '/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },

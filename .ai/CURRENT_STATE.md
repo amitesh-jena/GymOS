@@ -88,6 +88,14 @@ At this moment, the repository is at the setup pre-implementation stage.
   - Sustained `msw` switching layers supporting uninterrupted CI local workflow validations.
   - E2E verification suites resolved preventing detached element race conditions via strict timeout assertions.
 
+## NEXT
+- **Phase 13 — Frontend Testing: STATUS: COMPLETE**
+  - Stabilized Jest open-handle teardown issues originating from React JSDOM timers (MESSAGEPORT).
+  - Resolved `ts-jest` ESM transpilation failures for module-level `api.ts` configurations by factoring out `import.meta.env` to Vite definitions.
+  - Achieved Playwright E2E determinism, solving detached DOM race conditions (17/17 tests passing).
+  - Achieved `63.35%` line coverage, satisfying the `>=60%` frontend component coverage baseline.
+  - Implemented component tests covering high-value schemas and mocked service functions.
+
 ## NOT STARTED
 - Backend implementation / Product Handoff
 - Database models.

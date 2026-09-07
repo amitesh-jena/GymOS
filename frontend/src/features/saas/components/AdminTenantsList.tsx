@@ -74,6 +74,7 @@ export const AdminTenantsList: React.FC = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full"
+              aria-label="Search tenants"
             />
           </div>
         </CardHeader>

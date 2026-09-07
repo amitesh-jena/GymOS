@@ -11,7 +11,7 @@ test.describe('SaaS Subscription E2E', () => {
       await page.click('button:has-text("Login as Gym Owner")');
     }
 
-    await page.waitForURL('**/dashboard');
+    await page.waitForURL('**/reports');
   });
 
   test('owner can reach the subscription settings experience', async ({ page }) => {

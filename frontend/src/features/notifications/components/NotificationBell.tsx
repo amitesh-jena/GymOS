@@ -16,7 +16,9 @@ export const NotificationBell = () => {
       variant="ghost"
       size="icon"
       className="relative shrink-0"
-      aria-label="Notifications"
+      aria-label={
+        unreadCount && unreadCount > 0 ? `Notifications, ${unreadCount} unread` : 'Notifications'
+      }
       onClick={handleNotificationClick}
     >
       <Bell className="h-5 w-5 text-muted-foreground" />

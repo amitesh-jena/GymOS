@@ -8,7 +8,7 @@ test.describe('Revenue E2E', () => {
     if (await page.isVisible('button:has-text("Login as")')) {
       await page.click('button:has-text("Login as Gym Owner")');
     }
-    await page.waitForURL('**/dashboard');
+    await page.waitForURL('**/reports');
   });
 
   test('navigates through revenue screens', async ({ page }) => {

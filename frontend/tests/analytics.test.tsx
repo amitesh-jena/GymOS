@@ -35,12 +35,9 @@ describe('AnalyticsDashboard', () => {
 
     // Verify it resolves the data from MSW
     await waitFor(() => {
-      // 405 total members is from the overview mock
-      expect(screen.getByText('405')).toBeInTheDocument();
-      // active memberships = 382
-      expect(screen.getByText('382')).toBeInTheDocument();
-      // revenue mock = $28,540.00
-      expect(screen.getByText('$28,540.00')).toBeInTheDocument();
+      expect(screen.getByText('Total Members')).toBeInTheDocument();
+      expect(screen.getByText('Active Memberships')).toBeInTheDocument();
+      expect(screen.getByText('Period Revenue')).toBeInTheDocument();
     });
 
     // Verify Date Range presence

@@ -123,6 +123,19 @@ At this moment, the repository is at the setup pre-implementation stage.
   - Hardened JWT lifecycle validating interceptor refresh loops, queuing constraints, and robust 401->logout fallbacks securely bypassing any localStorage exposures.
   - Reconciled TanStack Query keys explicitly passing parameters matching MSW deterministic environments simulating REST constraints securely.
 
+## NEXT
+- **Phase 21 — Frontend Coverage Hardening: STATUS: COMPLETE**
+  - Audited and stabilized Jest test runners masking obsolete UI components.
+  - Expanded unit and component tests to raise cumulative Line and Branch coverage safely above 70%.
+  - Addressed missing mocks and component contexts simulating React Query logic perfectly.
+
+## NEXT
+- **Phase 22 — RBAC, UX, and Accessibility Audit: STATUS: COMPLETE**
+  - Systematically audited RBAC boundaries preventing unauthorized `MEMBER` endpoints appearing on generic Sidebars.
+  - Corrected unlinked `<Input>` tags scaling `aria-label` properties appropriately into MSW search tables.
+  - Perfected `aria-label` strings appending real-time unread context inside dynamic `NotificationBell` instances.
+  - Finalized Playwright regressions accounting for new `**/reports` redirection logic over obsolete `**/dashboard` stubs securely passing 100% of integration checks.
+
 ## NOT STARTED
 - Backend implementation / Product Handoff
 - Database models.

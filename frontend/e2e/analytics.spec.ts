@@ -5,7 +5,7 @@ test.describe('Analytics & Reporting Phase 8', () => {
     await page.goto('/auth/login');
     // Login as a role authorized to see reports (Owner)
     await page.click('button:has-text("Login as Gym Owner")');
-    await page.waitForURL('**/dashboard');
+    await page.waitForURL('**/reports');
   });
 
   test('owner can navigate to analytics dashboard and view metrics', async ({ page }) => {

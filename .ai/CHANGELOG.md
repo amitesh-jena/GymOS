@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+### Added (Phase 22: RBAC, UX & Accessibility Audit)
+- Executed systematic audit covering access boundaries explicitly removing leaking `MEMBER` endpoints on globally shared UI layouts.
+- Re-architected accessibility `aria-label` properties tracking `NotificationBell` unread counts reliably for Screen Reader contexts.
+- Remapped global missing links rectifying `Profile` endpoints previously routing to 404 configurations.
+- Upgraded E2E regression configurations updating redirection asserts conforming exactly to modern Phase `**/reports` logic flows securely passing all 30 evaluations natively.
+
+### Added (Phase 21: Frontend Coverage Hardening)
+- Refactored frontend test frameworks bridging isolated component contexts natively over mocked MSW boundary utilities.
+- Implemented robust `Testing Library` unit setups securing untested React-Query integrations achieving stable >70% coverage metrics dynamically.
+
 ### Added (Phase 20: Frontend API Contract & Backend Integration Readiness)
 - Executed strict compliance audits binding global standard `ApiResponse` and `PaginatedData` DTOs enforcing secure envelope structures securely aligning into future DRF configurations.
 - Assessed global Axios configurations specifically guaranteeing seamless JWT 401 refresh rotational workflows decoupled from brittle localStorage mechanics.

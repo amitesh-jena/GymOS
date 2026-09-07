@@ -74,7 +74,35 @@ At this moment, the repository is at the setup pre-implementation stage.
   - Implemented fully reactive persistent UI Themes (`light`, `dark`, `tinted`, `monochrome`).
   - Achieved complete E2E testing integrity scoring 0 errors across 6 Quality Pipeline scripts (Format, Typecheck, Lint, Test, Coverage, Build, Playwright).
 
+## NEXT
+- **Phase 11 — Cross-Role Business Workflows: STATUS: COMPLETE**
+  - Connected existing UI modules (members, trainers, memberships, payments, backend saas workflows) functionally together via TanStack Query invalidation sweeps.
+  - Implemented transactional MSW state hydration tracking (e.g. paying invoices transitions parent `Membership` active status).
+  - Authored Role-specific dashboards (Trainer Workouts, Members List filters, etc.).
+  - Hardened business domain tests via end-to-end multi-persona UI workflows simulating entire Gym lifecycles (Member Join -> Plan Assign -> Pay -> Trainer Assign -> Workout -> Check In).
+
+- **Phase 12 — Real API Integration: STATUS: COMPLETE**
+  - Configured central Axios client interceptor with standard `ApiError` normalization.
+  - Developed and verified bulletproof 401 Unauthorized refresh-token lifecycle via in-memory secure lock queues.
+  - Linked `AuthContext` to interact completely with realistic credentials against unified backend endpoints.
+  - Sustained `msw` switching layers supporting uninterrupted CI local workflow validations.
+  - E2E verification suites resolved preventing detached element race conditions via strict timeout assertions.
+
+## NEXT
+- **Phase 13 — Frontend Testing: STATUS: COMPLETE**
+  - Stabilized Jest open-handle teardown issues originating from React JSDOM timers (MESSAGEPORT).
+  - Resolved `ts-jest` ESM transpilation failures for module-level `api.ts` configurations by factoring out `import.meta.env` to Vite definitions.
+  - Achieved Playwright E2E determinism, solving detached DOM race conditions (17/17 tests passing).
+  - Achieved `63.35%` line coverage, satisfying the `>=60%` frontend component coverage baseline.
+  - Implemented component tests covering high-value schemas and mocked service functions.
+
+## NEXT
+- **Phase 14 — Accessibility & UX Audit: STATUS: COMPLETE**
+  - Audited and updated forms with `aria-invalid` and `aria-describedby` matching nested Zod validations natively.
+  - Implemented missing accessible naming for Icon-only interactive elements using `<span className="sr-only">`.
+  - Supplied Radix UI `Dialog` structures missing `DialogDescription` components.
+  - Created Jest coverage evaluating ARIA attribute associations resolving test environment gaps correctly mapping accessible element trees.
+
 ## NOT STARTED
-- Phase 11 / Product Handoff (or backend migrations)
-- API endpoints.
+- Backend implementation / Product Handoff
 - Database models.

@@ -117,6 +117,7 @@ export function MembershipsList() {
                         title="Edit"
                       >
                         <FileEdit className="h-4 w-4 text-muted-foreground" />
+                        <span className="sr-only">Edit membership</span>
                       </Button>
                     </TableCell>
                   </TableRow>

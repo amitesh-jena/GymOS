@@ -13,3 +13,11 @@ export const getPlatformTenant = async (tenantId: string) => {
   const { data } = await api.get<ApiResponse<PlatformTenant>>(`/admin/tenants/${tenantId}`);
   return data.data;
 };
+
+export const updateTenantStatus = async (tenantId: string, status: 'ACTIVE' | 'SUSPENDED') => {
+  const { data } = await api.patch<ApiResponse<PlatformTenant>>(
+    `/admin/tenants/${tenantId}/status`,
+    { status }
+  );
+  return data.data;
+};

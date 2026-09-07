@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { useRenewMembership } from '../hooks/useMemberships';
 import { usePlans } from '@/features/plans/hooks/usePlans';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import {
@@ -22,7 +28,7 @@ export const RenewMembershipDialog: React.FC<{
   const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
   const [endDate, setEndDate] = useState('');
 
-  const { data: plansData } = usePlans();
+  const { data: plansData, isLoading: isLoadingPlans } = usePlans();
   const renewMut = useRenewMembership(membershipId);
 
   const handleRenew = async () => {
@@ -36,13 +42,16 @@ export const RenewMembershipDialog: React.FC<{
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Renew Membership</DialogTitle>
+          <DialogDescription className="sr-only">
+            Renew the membership for this member
+          </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 pt-4">
           <div className="space-y-2">
             <Label>Plan</Label>
-            <Select value={planId} onValueChange={setPlanId}>
+            <Select value={planId} onValueChange={setPlanId} disabled={isLoadingPlans}>
               <SelectTrigger>
-                <SelectValue placeholder="Select Plan" />
+                <SelectValue placeholder={isLoadingPlans ? 'Loading plans...' : 'Select Plan'} />
               </SelectTrigger>
               <SelectContent>
                 {plansData?.results.map((p) => (

@@ -9,6 +9,7 @@ export const memberSchema = z.object({
   status: z.enum(['ACTIVE', 'INACTIVE', 'FROZEN', 'LEAD']),
   joinDate: z.string().min(1, 'Join date is required'),
   notes: z.string().max(500).optional(),
+  trainerId: z.string().optional(),
 });
 
 export type MemberFormData = z.infer<typeof memberSchema>;

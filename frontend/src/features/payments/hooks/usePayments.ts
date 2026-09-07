@@ -28,6 +28,10 @@ export const useCreatePayment = () => {
     mutationFn: createPayment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['payments'] });
+      queryClient.invalidateQueries({ queryKey: ['invoices'] });
+      queryClient.invalidateQueries({ queryKey: ['receipts'] });
+      queryClient.invalidateQueries({ queryKey: ['memberships'] });
+      queryClient.invalidateQueries({ queryKey: ['members'] });
       toast({ title: 'Success', description: 'Payment recorded successfully.' });
     },
     onError: (error) => {

@@ -150,6 +150,7 @@ export function MembersList() {
                         }}
                       >
                         <FileEdit className="h-4 w-4 text-muted-foreground" />
+                        <span className="sr-only">Edit member</span>
                       </Button>
                       <Button
                         variant="ghost"
@@ -160,6 +161,7 @@ export function MembersList() {
                         }}
                       >
                         <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                        <span className="sr-only">View member details</span>
                       </Button>
                     </TableCell>
                   </TableRow>

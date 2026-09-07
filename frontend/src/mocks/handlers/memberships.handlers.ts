@@ -1,7 +1,11 @@
 import { http, HttpResponse, delay } from 'msw';
 import { Membership, CreateMembershipPayload } from '@/features/memberships/types';
+import { MOCK_PAYMENTS } from './payments.handlers';
+import { MOCK_INVOICES } from './invoices.handlers';
+import { MOCK_RECEIPTS } from './receipts.handlers';
+import { mockMembers } from './members.handlers';
 
-let mockMemberships: Membership[] = [
+export let mockMemberships: Membership[] = [
   {
     id: 'mshp-401',
     tenantId: 'gym-demo',
@@ -71,5 +75,77 @@ export const membershipsHandlers = [
       updatedAt: new Date().toISOString(),
     };
     return HttpResponse.json({ success: true, data: mockMemberships[idx] });
+  }),
+
+  http.post('/api/v1/memberships/:id/renew', async ({ request, params }) => {
+    await delay(600);
+    const body = (await request.json()) as { planId: string; startDate: string; endDate: string };
+    const mshp = mockMemberships.find((p) => p.id === params.id);
+    if (!mshp) {
+      return HttpResponse.json(
+        { success: false, error: { code: 'NOT_FOUND', message: 'Membership not found' } },
+        { status: 404 }
+      );
+    }
+
+    mshp.planId = body.planId;
+    mshp.startDate = body.startDate;
+    mshp.endDate = body.endDate;
+    mshp.status = 'ACTIVE';
+    mshp.updatedAt = new Date().toISOString();
+
+    const paymentId = 'pay-rnw-' + Date.now();
+    const amount = '99.00';
+    let memberName = 'Unknown Member';
+    const member = mockMembers.find((m) => m.id === mshp.memberId);
+    if (member) {
+      memberName = `${member.firstName} ${member.lastName}`;
+      member.status = 'ACTIVE';
+    }
+
+    MOCK_PAYMENTS.push({
+      id: paymentId,
+      tenantId: 'gym-demo',
+      memberId: mshp.memberId,
+      memberName,
+      amount,
+      currency: 'USD',
+      method: 'CARD',
+      status: 'COMPLETED',
+      paymentDate: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    } as unknown as import('../../features/payments/types').Payment);
+
+    MOCK_INVOICES.push({
+      id: 'inv-rnw-' + Date.now(),
+      tenantId: 'gym-demo',
+      memberId: mshp.memberId,
+      memberName,
+      invoiceDate: new Date().toISOString(),
+      dueDate: new Date().toISOString(),
+      status: 'PAID',
+      subtotal: amount,
+      total: amount,
+      tax: '0.00',
+      discount: '0.00',
+      lineItems: [{ id: 'li-1', description: 'Membership Renewal', amount }],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+
+    MOCK_RECEIPTS.push({
+      id: 'rec-rnw-' + Date.now(),
+      tenantId: 'gym-demo',
+      memberId: mshp.memberId,
+      memberName,
+      paymentId,
+      amount,
+      receiptDate: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+
+    return HttpResponse.json({ success: true, data: mshp });
   }),
 ];

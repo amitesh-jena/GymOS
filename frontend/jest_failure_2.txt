@@ -1,5 +1,0 @@
-
-> frontend@0.0.0 test
-> jest tests/admin-saas.test.tsx
-
-Terminate batch job (Y/N)? Terminate batch job (Y/N)? 

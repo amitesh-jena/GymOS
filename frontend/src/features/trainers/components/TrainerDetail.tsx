@@ -39,6 +39,7 @@ export function TrainerDetail() {
       <div className="flex items-center gap-4">
         <Button variant="outline" size="icon" onClick={() => navigate('/trainers')}>
           <ArrowLeft className="h-4 w-4" />
+          <span className="sr-only">Back to trainers</span>
         </Button>
         <div className="flex-1">
           <h2 className="text-2xl font-bold tracking-tight text-primary flex items-center gap-3">

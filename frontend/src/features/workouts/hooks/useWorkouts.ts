@@ -4,10 +4,33 @@ import { useToast } from '@/components/ui/use-toast';
 import { isAxiosError } from 'axios';
 import { ApiError } from '@/types/api';
 
+import api from '@/services/api';
+
 export const useMemberWorkouts = (page = 1) => {
   return useQuery({
     queryKey: ['member-workouts', page],
     queryFn: () => getMemberWorkouts(page),
+  });
+};
+
+export const useCreateWorkout = () => {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: (payload: {
+      memberId: string;
+      name: string;
+      exercises: { name: string; sets: number; reps: number }[];
+    }) => {
+      return api.post('/workouts', payload).then((r) => r.data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['member-workouts'] });
+      toast({ title: 'Success', description: 'Workout assigned successfully!' });
+    },
+    onError: () =>
+      toast({ title: 'Error', description: 'Failed to assign workout', variant: 'destructive' }),
   });
 };
 

@@ -1,7 +1,7 @@
 import { http, HttpResponse, delay } from 'msw';
 import { Workout } from '@/features/workouts/types';
 
-const mockWorkouts: Workout[] = [
+export let mockWorkouts: Workout[] = [
   {
     id: 'wk-1',
     memberId: 'mem-1',
@@ -31,5 +31,19 @@ export const workoutsHandlers = [
     if (!wk) return new HttpResponse(null, { status: 404 });
     wk.status = 'COMPLETED';
     return HttpResponse.json({ success: true, data: wk });
+  }),
+  http.post('/api/v1/workouts', async ({ request }) => {
+    await delay(300);
+    const body = (await request.json()) as Record<string, unknown>;
+    const newWk = {
+      ...body,
+      id: 'wk-' + Date.now(),
+      status: 'PENDING',
+      dateAssigned: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    } as unknown as Workout;
+    mockWorkouts.push(newWk);
+    return HttpResponse.json({ success: true, data: newWk });
   }),
 ];

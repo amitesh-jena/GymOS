@@ -1,9 +1,0 @@
-src/features/invoices/components/InvoicesList.tsx(24,26): error TS2339: Property 'results' does not exist on type 'ApiResponse<PaginatedData<Invoice>>'.
-src/features/invoices/components/InvoicesList.tsx(80,25): error TS2339: Property 'count' does not exist on type 'ApiResponse<PaginatedData<Invoice>>'.
-src/features/member-dashboard/components/MemberDashboard.tsx(18,39): error TS2339: Property 'results' does not exist on type 'ApiResponse<PaginatedData<Payment>>'.
-src/features/payments/components/MemberPaymentsList.tsx(15,26): error TS2339: Property 'results' does not exist on type 'ApiResponse<PaginatedData<Payment>>'.
-src/features/payments/components/PaymentsList.tsx(35,26): error TS2339: Property 'results' does not exist on type 'ApiResponse<PaginatedData<Payment>>'.
-src/features/payments/components/PaymentsList.tsx(110,25): error TS2339: Property 'count' does not exist on type 'ApiResponse<PaginatedData<Payment>>'.
-src/features/receipts/components/ReceiptsList.tsx(23,26): error TS2339: Property 'results' does not exist on type 'ApiResponse<PaginatedData<Receipt>>'.
-src/features/receipts/components/ReceiptsList.tsx(65,25): error TS2339: Property 'count' does not exist on type 'ApiResponse<PaginatedData<Receipt>>'.
-

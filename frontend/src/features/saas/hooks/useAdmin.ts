@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import { getPlatformTenants, getPlatformTenant } from '../api/admin.api';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { getPlatformTenants, getPlatformTenant, updateTenantStatus } from '../api/admin.api';
 import { AdminTenantsFilter } from '../types';
 
 export const usePlatformTenants = (filters?: AdminTenantsFilter) => {
@@ -14,5 +14,15 @@ export const usePlatformTenant = (tenantId: string) => {
     queryKey: ['admin', 'tenants', tenantId],
     queryFn: () => getPlatformTenant(tenantId),
     enabled: !!tenantId,
+  });
+};
+
+export const useUpdateTenantStatus = (tenantId: string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (status: 'ACTIVE' | 'SUSPENDED') => updateTenantStatus(tenantId, status),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin', 'tenants'] });
+    },
   });
 };

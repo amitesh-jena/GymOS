@@ -11,6 +11,7 @@ export interface Member {
   status: MemberStatus;
   joinDate: string;
   notes?: string;
+  trainerId?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -24,6 +25,7 @@ export interface CreateMemberPayload {
   status: MemberStatus;
   joinDate: string;
   notes?: string;
+  trainerId?: string;
 }
 
 export type UpdateMemberPayload = Partial<CreateMemberPayload>;

@@ -2,6 +2,32 @@
 
 ## [Unreleased]
 
+### Added (Phase 14: Accessibility & UX Audit)
+- Injected `aria-invalid` and `aria-describedby` into Radix and native HTML `<Input>`, `<SelectTrigger>`, and `<Textarea>` elements mapping closely to `react-hook-form` validation states across core workflows.
+- Audited `Dialog` definitions globally injecting missing `<DialogDescription>` metadata establishing accessible names.
+- Enforced screen reader semantics (`sr-only` labeling) comprehensively for Icon-only structural components (`ArrowLeft`, `FileEdit`, `ChevronRight`).
+- Authored robust `accessibility.test.tsx` integration test guarding regression on key form structures successfully bumping codebase coverage.
+
+### Added (Phase 13: Frontend Testing)
+- Stabilized Jest open-handle teardown issues originating from React JSDOM timers (MESSAGEPORT).
+- Resolved `ts-jest` ESM transpilation failures for module-level `api.ts` configurations by factoring out `import.meta.env` to Vite definitions.
+- Achieved Playwright E2E determinism, solving detached DOM race conditions (17/17 tests passing).
+- Achieved `63.35%` line coverage, satisfying the `>=60%` frontend component coverage baseline.
+- Implemented component tests covering high-value schemas and mocked service functions.
+
+### Added (Phase 12: Real API Integration)
+- Standardized Axios architecture implementing 401 refresh interceptors with queued promise caching preventing burst re-auth stampedes.
+- Hardened Error normalization exposing exact `ApiError` typings bridging directly into TanStack forms preserving MSW backward compatibility.
+- Fixed complex Playwright E2E detachment race conditions mapping structural Radix primitive transitions (`Select`/`Dialog`) rigorously.
+- Full quality gates verification passed across Format, Check, Lint, Jest, Vitest, and Playwright integration suites natively preserving Phase 11 dependencies.
+
+### Added (Phase 11: Cross-Role Business Workflows)
+- Connected independent Domain modules (Memberships, Receivables, Workouts, Tenancy) via robust cross-context state hydration inside TanStack query layer.
+- Enforced Role-based view transformations (Trainers accessing specialized `TrainerMembersList` and `TrainerWorkoutsWorkspace` bounded exclusively to their managed targets).
+- Simulated complete, atomic state lifecycles within `msw` implementations (e.g. paying invoices directly alters associated global mock schemas: Invoice, Receipt, Membership).
+- Expanded Playwright structural assertions capturing deterministic multi-hop operations across the GymOS application.
+
+
 ### Added (Phase 10: Production Hardening & Settings)
 - Stabilized Application layout enveloping all internal navigation under a global fallback `ErrorBoundary`.
 - Authored the core Application Themes context scaling CSS classes bridging across four custom aesthetics seamlessly maintaining preference sync via local-storage.

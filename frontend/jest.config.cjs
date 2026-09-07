@@ -14,7 +14,13 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   transform: {
-    '^.+\\.(ts|tsx|js|mjs)$': 'ts-jest',
+    '^.+\\.(ts|tsx|js|mjs)$': ['ts-jest', {
+      diagnostics: { ignoreCodes: [1343] },
+      compilerOptions: {
+        module: 'CommonJS',
+        esModuleInterop: true
+      },
+    }],
   },
   transformIgnorePatterns: [
     'node_modules/(?!(@mswjs|@open-draft|msw|rettime|until-async|outvariant|strict-event-emitter|headers-polyfill)/)'

@@ -35,3 +35,5 @@ coverage_out.txt
 playwright_out.txt
 pw.txt
 test_err.json
+
+.env

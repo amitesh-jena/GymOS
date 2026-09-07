@@ -26,6 +26,7 @@ export const useCheckIn = () => {
     mutationFn: (payload: CheckInPayload) => attendanceApi.checkIn(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ATTENDANCE_KEYS.lists() });
+      queryClient.invalidateQueries({ queryKey: ['analytics'] });
       toast({
         title: 'Checked In',
         description: 'Member check-in successful.',

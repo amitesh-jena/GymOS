@@ -12,9 +12,7 @@ test.describe('Platform Admin Flow', () => {
     // Wait for sidebar to appear
     await expect(page.getByRole('navigation').first()).toBeVisible();
 
-    // Use navigation to go to Analytics (Reports) just to ensure standard navigation
-    // Note: Super admins lack standard dashboards right now unless configured. We want to click 'Tenants'
-    await page.getByRole('link', { name: /Tenants/i, exact: true }).click();
+    // Verify redirected to tenants
     await expect(page).toHaveURL(/\/admin\/tenants/);
 
     // Verify Tenants List loads

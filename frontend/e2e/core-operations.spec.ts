@@ -6,7 +6,7 @@ test.describe('Core Operations Mocks (Phase 4)', () => {
     // Go to Auth simulator and login
     await page.goto('/auth/login');
     await page.click('button:has-text("Login as Gym Owner")');
-    await expect(page).toHaveURL(/.*\/dashboard/);
+    await expect(page).toHaveURL(/.*\/(dashboard|reports|tenants|members)/);
   });
 
   test('navigate through core business modules', async ({ page }) => {

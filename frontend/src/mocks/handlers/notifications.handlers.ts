@@ -73,7 +73,7 @@ export const notificationsHandlers = [
     });
   }),
 
-  http.patch('/api/v1/notifications/:id/read', ({ params }) => {
+  http.post('/api/v1/notifications/:id/read', ({ params }) => {
     const { id } = params;
     const notification = mockNotifications.find((n) => n.id === id);
     if (notification) {
@@ -86,7 +86,7 @@ export const notificationsHandlers = [
     });
   }),
 
-  http.patch('/api/v1/notifications/read-all', () => {
+  http.post('/api/v1/notifications/read-all', () => {
     mockNotifications.forEach((n) => {
       n.isRead = true;
     });

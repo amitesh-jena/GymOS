@@ -18,10 +18,10 @@ export const notificationsApi = {
   },
 
   markAsRead: async (id: string): Promise<void> => {
-    await api.patch(`/notifications/${id}/read`);
+    await api.post(`/notifications/${id}/read`);
   },
 
   markAllAsRead: async (): Promise<void> => {
-    await api.patch(`/notifications/read-all`);
+    await api.post(`/notifications/read-all`);
   },
 };

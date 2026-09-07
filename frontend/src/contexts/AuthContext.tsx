@@ -1,5 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { setAccessToken } from '@/services/api';
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -14,6 +16,8 @@ interface AuthContextType extends AuthState {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const queryClient = useQueryClient();
+
   const [authState, setAuthState] = useState<AuthState>(() => {
     const userStr = localStorage.getItem('user_data');
     if (userStr) {
@@ -36,14 +40,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = () => {
+    setAccessToken(null);
     localStorage.removeItem('user_data');
     setAuthState({ isAuthenticated: false, user: null });
+    queryClient.clear();
   };
 
   useEffect(() => {
     const handleLogout = () => logout();
     window.addEventListener('auth:logout', handleLogout);
     return () => window.removeEventListener('auth:logout', handleLogout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

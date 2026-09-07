@@ -37,23 +37,31 @@ export const AdminTenantDetail: React.FC = () => {
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto p-4 sm:p-6">
-      <div className="flex items-center gap-4">
-        <Button variant="ghost" size="icon" onClick={() => navigate('/admin/tenants')}>
-          <ArrowLeft className="h-5 w-5" />
-        </Button>
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight text-primary flex items-center gap-2">
-            <Building className="h-7 w-7" />
-            {tenant.name}
-          </h2>
-          <p className="text-muted-foreground mt-1 text-sm">
-            Tenant ID: {tenant.id} | Created: {new Date(tenant.createdAt).toLocaleDateString()}
-          </p>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <div className="flex items-center gap-4 w-full sm:w-auto">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate('/admin/tenants')}
+            className="flex-shrink-0"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+          <div className="flex-1 min-w-0">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-primary flex items-center gap-2 truncate">
+              <Building className="h-6 w-6 sm:h-7 sm:w-7 flex-shrink-0" />
+              <span className="truncate">{tenant.name}</span>
+            </h2>
+            <p className="text-muted-foreground mt-1 text-xs sm:text-sm truncate">
+              Tenant ID: {tenant.id} | Created: {new Date(tenant.createdAt).toLocaleDateString()}
+            </p>
+          </div>
         </div>
-        <div className="ml-auto">
+        <div className="sm:ml-auto w-full sm:w-auto flex sm:justify-end mt-2 sm:mt-0">
           {tenant.status === 'ACTIVE' ? (
             <Button
               variant="destructive"
+              className="w-full sm:w-auto"
               onClick={() => updateMut.mutate('SUSPENDED')}
               disabled={updateMut.isPending}
             >
@@ -62,6 +70,7 @@ export const AdminTenantDetail: React.FC = () => {
           ) : (
             <Button
               variant="default"
+              className="w-full sm:w-auto"
               onClick={() => updateMut.mutate('ACTIVE')}
               disabled={updateMut.isPending}
             >
@@ -82,7 +91,9 @@ export const AdminTenantDetail: React.FC = () => {
               <span className="font-medium">{tenant.ownerName}</span>
 
               <span className="text-muted-foreground">Contact Email</span>
-              <span className="font-medium">{tenant.ownerEmail}</span>
+              <span className="font-medium truncate" title={tenant.ownerEmail}>
+                {tenant.ownerEmail}
+              </span>
 
               <span className="text-muted-foreground">Platform Status</span>
               <span>

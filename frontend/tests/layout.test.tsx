@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { TenantProvider } from '@/contexts/TenantContext';
@@ -9,12 +10,15 @@ import { Sidebar } from '@/components/layout/Sidebar';
 
 describe('Layout Components', () => {
   const renderWithProviders = (ui: React.ReactElement) => {
+    const queryClient = new QueryClient();
     return render(
-      <AuthProvider>
-        <TenantProvider>
-          <MemoryRouter>{ui}</MemoryRouter>
-        </TenantProvider>
-      </AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <TenantProvider>
+            <MemoryRouter>{ui}</MemoryRouter>
+          </TenantProvider>
+        </AuthProvider>
+      </QueryClientProvider>
     );
   };
 

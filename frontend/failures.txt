@@ -1,3 +1,0 @@
-Features Components Integration renders list components:\nundefined\n\nFeatures Components Integration renders system components:\nundefined\n\nFeatures Components Integration renders detail components:\nTypeError: (0 , useMembers_1.useDeleteMember) is not a function
-    at MemberDetail (C:\Projects\GymOS\frontend\src\features\members\components\C:\Projects\GymOS\frontend\src\features\members\components\MemberDetail.tsx:26:41)
-    at Object.react_sta

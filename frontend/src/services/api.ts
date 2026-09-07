@@ -75,6 +75,24 @@ api.interceptors.response.use(
       }
     }
 
+    // Error normalization to prevent sensitive backend leaks from reaching the UI
+    if (error.response?.data?.error?.message) {
+      const msg = error.response.data.error.message;
+      const dangerousPatterns = [
+        /java\.lang\./i,
+        /Traceback \(most recent call/i,
+        /org\.hibernate\./i,
+        /\bSQLException\b/i,
+        /SQL syntax.*?error/i,
+        /at \//i,
+      ];
+      const isDangerous =
+        dangerousPatterns.some((pattern) => pattern.test(msg)) || msg.length > 250;
+      if (isDangerous) {
+        error.response.data.error.message = 'An unexpected error occurred. Please contact support.';
+      }
+    }
+
     return Promise.reject(error);
   }
 );

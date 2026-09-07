@@ -9,23 +9,25 @@
 GymOS is designed to manage fitness businesses. It supports multi-tenancy, targeting gym and business users with role-based access control and various fitness-related modules.
 
 ## 3. Current Repository State
-- The repository is currently a minimal skeleton.
-- GitHub remote already exists.
-- The `main` branch must remain untouched. Work is being done on a dedicated feature branch.
-- This is the initial setup phase. Frontend and Backend implementations do not exist yet.
+- The frontend is fully verified and functional, currently mapping to MSW mock endpoints (Phase 23 Complete).
+- GitHub remote exists on branch `feature/frontend`.
+- This phase focuses on transitioning towards the Backend Integration (Phase 24).
 
 ## 4. Current Development Phase
-Phase 1 — Frontend Project Foundation (Setup phase is beginning).
+Phase 24 — Django / DRF Backend Integration (Pending).
 
 ## 5. Required Reading Order
 Before performing any coding tasks, you must read the following files in order:
 1. `.ai/START_HERE.md` (This file)
+
+**BACKEND DEVELOPERS:**
+→ Switch immediately to `.ai/BACKEND_START_HERE.md`.
+
+For general AI context:
 2. `.ai/PROJECT_CONTEXT.md`
 3. `.ai/AI_INSTRUCTIONS.md`
 4. `.ai/CURRENT_STATE.md`
-5. Relevant architecture/design/API/RBAC documents within `.ai/`
-6. Actual repository/code
-7. `.ai/TASKS.md` / `.ai/ROADMAP.md` as needed
+5. `.ai/ROADMAP.md`
 
 ## 6. AI Operating Rules
 See `.ai/AI_INSTRUCTIONS.md` for full operating rules.
@@ -64,6 +66,6 @@ Protect `main` branch. Use feature branches. Conventional Commits for commit mes
 Update `.ai/CURRENT_STATE.md` after meaningful work and `.ai/CHANGELOG.md` for milestones. Update `.ai/DECISIONS.md` whenever an architecture decision is changed. Keep `.ai/TASKS.md` updated with progress.
 
 ## 15. How to Determine the Current Task
-Review `.ai/TASKS.md` under "CURRENT TASK". 
+Review `.ai/TASKS.md` under "CURRENT TASK".
 
 **Do NOT restart or redesign the project from scratch. Do NOT claim implementation that does not exist.**

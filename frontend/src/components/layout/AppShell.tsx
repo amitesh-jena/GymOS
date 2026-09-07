@@ -21,7 +21,7 @@ export function AppShell() {
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden="true"
           />
-          <div className="relative flex w-full max-w-xs flex-1 flex-col bg-card pt-5 pb-4 h-full shadow-2xl animate-in slide-in-from-left duration-200">
+          <div className="relative flex w-full max-w-[calc(100%-3rem)] sm:max-w-xs flex-1 flex-col bg-card pt-5 pb-4 h-full shadow-2xl animate-in slide-in-from-left duration-200">
             <div className="absolute top-0 right-0 -mr-12 pt-2">
               <Button
                 variant="ghost"

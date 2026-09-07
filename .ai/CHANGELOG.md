@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+### Added (Phase 19: Notifications & Communication UX)
+- Established structured `NotificationInbox` converting previous placeholder concepts into a tangible notification interaction module.
+- Authored standard `NotificationBell` exposing unread counters natively injected within the application `Header`, securely leveraging TanStack query caches.
+- Implemented robust `notifications.api.ts` coupled to deterministic `msw` REST endpoints ensuring test environments safely resolve notifications logic.
+- Expanded rigorous E2E testing asserting `NotificationUX` accessibility bridging unread visual metrics onto correct downstream interaction clicks seamlessly.
+
+### Added (Phase 18: Frontend Requirements & Routing Gaps)
+- Resolved AppRoutes configuration removing outdated `PlaceholderScreen` shadowing preventing existing architectural views (`Trainers`, `Plans`).
+- Shifted global `ROLE_DEFAULT_DESTINATION` settings replacing prototype dash pages squarely into Phase implementation modules (`/members`, `/reports`, `/admin/tenants`).
+- Solidified E2E testing assertion logic aligning securely against multiple valid responsive route paths ensuring continuous pipeline stability without force-exits.
+
 ### Added (Phase 14: Accessibility & UX Audit)
 - Injected `aria-invalid` and `aria-describedby` into Radix and native HTML `<Input>`, `<SelectTrigger>`, and `<Textarea>` elements mapping closely to `react-hook-form` validation states across core workflows.
 - Audited `Dialog` definitions globally injecting missing `<DialogDescription>` metadata establishing accessible names.

@@ -28,7 +28,7 @@ describe('Accessibility & UX Audit Verification', () => {
 
     // The submit button
     const submitBtn = screen.getByRole('button', { name: /Save Member/i });
-    
+
     // Submit empty form to trigger validation
     fireEvent.click(submitBtn);
 
@@ -39,21 +39,20 @@ describe('Accessibility & UX Audit Verification', () => {
       expect(firstNameInput).toHaveAttribute('aria-invalid', 'true');
       const firstNameErrorId = firstNameInput.getAttribute('aria-describedby');
       expect(firstNameErrorId).toBeTruthy();
-      
+
       const firstNameErrorEl = document.getElementById(firstNameErrorId!);
       expect(firstNameErrorEl).toBeInTheDocument();
       expect(firstNameErrorEl?.textContent).toBeTruthy();
-      
+
       // Last Name input
       const lastNameInput = screen.getByLabelText(/Last Name/i);
       expect(lastNameInput).toHaveAttribute('aria-invalid', 'true');
       const lastNameErrorId = lastNameInput.getAttribute('aria-describedby');
       expect(lastNameErrorId).toBeTruthy();
-      
+
       const lastNameErrorEl = document.getElementById(lastNameErrorId!);
       expect(lastNameErrorEl).toBeInTheDocument();
       expect(lastNameErrorEl?.textContent).toBeTruthy();
     });
   });
-
 });

@@ -19,9 +19,7 @@ const renderWithProviders = (ui: React.ReactElement) => {
   return render(
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <MemoryRouter>
-          {ui}
-        </MemoryRouter>
+        <MemoryRouter>{ui}</MemoryRouter>
       </AuthProvider>
     </QueryClientProvider>
   );
@@ -29,27 +27,100 @@ const renderWithProviders = (ui: React.ReactElement) => {
 
 // Mock the hooks deeply so MSW is not triggered and components render fully
 jest.mock('@/features/members/hooks/useMembers', () => ({
-  useMembers: () => ({ data: { results: [{ id: '1', firstName: 'John', lastName: 'Doe', email: 'john@example.com', phone: '123', status: 'ACTIVE', joinedDate: '2023-01-01' }] }, isLoading: false }),
+  useMembers: () => ({
+    data: {
+      results: [
+        {
+          id: '1',
+          firstName: 'John',
+          lastName: 'Doe',
+          email: 'john@example.com',
+          phone: '123',
+          status: 'ACTIVE',
+          joinedDate: '2023-01-01',
+        },
+      ],
+    },
+    isLoading: false,
+  }),
 }));
 
 jest.mock('@/features/trainers/hooks/useTrainers', () => ({
-  useTrainers: () => ({ data: { results: [{ id: '1', firstName: 'Jane', lastName: 'Smith', email: 'jane@example.com', phone: '123', status: 'ACTIVE', specialization: 'Yoga' }] }, isLoading: false }),
+  useTrainers: () => ({
+    data: {
+      results: [
+        {
+          id: '1',
+          firstName: 'Jane',
+          lastName: 'Smith',
+          email: 'jane@example.com',
+          phone: '123',
+          status: 'ACTIVE',
+          specialization: 'Yoga',
+        },
+      ],
+    },
+    isLoading: false,
+  }),
 }));
 
 jest.mock('@/features/plans/hooks/usePlans', () => ({
-  usePlans: () => ({ data: { results: [{ id: '1', name: 'Basic Plan', type: 'MONTHLY', price: '49.99', durationDays: 30, status: 'OPEN' }] }, isLoading: false }),
+  usePlans: () => ({
+    data: {
+      results: [
+        {
+          id: '1',
+          name: 'Basic Plan',
+          type: 'MONTHLY',
+          price: '49.99',
+          durationDays: 30,
+          status: 'OPEN',
+        },
+      ],
+    },
+    isLoading: false,
+  }),
 }));
 
 jest.mock('@/features/memberships/hooks/useMemberships', () => ({
-  useMemberships: () => ({ data: { results: [{ id: '1', memberId: '1', planId: '1', startDate: '2023-01-01', endDate: '2024-01-01', status: 'ACTIVE', memberName: 'John', planName: 'Basic' }] }, isLoading: false }),
+  useMemberships: () => ({
+    data: {
+      results: [
+        {
+          id: '1',
+          memberId: '1',
+          planId: '1',
+          startDate: '2023-01-01',
+          endDate: '2024-01-01',
+          status: 'ACTIVE',
+          memberName: 'John',
+          planName: 'Basic',
+        },
+      ],
+    },
+    isLoading: false,
+  }),
 }));
 
 jest.mock('@/features/attendance/hooks/useAttendance', () => ({
-  useAttendance: () => ({ data: { results: [{ id: '1', memberId: '1', checkInTime: '2023-01-01T10:00:00Z', notes: 'Late', memberName: 'John Doe' }] }, isLoading: false }),
+  useAttendance: () => ({
+    data: {
+      results: [
+        {
+          id: '1',
+          memberId: '1',
+          checkInTime: '2023-01-01T10:00:00Z',
+          notes: 'Late',
+          memberName: 'John Doe',
+        },
+      ],
+    },
+    isLoading: false,
+  }),
 }));
 
 jest.mock('@/components/ui/use-toast', () => ({
-  useToast: () => ({ toast: jest.fn() })
+  useToast: () => ({ toast: jest.fn() }),
 }));
 
 describe('Features Components Integration', () => {

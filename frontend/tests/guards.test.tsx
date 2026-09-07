@@ -8,13 +8,12 @@ import { useAuth } from '../src/contexts/AuthContext';
 // Mock the AuthContext hook
 jest.mock('../src/contexts/AuthContext', () => ({
   useAuth: jest.fn(),
-  AuthProvider: ({ children }: any) => <div>{children}</div>
+  AuthProvider: ({ children }: any) => <div>{children}</div>,
 }));
 
 const mockUseAuth = useAuth as jest.Mock;
 
 describe('Route Guards', () => {
-  
   beforeEach(() => {
     jest.clearAllMocks();
   });

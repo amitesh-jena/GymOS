@@ -15,8 +15,7 @@ jest.mock('recharts', () => {
   const React = require('react');
   return {
     ...OriginalRecharts,
-    ResponsiveContainer: ({ children }: any) => 
-      React.createElement('div', { style: { width: 800, height: 400 } }, children)
+    ResponsiveContainer: ({ children }: any) =>
+      React.createElement('div', { style: { width: 800, height: 400 } }, children),
   };
 });
-

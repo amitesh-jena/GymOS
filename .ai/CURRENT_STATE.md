@@ -103,6 +103,20 @@ At this moment, the repository is at the setup pre-implementation stage.
   - Supplied Radix UI `Dialog` structures missing `DialogDescription` components.
   - Created Jest coverage evaluating ARIA attribute associations resolving test environment gaps correctly mapping accessible element trees.
 
+## NEXT
+- **Phase 18 — Frontend Requirements & Routing Gaps: STATUS: COMPLETE**
+  - Removed obsolete placeholder screens hiding valid business routes (TrainersList, PlansList).
+  - Transitioned hardcoded Dashboard landing routes natively into actual functional interfaces natively matching existing RBAC defaults.
+  - Validated E2E structural alignments enforcing resilient assertion regex behaviors spanning updated domain routes.
+
+## NEXT
+- **Phase 19 — Notifications & Communication UX: STATUS: COMPLETE**
+  - Constructed comprehensive `NotificationInbox` managing unread/read state transitions naturally isolated from global persistence.
+  - Injected standard `NotificationBell` interacting natively within the global Application Shell Header, exposing unread counts via MSW queries.
+  - Created standardized `notifications.api.ts` orchestrating TanStack `useNotifications` and `useMarkAsRead` integrations.
+  - Developed full deterministic MSW schema capturing `AppNotification` target interactions simulating real URL resolution clicks.
+  - Authored Playwright E2E suites verifying responsive structural integrity verifying direct navigation flows globally.
+
 ## NOT STARTED
 - Backend implementation / Product Handoff
 - Database models.

@@ -36,7 +36,7 @@ test.describe('Analytics & Reporting Phase 8', () => {
     await page.waitForURL('**/trainer/dashboard');
 
     await page.goto('/reports');
-    
+
     // RequireRole must block it
     await expect(page.locator('h3:has-text("Access Denied")')).toBeVisible();
   });

@@ -25,7 +25,7 @@ describe('AppearanceSettingsView & ThemeProvider', () => {
 
   it('changes theme on click and updates document class', async () => {
     renderWithTheme(<AppearanceSettingsView />);
-    
+
     const darkButton = screen.getByRole('button', { name: /Dark/i });
     fireEvent.click(darkButton);
 

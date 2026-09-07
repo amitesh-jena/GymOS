@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Platform Admin Flow', () => {
-  test('should allow Super Admin to view platform tenants and access tenant details', async ({ page }) => {
+  test('should allow Super Admin to view platform tenants and access tenant details', async ({
+    page,
+  }) => {
     await page.goto('/');
 
     // Proceed through auth simulation
@@ -17,14 +19,18 @@ test.describe('Platform Admin Flow', () => {
 
     // Verify Tenants List loads
     await expect(page.getByRole('heading', { name: 'Platform Tenants' })).toBeVisible();
-    await expect(page.getByRole('cell', { name: 'Iron Temple Gym' })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByRole('cell', { name: 'Iron Temple Gym' })).toBeVisible({
+      timeout: 10000,
+    });
 
     // Navigate to tenant details
     await page.getByRole('cell', { name: 'Iron Temple Gym' }).click();
     await expect(page).toHaveURL(/\/admin\/tenants\/tnt-gym-001/);
 
     // Verify tenant details load
-    await expect(page.getByRole('heading', { name: 'Iron Temple Gym' })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByRole('heading', { name: 'Iron Temple Gym' })).toBeVisible({
+      timeout: 10000,
+    });
     await expect(page.getByText('Plan Entitlements')).toBeVisible();
     await expect(page.getByText('Limit: 3')).toBeVisible();
   });
@@ -38,7 +44,7 @@ test.describe('Platform Admin Flow', () => {
 
     // Directly navigate to admin route
     await page.goto('/admin/tenants');
-    
+
     // Expect unauthorized redirection
     await expect(page).toHaveURL(/\/403|\/404/);
   });

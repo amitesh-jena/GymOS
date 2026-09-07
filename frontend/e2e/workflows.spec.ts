@@ -12,7 +12,9 @@ test.describe('Phase 11 Cross-Role Workflows', () => {
     await page.setViewportSize({ width: 1280, height: 720 });
   });
 
-  test('Workflow 1 & 5 & 3: Member lifecycle, membership assignment, payment synchronization, and renewal', async ({ page }) => {
+  test('Workflow 1 & 5 & 3: Member lifecycle, membership assignment, payment synchronization, and renewal', async ({
+    page,
+  }) => {
     // 1. Staff Logs In
     await page.goto('/auth/login');
     await page.click('button:has-text("Login as Gym Owner")');
@@ -52,7 +54,10 @@ test.describe('Phase 11 Cross-Role Workflows', () => {
     await page.getByRole('dialog').locator('#amount').fill('99.00');
     // Use force because Radix Select overlay may briefly intercept pointer events
     // Use evaluate click to bypass Playwright actionability checks hanging on Radix UI closing animations or RHF re-renders
-    await page.getByRole('dialog').locator('button[type="submit"]').evaluate(node => (node as HTMLButtonElement).click());
+    await page
+      .getByRole('dialog')
+      .locator('button[type="submit"]')
+      .evaluate((node) => (node as HTMLButtonElement).click());
 
     // Wait for the modal to close by checking the modal heading is hidden
     await expect(page.getByRole('dialog')).toBeHidden();
@@ -74,7 +79,10 @@ test.describe('Phase 11 Cross-Role Workflows', () => {
     await page.getByRole('dialog').getByRole('combobox').click();
     await page.getByRole('option').first().click();
     await page.getByRole('dialog').locator('input[type="date"]').nth(1).fill('2026-12-31');
-    await page.getByRole('dialog').getByRole('button', { name: /Confirm Renewal/i }).click();
+    await page
+      .getByRole('dialog')
+      .getByRole('button', { name: /Confirm Renewal/i })
+      .click();
 
     // Wait for the mock
     await page.waitForTimeout(600);

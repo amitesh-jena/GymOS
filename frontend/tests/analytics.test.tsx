@@ -19,11 +19,7 @@ const queryClient = new QueryClient({
 });
 
 const renderWithProviders = (ui: React.ReactElement) => {
-  return render(
-    <QueryClientProvider client={queryClient}>
-      {ui}
-    </QueryClientProvider>
-  );
+  return render(<QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>);
 };
 
 describe('AnalyticsDashboard', () => {
@@ -33,7 +29,7 @@ describe('AnalyticsDashboard', () => {
 
   it('renders overview KPIs properly after loading', async () => {
     renderWithProviders(<AnalyticsDashboard />);
-    
+
     // Title
     expect(screen.getByText('Analytics & Reporting')).toBeInTheDocument();
 
@@ -60,7 +56,7 @@ describe('AnalyticsDashboard', () => {
     );
 
     renderWithProviders(<AnalyticsDashboard />);
-    
+
     await waitFor(() => {
       expect(screen.getAllByText('Failed to load').length).toBeGreaterThan(0);
     });

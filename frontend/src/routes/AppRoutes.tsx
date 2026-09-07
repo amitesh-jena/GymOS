@@ -66,6 +66,7 @@ const AnalyticsDashboard = lazyRoute(() =>
     default: m.AnalyticsDashboard,
   }))
 );
+import { NotificationInbox } from '@/features/notifications/components/NotificationInbox';
 import { AdminTenantsList } from '@/features/saas/components/AdminTenantsList';
 import { AdminTenantDetail } from '@/features/saas/components/AdminTenantDetail';
 import { TrainerMembersList } from '@/features/trainers/components/TrainerMembersList';
@@ -116,7 +117,7 @@ const AppRoutes = () => {
 
             {/* General Authed Routes */}
             {/* General Authed Routes */}
-            <Route path="/notifications" element={<PlaceholderScreen title="Notifications" />} />
+            <Route path="/notifications" element={<NotificationInbox />} />
 
             <Route path="/settings" element={<SettingsLayout />}>
               <Route index element={<Navigate to="profile" replace />} />

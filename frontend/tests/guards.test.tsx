@@ -8,13 +8,12 @@ import { useAuth } from '../src/contexts/AuthContext';
 // Mock the AuthContext hook
 jest.mock('../src/contexts/AuthContext', () => ({
   useAuth: jest.fn(),
-  AuthProvider: ({ children }: any) => <div>{children}</div>
+  AuthProvider: ({ children }: any) => <div>{children}</div>,
 }));
 
 const mockUseAuth = useAuth as jest.Mock;
 
 describe('Route Guards', () => {
-  
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -70,13 +69,13 @@ describe('Route Guards', () => {
   });
 
   describe('RedirectToRoleDashboard', () => {
-    it('redirects owner to /dashboard', () => {
+    it('redirects owner to /reports', () => {
       mockUseAuth.mockReturnValue({ isAuthenticated: true, user: { role: ROLES.OWNER } });
       render(
         <MemoryRouter initialEntries={['/']}>
           <Routes>
             <Route path="/" element={<RedirectToRoleDashboard />} />
-            <Route path="/dashboard" element={<div data-testid="owner-dash">Owner Dash</div>} />
+            <Route path="/reports" element={<div data-testid="owner-dash">Owner Dash</div>} />
           </Routes>
         </MemoryRouter>
       );

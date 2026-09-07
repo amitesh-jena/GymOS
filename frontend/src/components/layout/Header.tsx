@@ -12,6 +12,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { BreadcrumbNav } from './BreadcrumbNav';
 import { useNavigate } from 'react-router-dom';
+import { NotificationBell } from '@/features/notifications/components/NotificationBell';
 
 export function Header({ toggleMobileMenu }: { toggleMobileMenu: () => void }) {
   const { user, logout } = useAuth();
@@ -40,7 +41,8 @@ export function Header({ toggleMobileMenu }: { toggleMobileMenu: () => void }) {
         <BreadcrumbNav />
       </div>
 
-      <div className="flex justify-end items-center space-x-4">
+      <div className="flex justify-end items-center space-x-2">
+        <NotificationBell />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-10 w-10 rounded-full border">

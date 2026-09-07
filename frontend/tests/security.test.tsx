@@ -113,12 +113,15 @@ describe('Security: AuthContext Logout', () => {
 
   it('normal logout clears the in-memory access token and queryClient cache', async () => {
     setAccessToken('fake-in-memory-token');
-    localStorage.setItem('user_data', JSON.stringify({ id: '1', name: 'Test', role: 'ADMIN', tenantId: '1' }));
-    
+    localStorage.setItem(
+      'user_data',
+      JSON.stringify({ id: '1', name: 'Test', role: 'ADMIN', tenantId: '1' })
+    );
+
     // Seed query cache
     queryClient.setQueryData(['test-key'], { sensitive: 'data' });
     expect(queryClient.getQueryData(['test-key'])).toBeDefined();
-    
+
     const TestComponent = () => {
       const { logout } = useAuth();
       return <button onClick={logout}>Logout</button>;

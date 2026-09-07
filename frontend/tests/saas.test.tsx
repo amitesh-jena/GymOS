@@ -35,7 +35,7 @@ describe('SaaS SubscriptionSettingsView', () => {
     expect(screen.getByText('Current Status')).toBeInTheDocument();
     expect(screen.getByText('ACTIVE')).toBeInTheDocument(); // The badge for status
     expect(screen.getAllByText('Professional').length).toBeGreaterThan(0); // Active Plan
-    
+
     // Check available plans section
     expect(screen.getByText('Available Plans')).toBeInTheDocument();
     expect(screen.getAllByText('Starter').length).toBeGreaterThan(0);

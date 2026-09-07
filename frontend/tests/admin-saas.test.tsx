@@ -43,7 +43,7 @@ describe('SaaS Platform Admin (Phase 9)', () => {
     renderWithProviders(<AdminTenantsList />);
 
     expect(screen.getByText('Platform Tenants')).toBeInTheDocument();
-    
+
     await waitFor(() => {
       expect(screen.getByText('Iron Temple Gym')).toBeInTheDocument();
       expect(screen.getByText('Cardio Kingdom')).toBeInTheDocument();

@@ -18,18 +18,18 @@ test.describe('Settings & App Configuration', () => {
 
     // Verify Profile Loads
     await expect(page.getByRole('heading', { name: 'Profile Settings' })).toBeVisible();
-    
+
     // Check navigation tab for Appearance
     await page.getByRole('link', { name: 'Appearance' }).click();
     await expect(page).toHaveURL(/\/settings\/appearance/);
     await expect(page.getByRole('heading', { name: 'Theme Selection' })).toBeVisible();
-    
+
     // Pick Dark Theme
     const darkButton = page.getByRole('button', { name: /Dark/i });
     await expect(darkButton).toBeVisible();
     // Simulate toggling
     await darkButton.click();
-    
+
     // Test that the class is applied (visual logic validation)
     await expect(page.locator('html')).toHaveClass(/dark/);
   });
@@ -42,13 +42,13 @@ test.describe('Settings & App Configuration', () => {
     await expect(page.getByRole('navigation').first()).toBeVisible();
 
     await page.goto('/settings');
-    
+
     // Settings for member should still redirect to profile
     await expect(page).toHaveURL(/\/settings\/profile/);
-    
+
     // Verify Profile Loads
     await expect(page.getByRole('heading', { name: 'Profile Settings' })).toBeVisible();
-    
+
     // Organization tab should NOT exist for Members
     await expect(page.getByRole('link', { name: 'Organization' })).not.toBeVisible();
   });

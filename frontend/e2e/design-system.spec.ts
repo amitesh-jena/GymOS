@@ -12,10 +12,10 @@ test('design system showcase loads successfully with themes', async ({ page }) =
 
   // Switch from 'light' to 'dark'
   await toggleBtn.click();
-  
+
   // Checking that HTML gets the 'dark' class
   await expect(page.locator('html')).toHaveClass(/dark/);
-  
+
   // Switch to 'tinted'
   await toggleBtn.click();
   await expect(page.locator('html')).toHaveClass(/tinted/);

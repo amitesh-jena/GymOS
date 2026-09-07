@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('App routing and responsive navigation flow', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 720 });
-  
+
   // 1. Visit root, should redirect to login because we are unauthenticated.
   await page.goto('/');
   await expect(page).toHaveURL(/.*\/auth\/login/);

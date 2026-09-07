@@ -66,6 +66,7 @@ const AnalyticsDashboard = lazyRoute(() =>
     default: m.AnalyticsDashboard,
   }))
 );
+import { NotificationInbox } from '@/features/notifications/components/NotificationInbox';
 import { AdminTenantsList } from '@/features/saas/components/AdminTenantsList';
 import { AdminTenantDetail } from '@/features/saas/components/AdminTenantDetail';
 import { TrainerMembersList } from '@/features/trainers/components/TrainerMembersList';
@@ -116,7 +117,7 @@ const AppRoutes = () => {
 
             {/* General Authed Routes */}
             {/* General Authed Routes */}
-            <Route path="/notifications" element={<PlaceholderScreen title="Notifications" />} />
+            <Route path="/notifications" element={<NotificationInbox />} />
 
             <Route path="/settings" element={<SettingsLayout />}>
               <Route index element={<Navigate to="profile" replace />} />
@@ -138,13 +139,11 @@ const AppRoutes = () => {
                 />
               }
             >
-              <Route path="/trainers" element={<PlaceholderScreen title="Trainers" />} />
               <Route path="/reports" element={<AnalyticsDashboard />} />
             </Route>
 
             <Route element={<RequireRole allowedRoles={[ROLES.SUPER_ADMIN, ROLES.OWNER]} />}>
               <Route path="/branches" element={<PlaceholderScreen title="Gym Branches" />} />
-              <Route path="/plans" element={<PlaceholderScreen title="Membership Plans" />} />
             </Route>
 
             {/* Platform Super Admin Only Routes */}
@@ -168,10 +167,7 @@ const AppRoutes = () => {
                 />
               }
             >
-              <Route
-                path="/dashboard"
-                element={<PlaceholderScreen title="Management Dashboard" />}
-              />
+              <Route path="/dashboard" element={<Navigate to="/reports" replace />} />
               <Route path="/members">
                 <Route index element={<MembersList />} />
                 <Route path="new" element={<MemberForm />} />
@@ -205,7 +201,7 @@ const AppRoutes = () => {
 
             {/* Trainer Routes */}
             <Route path="/trainer" element={<RequireRole allowedRoles={[ROLES.TRAINER]} />}>
-              <Route path="dashboard" element={<PlaceholderScreen title="Trainer Dashboard" />} />
+              <Route path="dashboard" element={<Navigate to="/trainer/members" replace />} />
               <Route path="members" element={<TrainerMembersList />} />
               <Route path="workouts" element={<TrainerWorkoutsWorkspace />} />
               <Route path="diets" element={<PlaceholderScreen title="Diet Plans" />} />

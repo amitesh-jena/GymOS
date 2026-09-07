@@ -6,16 +6,16 @@ test.describe('Revenue E2E', () => {
     // Ensure mock renders firmly
     await page.waitForSelector('text=Authentication Simulator', { state: 'visible' });
     if (await page.isVisible('button:has-text("Login as")')) {
-        await page.click('button:has-text("Login as Gym Owner")');
+      await page.click('button:has-text("Login as Gym Owner")');
     }
-    await page.waitForURL('**/dashboard');
+    await page.waitForURL('**/reports');
   });
 
   test('navigates through revenue screens', async ({ page }) => {
     // Payments
     await page.click('a:has-text("Payments")');
     await expect(page.locator('h2:has-text("Payments")')).toBeVisible();
-    
+
     // Check Add Payment dialog
     await page.click('button:has-text("Record Payment")');
     await expect(page.locator('h2:has-text("Record New Payment")').first()).toBeVisible();

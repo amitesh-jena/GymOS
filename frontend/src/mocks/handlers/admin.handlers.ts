@@ -99,7 +99,7 @@ const mockTenants: PlatformTenant[] = [
 ];
 
 export const adminHandlers = [
-  http.get('/api/v1/admin/tenants', async ({ request }) => {
+  http.get('/api/v1/gyms', async ({ request }) => {
     await delay(300);
     const url = new URL(request.url);
     const search = url.searchParams.get('search')?.toLowerCase() || '';
@@ -116,7 +116,7 @@ export const adminHandlers = [
     return HttpResponse.json({ success: true, data: results });
   }),
 
-  http.get('/api/v1/admin/tenants/:id', async ({ params }) => {
+  http.get('/api/v1/gyms/:id', async ({ params }) => {
     await delay(300);
     const tenant = mockTenants.find((t) => t.id === params.id);
     if (!tenant) {
@@ -125,12 +125,20 @@ export const adminHandlers = [
     return HttpResponse.json({ success: true, data: tenant });
   }),
 
-  http.patch('/api/v1/admin/tenants/:id/status', async ({ request, params }) => {
+  http.patch('/api/v1/gyms/:id', async ({ request, params }) => {
     await delay(500);
     const tenant = mockTenants.find((t) => t.id === params.id);
     if (!tenant) return new HttpResponse(null, { status: 404 });
-    const { status } = (await request.json()) as { status: 'ACTIVE' | 'SUSPENDED' };
-    tenant.status = status;
+    const body = (await request.json()) as { status?: 'ACTIVE' | 'SUSPENDED' };
+    if (body.status) tenant.status = body.status;
+    return HttpResponse.json({ success: true, data: tenant });
+  }),
+
+  http.post('/api/v1/gyms/:id/suspend', async ({ params }) => {
+    await delay(500);
+    const tenant = mockTenants.find((t) => t.id === params.id);
+    if (!tenant) return new HttpResponse(null, { status: 404 });
+    tenant.status = 'SUSPENDED';
     return HttpResponse.json({ success: true, data: tenant });
   }),
 ];

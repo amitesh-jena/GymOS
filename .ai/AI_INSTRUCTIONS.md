@@ -3,6 +3,7 @@
 ## Core Directives
 - **Always inspect the repository** before modifying it.
 - **Always read `.ai/START_HERE.md`** at the beginning of a session.
+  - **BACKEND DEVELOPERS/AGENTS**: Switch immediately to `.ai/BACKEND_START_HERE.md`.
 - **Never assume a feature is missing** just because it is listed in ROADMAP.md; verify the actual code first.
 - **Never duplicate existing functionality.**
 - **Never silently change architectural decisions.** Document in `DECISIONS.md` if an authorized update occurs.

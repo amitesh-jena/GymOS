@@ -34,13 +34,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Payments',
     route: '/payments',
     icon: CreditCard,
-    allowedRoles: [
-      ROLES.SUPER_ADMIN,
-      ROLES.OWNER,
-      ROLES.BRANCH_MANAGER,
-      ROLES.RECEPTIONIST,
-      ROLES.MEMBER,
-    ],
+    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER, ROLES.RECEPTIONIST],
     group: 'Revenue',
   },
   {
@@ -48,13 +42,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Invoices',
     route: '/invoices',
     icon: FileSignature,
-    allowedRoles: [
-      ROLES.SUPER_ADMIN,
-      ROLES.OWNER,
-      ROLES.BRANCH_MANAGER,
-      ROLES.RECEPTIONIST,
-      ROLES.MEMBER,
-    ],
+    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER, ROLES.RECEPTIONIST],
     group: 'Revenue',
   },
   {
@@ -62,13 +50,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Receipts',
     route: '/receipts',
     icon: ReceiptText,
-    allowedRoles: [
-      ROLES.SUPER_ADMIN,
-      ROLES.OWNER,
-      ROLES.BRANCH_MANAGER,
-      ROLES.RECEPTIONIST,
-      ROLES.MEMBER,
-    ],
+    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER, ROLES.RECEPTIONIST],
     group: 'Revenue',
   },
   // --- SUPER ADMIN (PLATFORM) ---
@@ -130,19 +112,11 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     group: 'Operations',
   },
   {
-    id: 'payments_owner',
-    label: 'Payments',
-    route: '/payments',
-    icon: CreditCard,
-    allowedRoles: [ROLES.OWNER, ROLES.BRANCH_MANAGER, ROLES.RECEPTIONIST],
-    group: 'Operations',
-  },
-  {
     id: 'reports_owner',
     label: 'Reports',
     route: '/reports',
     icon: Activity,
-    allowedRoles: [ROLES.OWNER, ROLES.BRANCH_MANAGER],
+    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER],
     group: 'Analytics',
   },
   {
@@ -150,7 +124,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Settings',
     route: '/settings',
     icon: Settings,
-    allowedRoles: [ROLES.OWNER],
+    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER],
     group: 'Admin',
   },
   {
@@ -158,7 +132,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Subscription',
     route: '/settings/subscription',
     icon: CreditCard,
-    allowedRoles: [ROLES.OWNER],
+    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER],
     group: 'Admin',
   },
 
@@ -270,7 +244,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     icon: Bell,
     group: 'User',
   },
-  { id: 'profile', label: 'Profile', route: '/profile', icon: User, group: 'User' },
+  { id: 'profile', label: 'Profile', route: '/settings/profile', icon: User, group: 'User' },
 ];
 
 export const getNavForRole = (role: Role | undefined): NavItem[] => {

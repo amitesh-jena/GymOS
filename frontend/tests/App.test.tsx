@@ -3,6 +3,6 @@ import App from '../src/app/App';
 
 test('renders app title', () => {
   render(<App />);
-  const titleElement = screen.getByText(/GymOS/i);
-  expect(titleElement).toBeInTheDocument();
+  const titleElements = screen.getAllByText(/GymOS/i);
+  expect(titleElements[0]).toBeInTheDocument();
 });

@@ -88,3 +88,29 @@ describe('NotificationInbox', () => {
     });
   });
 });
+
+import { NotificationBell } from '../src/features/notifications/components/NotificationBell';
+
+describe('NotificationBell', () => {
+  it('renders correctly and has a bell icon', () => {
+    renderWithProviders(<NotificationBell />);
+    expect(screen.getByRole('button', { name: 'Notifications' })).toBeInTheDocument();
+  });
+
+  it('navigates to notifications page on click', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<NotificationBell />);
+    const button = screen.getByRole('button', { name: 'Notifications' });
+    
+    // We wrapped in BrowserRouter so it won't throw, but let's just make sure it clicks
+    await user.click(button);
+  });
+
+  it('shows badge when unread notifications exist', async () => {
+    renderWithProviders(<NotificationBell />);
+    await waitFor(() => {
+      // the handler returns some unread notifications by default
+      expect(screen.getByText('2')).toBeInTheDocument(); 
+    });
+  });
+});

@@ -129,7 +129,7 @@ export const adminHandlers = [
     await delay(500);
     const tenant = mockTenants.find((t) => t.id === params.id);
     if (!tenant) return new HttpResponse(null, { status: 404 });
-    const body = (await request.json()) as any;
+    const body = (await request.json()) as { status?: 'ACTIVE' | 'SUSPENDED' };
     if (body.status) tenant.status = body.status;
     return HttpResponse.json({ success: true, data: tenant });
   }),

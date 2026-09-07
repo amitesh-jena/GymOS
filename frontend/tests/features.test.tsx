@@ -25,7 +25,9 @@ const renderWithProviders = (ui: React.ReactElement) => {
   );
 };
 
-// Mock the hooks deeply so MSW is not triggered and components render fully
+import { MemberDetail } from '@/features/members/components/MemberDetail';
+import { TrainerDetail } from '@/features/trainers/components/TrainerDetail';
+
 jest.mock('@/features/members/hooks/useMembers', () => ({
   useMembers: () => ({
     data: {
@@ -43,6 +45,20 @@ jest.mock('@/features/members/hooks/useMembers', () => ({
     },
     isLoading: false,
   }),
+  useMember: (id: string) => ({
+    data: {
+      id: '1',
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'john@example.com',
+      phone: '123',
+      status: 'ACTIVE',
+      joinedDate: '2023-01-01',
+    },
+    isLoading: false,
+  }),
+  useUpdateMember: () => ({ mutate: jest.fn(), isPending: false }),
+  useDeleteMember: () => ({ mutate: jest.fn(), isPending: false }),
 }));
 
 jest.mock('@/features/trainers/hooks/useTrainers', () => ({
@@ -62,6 +78,20 @@ jest.mock('@/features/trainers/hooks/useTrainers', () => ({
     },
     isLoading: false,
   }),
+  useTrainer: (id: string) => ({
+    data: {
+      id: '1',
+      firstName: 'Jane',
+      lastName: 'Smith',
+      email: 'jane@example.com',
+      phone: '123',
+      status: 'ACTIVE',
+      specialization: 'Yoga',
+    },
+    isLoading: false,
+  }),
+  useUpdateTrainer: () => ({ mutate: jest.fn(), isPending: false }),
+  useDeleteTrainer: () => ({ mutate: jest.fn(), isPending: false }),
 }));
 
 jest.mock('@/features/plans/hooks/usePlans', () => ({

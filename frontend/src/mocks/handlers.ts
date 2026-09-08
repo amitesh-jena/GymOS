@@ -1,0 +1,44 @@
+import { http, HttpResponse } from 'msw';
+
+import { membersHandlers } from './handlers/members.handlers';
+import { authHandlers } from './handlers/auth.handlers';
+import { trainersHandlers } from './handlers/trainers.handlers';
+import { plansHandlers } from './handlers/plans.handlers';
+import { membershipsHandlers } from './handlers/memberships.handlers';
+import { attendanceHandlers } from './handlers/attendance.handlers';
+import { workoutsHandlers } from './handlers/workouts.handlers';
+import { dietsHandlers } from './handlers/diets.handlers';
+import { progressHandlers } from './handlers/progress.handlers';
+import { paymentsHandlers } from './handlers/payments.handlers';
+import { invoicesHandlers } from './handlers/invoices.handlers';
+import { receiptsHandlers } from './handlers/receipts.handlers';
+import { saasHandlers } from './handlers/saas.handlers';
+import { analyticsHandlers } from './handlers/analytics.handlers';
+import { adminHandlers } from './handlers/admin.handlers';
+import { notificationsHandlers } from './handlers/notifications.handlers';
+
+export const handlers = [
+  ...authHandlers,
+  ...membersHandlers,
+  ...trainersHandlers,
+  ...plansHandlers,
+  ...membershipsHandlers,
+  ...attendanceHandlers,
+  ...workoutsHandlers,
+  ...dietsHandlers,
+  ...progressHandlers,
+  ...paymentsHandlers,
+  ...invoicesHandlers,
+  ...receiptsHandlers,
+  ...saasHandlers,
+  ...analyticsHandlers,
+  ...adminHandlers,
+  ...notificationsHandlers,
+  http.get('/api/v1/health', () => {
+    return HttpResponse.json({
+      success: true,
+      message: 'Health check passed',
+      data: { status: 'ok' },
+    });
+  }),
+];

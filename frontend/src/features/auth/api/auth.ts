@@ -1,6 +1,8 @@
 import api from '@/services/api';
 import { ApiResponse } from '@/types/api';
 
+import { User } from '@/types/identity';
+
 export interface LoginPayload {
   email: string;
   password?: string;
@@ -9,12 +11,7 @@ export interface LoginPayload {
 
 export interface AuthResponse {
   token: string;
-  user: {
-    id: string;
-    name: string;
-    role: string;
-    tenantId: string;
-  };
+  user: User;
 }
 
 export const authApi = {

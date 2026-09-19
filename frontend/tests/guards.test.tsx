@@ -11,7 +11,14 @@ jest.mock('../src/contexts/AuthContext', () => ({
   AuthProvider: ({ children }: any) => <div>{children}</div>,
 }));
 
+jest.mock('../src/contexts/WorkspaceContext', () => ({
+  useWorkspace: jest.fn(),
+  WorkspaceProvider: ({ children }: any) => <div>{children}</div>,
+}));
+
 const mockUseAuth = useAuth as jest.Mock;
+import { useWorkspace } from '../src/contexts/WorkspaceContext';
+const mockUseWorkspace = useWorkspace as jest.Mock;
 
 describe('Route Guards', () => {
   beforeEach(() => {
@@ -21,6 +28,7 @@ describe('Route Guards', () => {
   describe('RequireAuth', () => {
     it('redirects to /auth/login if unauthenticated', () => {
       mockUseAuth.mockReturnValue({ isAuthenticated: false, user: null });
+      mockUseWorkspace.mockReturnValue({ activeRoleAssignment: null });
       render(
         <MemoryRouter initialEntries={['/protected']}>
           <Routes>
@@ -36,7 +44,8 @@ describe('Route Guards', () => {
     });
 
     it('renders outlet if authenticated', () => {
-      mockUseAuth.mockReturnValue({ isAuthenticated: true, user: { role: ROLES.MEMBER } });
+      mockUseAuth.mockReturnValue({ isAuthenticated: true, user: {} });
+      mockUseWorkspace.mockReturnValue({ activeRoleAssignment: { role: ROLES.MEMBER } });
       render(
         <MemoryRouter initialEntries={['/protected']}>
           <Routes>
@@ -52,7 +61,8 @@ describe('Route Guards', () => {
 
   describe('RequireRole', () => {
     it('redirects to 403 if role is not allowed', () => {
-      mockUseAuth.mockReturnValue({ isAuthenticated: true, user: { role: ROLES.MEMBER } });
+      mockUseAuth.mockReturnValue({ isAuthenticated: true, user: {} });
+      mockUseWorkspace.mockReturnValue({ activeRoleAssignment: { role: ROLES.MEMBER } });
       render(
         <MemoryRouter initialEntries={['/admin']}>
           <Routes>
@@ -70,7 +80,8 @@ describe('Route Guards', () => {
 
   describe('RedirectToRoleDashboard', () => {
     it('redirects owner to /reports', () => {
-      mockUseAuth.mockReturnValue({ isAuthenticated: true, user: { role: ROLES.OWNER } });
+      mockUseAuth.mockReturnValue({ isAuthenticated: true, user: {} });
+      mockUseWorkspace.mockReturnValue({ activeRoleAssignment: { role: ROLES.OWNER } });
       render(
         <MemoryRouter initialEntries={['/']}>
           <Routes>

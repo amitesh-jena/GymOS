@@ -3,9 +3,11 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { useQueryClient } from '@tanstack/react-query';
 import { setAccessToken } from '@/services/api';
 
+import { User } from '@/types/identity';
+
 interface AuthState {
   isAuthenticated: boolean;
-  user: null | { id: string; name: string; role: string; tenantId: string };
+  user: User | null;
 }
 
 interface AuthContextType extends AuthState {

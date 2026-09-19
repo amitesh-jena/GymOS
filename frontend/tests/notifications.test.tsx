@@ -6,6 +6,8 @@ import { NotificationInbox } from '../src/features/notifications/components/Noti
 import { handlers } from '../src/mocks/handlers';
 import { setupServer } from 'msw/node';
 import { ToastProvider } from '@/components/ui/toast';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { WorkspaceProvider } from '@/contexts/WorkspaceContext';
 
 const server = setupServer(...handlers);
 
@@ -27,7 +29,11 @@ const renderWithProviders = (ui: React.ReactElement) => {
   return render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <ToastProvider>{ui}</ToastProvider>
+        <AuthProvider>
+          <WorkspaceProvider>
+            <ToastProvider>{ui}</ToastProvider>
+          </WorkspaceProvider>
+        </AuthProvider>
       </BrowserRouter>
     </QueryClientProvider>
   );
@@ -107,9 +113,15 @@ describe('NotificationBell', () => {
   });
 
   it('shows badge when unread notifications exist', async () => {
+    const { http, HttpResponse } = await import('msw');
+    server.use(
+      http.get('/api/v1/notifications/unread-count', () => {
+        return HttpResponse.json({ success: true, data: { count: 2 } });
+      })
+    );
     renderWithProviders(<NotificationBell />);
     await waitFor(() => {
-      // the handler returns some unread notifications by default
+      // the handler returns 2 unread notifications exactly
       expect(screen.getByText('2')).toBeInTheDocument(); 
     });
   });

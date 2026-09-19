@@ -1,12 +1,12 @@
 import { Outlet, NavLink } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+import { useWorkspace } from '@/contexts/WorkspaceContext';
 import { ROLES, Role } from '@/types/roles';
 import { UserCircle, Shield, Paintbrush, Building2, CreditCard } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
 export const SettingsLayout = () => {
-  const { user } = useAuth();
-  const role = user?.role as Role;
+  const { activeRoleAssignment } = useWorkspace();
+  const role = activeRoleAssignment?.role as Role;
 
   const canSeeOrgSettings = [ROLES.OWNER as string, ROLES.SUPER_ADMIN as string].includes(role);
 

@@ -15,7 +15,7 @@ describe('Auth API', () => {
   it('calls login successfully', async () => {
     const res = await authApi.login({ email: 'super@gymos.com', password: 'password', roleHint: 'SUPER_ADMIN' });
     expect(res.token).toBeDefined();
-    expect(res.user.role).toBe('SUPER_ADMIN');
+    expect(res.user.tenants?.[0]?.staffProfile?.roleAssignments?.[0]?.role).toBe('SUPER_ADMIN');
   });
 
   it('calls logout successfully', async () => {

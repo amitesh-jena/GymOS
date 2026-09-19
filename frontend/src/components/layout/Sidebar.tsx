@@ -1,5 +1,5 @@
 import { useLocation, Link, matchPath } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+import { useWorkspace } from '@/contexts/WorkspaceContext';
 import { getNavForRole, NavItem } from '@/routes/config';
 import { cn } from '@/utils/cn';
 import { Role } from '@/types/roles';
@@ -11,9 +11,9 @@ export function Sidebar({
   className?: string;
   onNavClick?: () => void;
 }) {
-  const { user } = useAuth();
+  const { activeRoleAssignment } = useWorkspace();
   const location = useLocation();
-  const navItems = getNavForRole(user?.role as Role);
+  const navItems = getNavForRole(activeRoleAssignment?.role as Role);
 
   // Group items
   const grouped = navItems.reduce(

@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from '@/contexts/AuthContext';
-import { TenantProvider } from '@/contexts/TenantContext';
+import { WorkspaceProvider } from '@/contexts/WorkspaceContext';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { ErrorBoundary } from '@/components/layout/ErrorBoundary';
@@ -13,12 +13,12 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <AuthProvider>
-          <TenantProvider>
+          <WorkspaceProvider>
             <ErrorBoundary>
               <AppRoutes />
             </ErrorBoundary>
             <Toaster />
-          </TenantProvider>
+          </WorkspaceProvider>
         </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>

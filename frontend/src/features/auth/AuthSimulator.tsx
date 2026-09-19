@@ -210,6 +210,14 @@ export function AuthSimulator() {
               <Button size="sm" onClick={() => handleSimulateLogin(ROLES.MEMBER)} variant="outline" className="justify-start font-medium text-xs h-9 text-muted-foreground">
                 Login as Member
               </Button>
+              <Button size="sm" onClick={() => {
+                doLogin(
+                  { email: 'rahul@gymc.local', password: 'password', roleHint: ROLES.TRAINER },
+                  { onSuccess: () => navigate('/') }
+                );
+              }} variant="default" className="justify-start font-medium text-xs h-9 bg-emerald-600 col-span-1 sm:col-span-2">
+                Login as Rahul (Trainer & Member)
+              </Button>
             </div>
           </div>
           

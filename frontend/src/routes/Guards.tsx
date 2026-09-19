@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useWorkspace } from '@/contexts/WorkspaceContext';
 import { Role, ROLE_DEFAULT_DESTINATION } from '@/types/roles';
 import { LoadingState } from '@/components/ux/LoadingState';
 
@@ -14,10 +15,11 @@ export function RequireAuth() {
 }
 
 export function RequireNoAuth() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const { activeRoleAssignment } = useWorkspace();
 
-  if (isAuthenticated && user?.role) {
-    const destination = ROLE_DEFAULT_DESTINATION[user.role as Role] || '/';
+  if (isAuthenticated && activeRoleAssignment?.role) {
+    const destination = ROLE_DEFAULT_DESTINATION[activeRoleAssignment.role as Role] || '/';
     return <Navigate to={destination} replace />;
   }
 
@@ -26,12 +28,13 @@ export function RequireNoAuth() {
 
 export function RequireRole({ allowedRoles }: { allowedRoles: Role[] }) {
   const { user } = useAuth();
+  const { activeRoleAssignment } = useWorkspace();
 
-  if (!user || !user.role) {
+  if (!user || !activeRoleAssignment?.role) {
     return <Navigate to="/403" replace />;
   }
 
-  if (!allowedRoles.includes(user.role as Role)) {
+  if (!allowedRoles.includes(activeRoleAssignment.role as Role)) {
     return <Navigate to="/403" replace />;
   }
 
@@ -39,14 +42,15 @@ export function RequireRole({ allowedRoles }: { allowedRoles: Role[] }) {
 }
 
 export function RedirectToRoleDashboard() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const { activeRoleAssignment } = useWorkspace();
 
   if (!isAuthenticated) {
     return <Navigate to="/auth/login" replace />;
   }
 
-  if (user?.role) {
-    const destination = ROLE_DEFAULT_DESTINATION[user.role as Role] || '/404';
+  if (activeRoleAssignment?.role) {
+    const destination = ROLE_DEFAULT_DESTINATION[activeRoleAssignment.role as Role] || '/404';
     return <Navigate to={destination} replace />;
   }
 

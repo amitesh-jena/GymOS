@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
 import { AuthProvider } from '@/contexts/AuthContext';
-import { TenantProvider } from '@/contexts/TenantContext';
+import { WorkspaceProvider } from '@/contexts/WorkspaceContext';
 import { AppShell } from '@/components/layout/AppShell';
 import { Header } from '@/components/layout/Header';
 import { Sidebar } from '@/components/layout/Sidebar';
@@ -14,9 +14,9 @@ describe('Layout Components', () => {
     return render(
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <TenantProvider>
+          <WorkspaceProvider>
             <MemoryRouter>{ui}</MemoryRouter>
-          </TenantProvider>
+          </WorkspaceProvider>
         </AuthProvider>
       </QueryClientProvider>
     );

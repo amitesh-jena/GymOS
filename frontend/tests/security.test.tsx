@@ -115,7 +115,11 @@ describe('Security: AuthContext Logout', () => {
     setAccessToken('fake-in-memory-token');
     localStorage.setItem(
       'user_data',
-      JSON.stringify({ id: '1', name: 'Test', role: 'ADMIN', tenantId: '1' })
+      JSON.stringify({
+        id: '1',
+        name: 'Test',
+        tenants: []
+      })
     );
 
     // Seed query cache

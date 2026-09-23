@@ -5,7 +5,8 @@ import { LoadingState } from '@/components/ux/LoadingState';
 import { ErrorState } from '@/components/ux/ErrorState';
 import { EmptyState } from '@/components/ux/EmptyState';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { PaymentStatusBadge } from '@/components/finance/PaymentStatusBadge';
+import { Money } from '@/components/finance/Money';
 
 export const MemberPaymentsList: React.FC = () => {
   const { data, isLoading, error, refetch } = usePayments(1);
@@ -31,19 +32,14 @@ export const MemberPaymentsList: React.FC = () => {
               <CardContent className="p-6 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
                 <div>
                   <h4 className="font-semibold text-lg">
-                    {new Intl.NumberFormat('en-US', {
-                      style: 'currency',
-                      currency: payment.currency || 'USD',
-                    }).format(Number(payment.amount))}
+                    <Money amountMinorUnits={payment.amountMinorUnits!} currencyCode={payment.currency || 'USD'} />
                   </h4>
                   <p className="text-sm text-muted-foreground mt-1">
                     Paid on {new Date(payment.paymentDate).toLocaleDateString()}
                   </p>
                 </div>
                 <div className="flex flex-col items-end gap-2">
-                  <Badge variant={payment.status === 'COMPLETED' ? 'default' : 'secondary'}>
-                    {payment.status}
-                  </Badge>
+                  <PaymentStatusBadge status={payment.status} />
                   <div className="text-xs text-muted-foreground flex items-center gap-2">
                     <span className="uppercase">{payment.method}</span>
                     {payment.transactionId && <span>• {payment.transactionId}</span>}

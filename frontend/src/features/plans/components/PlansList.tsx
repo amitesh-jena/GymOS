@@ -8,6 +8,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { Money } from '@/components/finance/Money';
 import { Search, Plus, FileEdit } from 'lucide-react';
 import {
   Table,
@@ -98,7 +99,9 @@ export function PlansList() {
                       <div className="text-sm">{plan.durationDays} Days</div>
                     </TableCell>
                     <TableCell>
-                      <div className="text-sm font-medium capitalize">${plan.price}</div>
+                      <div className="text-sm font-medium">
+                        <Money amountMinorUnits={plan.priceMinorUnits!} currencyCode="USD" />
+                      </div>
                     </TableCell>
                     <TableCell>
                       <Badge variant={plan.status === 'OPEN' ? 'default' : 'secondary'}>

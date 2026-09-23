@@ -9,7 +9,8 @@ export interface Payment {
   membershipId?: string;
   invoiceId?: string;
   receiptId?: string;
-  amount: string;
+  amount: string; // Legacy API decimal string e.g. "49.99"
+  amountMinorUnits?: number; // Canonical frontend model (e.g. 4999)
   currency: string;
   method: PaymentMethod;
   status: PaymentStatus;

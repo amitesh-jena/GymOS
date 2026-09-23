@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { memberSchema, MemberFormData } from '../schemas';
 import { useMember, useCreateMember, useUpdateMember } from '../hooks/useMembers';
 import { useTrainers } from '@/features/trainers/hooks/useTrainers';
+import { useWorkspace } from '@/contexts/WorkspaceContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -30,6 +31,9 @@ export function MemberForm() {
   const { data: trainersData } = useTrainers();
   const createMutation = useCreateMember();
   const updateMutation = useUpdateMember(id || '');
+  const { availableBranches, activeBranch, workspaceView } = useWorkspace();
+
+  const defaultBranchId = activeBranch?.branchId || availableBranches[0]?.branchId || '';
 
   const form = useForm<MemberFormData>({
     resolver: zodResolver(memberSchema),
@@ -38,7 +42,7 @@ export function MemberForm() {
       lastName: '',
       email: '',
       phone: '',
-      branchId: 'branch-hk', // default mock branch
+      branchId: defaultBranchId,
       status: 'ACTIVE',
       joinDate: new Date().toISOString().split('T')[0],
       notes: '',
@@ -64,6 +68,7 @@ export function MemberForm() {
 
   const statusValue = useWatch({ control: form.control, name: 'status' });
   const trainerIdValue = useWatch({ control: form.control, name: 'trainerId' });
+  const branchIdValue = useWatch({ control: form.control, name: 'branchId' });
 
   const onSubmit = async (values: MemberFormData) => {
     const payload = { ...values };
@@ -135,6 +140,35 @@ export function MemberForm() {
                 {form.formState.errors.lastName && (
                   <p id="lastName-error" className="text-xs text-destructive">
                     {form.formState.errors.lastName.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="branchId">Branch</Label>
+                <Select
+                  value={branchIdValue}
+                  onValueChange={(val: string) => form.setValue('branchId', val)}
+                  disabled={availableBranches.length <= 1 || workspaceView === 'MEMBER'}
+                >
+                  <SelectTrigger
+                    id="branchId"
+                    aria-invalid={!!form.formState.errors.branchId}
+                    aria-describedby="branchId-error"
+                  >
+                    <SelectValue placeholder="Select branch" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableBranches.map((b) => (
+                      <SelectItem key={b.branchId} value={b.branchId}>
+                        {b.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {form.formState.errors.branchId && (
+                  <p id="branchId-error" className="text-xs text-destructive">
+                    {form.formState.errors.branchId.message}
                   </p>
                 )}
               </div>

@@ -14,6 +14,7 @@ import { useWorkspace } from '@/contexts/WorkspaceContext';
 import { BreadcrumbNav } from './BreadcrumbNav';
 import { useNavigate } from 'react-router-dom';
 import { NotificationBell } from '@/features/notifications/components/NotificationBell';
+import { TenantSelector, BranchSelector } from './WorkspaceSelectors';
 
 export function Header({ toggleMobileMenu }: { toggleMobileMenu: () => void }) {
   const { user, logout } = useAuth();
@@ -44,6 +45,10 @@ export function Header({ toggleMobileMenu }: { toggleMobileMenu: () => void }) {
       </div>
 
       <div className="flex justify-end items-center space-x-2">
+        <div className="hidden sm:flex items-center space-x-2 mr-2">
+          <TenantSelector />
+          <BranchSelector />
+        </div>
         <NotificationBell />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

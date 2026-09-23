@@ -4,14 +4,25 @@ import { LoadingState } from '@/components/ux/LoadingState';
 import { ErrorState } from '@/components/ux/ErrorState';
 import { EmptyState } from '@/components/ux/EmptyState';
 import { Card, CardContent } from '@/components/ui/card';
+import { useWorkspace } from '@/contexts/WorkspaceContext';
+import { Badge } from '@/components/ui/badge';
 
 export const MemberAttendanceList: React.FC = () => {
   const { data, isLoading, error, refetch } = useAttendance();
+  const { availableBranches, activeBranch } = useWorkspace();
 
   if (isLoading) return <LoadingState text="Loading attendance history..." />;
   if (error) return <ErrorState onRetry={() => refetch()} />;
 
-  const records = data?.results || [];
+  let records = data?.results || [];
+
+  // Presentation Context Filtering
+  if (activeBranch) {
+    records = records.filter(r => r.branchId === activeBranch.branchId);
+  } else if (availableBranches.length > 0) {
+    const validBranchIds = availableBranches.map(b => b.branchId);
+    records = records.filter(r => validBranchIds.includes(r.branchId));
+  }
 
   return (
     <div className="space-y-6 max-w-3xl mx-auto">
@@ -62,6 +73,11 @@ export const MemberAttendanceList: React.FC = () => {
                         </p>
                       )}
                     </div>
+                  </div>
+                  <div className="flex flex-col items-end gap-2">
+                    <Badge variant="outline" className="text-xs">
+                      {availableBranches.find(b => b.branchId === record.branchId)?.name || record.branchId}
+                    </Badge>
                   </div>
                 </div>
               ))}

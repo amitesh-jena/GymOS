@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMembers } from '../hooks/useMembers';
 import { LoadingState } from '@/components/ux/LoadingState';
 import { ErrorState } from '@/components/ux/ErrorState';
+import { useWorkspace } from '@/contexts/WorkspaceContext';
 import { EmptyState } from '@/components/ux/EmptyState';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -29,6 +30,7 @@ export function MembersList() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const { activeBranch, availableBranches } = useWorkspace();
 
   const { data, isLoading, isError, refetch } = useMembers();
 
@@ -49,6 +51,15 @@ export function MembersList() {
 
   if (statusFilter !== 'all') {
     members = members.filter((m) => m.status === statusFilter);
+  }
+
+  // Presentation Context Filtering
+  if (activeBranch) {
+    members = members.filter((m) => m.branchId === activeBranch.branchId);
+  } else if (availableBranches.length > 0) {
+    // Only show members in available branches to avoid flashing restricted data
+    const validBranchIds = availableBranches.map(b => b.branchId);
+    members = members.filter((m) => validBranchIds.includes(m.branchId));
   }
 
   return (
@@ -102,6 +113,7 @@ export function MembersList() {
               <TableHeader>
                 <TableRow>
                   <TableHead>Member</TableHead>
+                  <TableHead>Branch</TableHead>
                   <TableHead>Contact</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Join Date</TableHead>
@@ -118,6 +130,11 @@ export function MembersList() {
                     <TableCell>
                       <div className="font-medium text-foreground">
                         {member.firstName} {member.lastName}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="text-sm font-medium text-muted-foreground">
+                        {availableBranches.find(b => b.branchId === member.branchId)?.name || member.branchId}
                       </div>
                     </TableCell>
                     <TableCell>

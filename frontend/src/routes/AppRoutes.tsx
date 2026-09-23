@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 // Removed unused ROLES
-import { RequireAuth, RequireNoAuth, RequirePermission, RedirectToRoleDashboard } from './Guards';
+import { RequireAuth, RequireNoAuth, RequirePermission, RedirectToRoleDashboard, RequireEntitlement } from './Guards';
 import { AppShell } from '@/components/layout/AppShell';
 import React from 'react';
 import { PERMISSIONS } from '@/types/permissions';
@@ -75,6 +75,10 @@ const AnalyticsDashboard = lazyRoute(() =>
 import { NotificationInbox } from '@/features/notifications/components/NotificationInbox';
 import { AdminTenantsList } from '@/features/saas/components/AdminTenantsList';
 import { AdminTenantDetail } from '@/features/saas/components/AdminTenantDetail';
+import { AdminDashboard } from '@/features/saas/components/AdminDashboard';
+import { AdminPlansList } from '@/features/saas/components/AdminPlansList';
+import { AdminAuditLogs } from '@/features/saas/components/AdminAuditLogs';
+import { AdminSystemHealth } from '@/features/saas/components/AdminSystemHealth';
 import { TrainerMembersList } from '@/features/trainers/components/TrainerMembersList';
 const TrainerWorkoutsWorkspace = lazyRoute(() =>
   import('@/features/workouts/components/TrainerWorkoutsWorkspace').then((m) => ({
@@ -149,18 +153,28 @@ const AppRoutes = () => {
                 <RequirePermission permission={PERMISSIONS.REPORT_VIEW} />
               }
             >
-              <Route path="/reports" element={<AnalyticsDashboard />} />
+              <Route element={<RequireEntitlement feature={['reports.basic', 'reports.advanced']} />}>
+                <Route path="/reports" element={<AnalyticsDashboard />} />
+              </Route>
             </Route>
 
             <Route element={<RequirePermission permission={PERMISSIONS.BRANCH_VIEW} />}>
-              <Route path="/branches" element={<PlaceholderScreen title="Gym Branches" />} />
+              <Route element={<RequireEntitlement feature="multi_branch" />}>
+                <Route path="/branches" element={<PlaceholderScreen title="Gym Branches" />} />
+              </Route>
             </Route>
 
             {/* Platform Super Admin Only Routes */}
             <Route element={<RequirePermission permission={PERMISSIONS.TENANT_VIEW} />}>
-              <Route path="/admin/tenants">
-                <Route index element={<AdminTenantsList />} />
-                <Route path=":id" element={<AdminTenantDetail />} />
+              <Route path="/admin">
+                <Route path="dashboard" element={<AdminDashboard />} />
+                <Route path="tenants" element={<AdminTenantsList />} />
+                <Route path="tenants/:id" element={<AdminTenantDetail />} />
+                <Route path="audit" element={<AdminAuditLogs />} />
+                <Route path="health" element={<AdminSystemHealth />} />
+                <Route element={<RequirePermission permission={PERMISSIONS.PLAN_MANAGE_SAAS} />}>
+                  <Route path="plans" element={<AdminPlansList />} />
+                </Route>
               </Route>
             </Route>
 
@@ -212,7 +226,9 @@ const AppRoutes = () => {
             <Route path="/trainer" element={<RequirePermission permission={PERMISSIONS.DASHBOARD_TRAINER} />}>
               <Route path="dashboard" element={<Navigate to="/trainer/members" replace />} />
               <Route path="members" element={<TrainerMembersList />} />
-              <Route path="workouts" element={<TrainerWorkoutsWorkspace />} />
+              <Route element={<RequireEntitlement feature="workouts" />}>
+                <Route path="workouts" element={<TrainerWorkoutsWorkspace />} />
+              </Route>
               <Route path="diets" element={<PlaceholderScreen title="Diet Plans" />} />
               <Route path="progress" element={<PlaceholderScreen title="Client Progress" />} />
               <Route path="sessions" element={<PlaceholderScreen title="My Coaching Sessions" />} />
@@ -224,7 +240,9 @@ const AppRoutes = () => {
               <Route path="membership" element={<MemberMembershipView />} />
               <Route path="payments" element={<MemberPaymentsList />} />
               <Route path="attendance" element={<MemberAttendanceList />} />
-              <Route path="workouts" element={<MemberWorkoutsList />} />
+              <Route element={<RequireEntitlement feature="workouts" />}>
+                <Route path="workouts" element={<MemberWorkoutsList />} />
+              </Route>
               <Route path="diet" element={<MemberDietView />} />
               <Route path="progress" element={<MemberProgressView />} />
             </Route>

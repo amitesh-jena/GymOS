@@ -55,11 +55,27 @@ export const NAVIGATION_CONFIG: NavItem[] = [
   },
   // --- SUPER ADMIN (PLATFORM) ---
   {
+    id: 'admin_dashboard',
+    label: 'Platform Dashboard',
+    route: '/admin/dashboard',
+    icon: Activity,
+    permission: PERMISSIONS.TENANT_VIEW,
+    group: 'Platform',
+  },
+  {
     id: 'admin_tenants',
     label: 'Tenants',
     route: '/admin/tenants',
     icon: Database,
     permission: PERMISSIONS.TENANT_VIEW,
+    group: 'Platform',
+  },
+  {
+    id: 'admin_plans',
+    label: 'Plans & Entitlements',
+    route: '/admin/plans',
+    icon: FileText,
+    permission: PERMISSIONS.PLAN_MANAGE_SAAS,
     group: 'Platform',
   },
   // --- OWNER / ADMIN ---

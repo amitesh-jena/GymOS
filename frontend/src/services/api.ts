@@ -75,6 +75,19 @@ api.interceptors.response.use(
       }
     }
 
+    // Handle 403 Forbidden / Domain / Suspension
+    if (error.response?.status === 403) {
+      // Assuming our generic error structure contains an optional error code
+      const code = error.response.data?.error?.code;
+      if (code === 'tenant_suspended') {
+        window.dispatchEvent(new Event('auth:suspended'));
+      } else if (code === 'invalid_domain') {
+        window.dispatchEvent(new Event('auth:invalid_domain'));
+      } else {
+        window.dispatchEvent(new Event('auth:forbidden'));
+      }
+    }
+
     // Error normalization to prevent sensitive backend leaks from reaching the UI
     if (error.response?.data?.error?.message) {
       const msg = error.response.data.error.message;

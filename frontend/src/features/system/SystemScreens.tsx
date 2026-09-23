@@ -46,3 +46,30 @@ export function MaintenanceScreen() {
     </div>
   );
 }
+
+export function SuspendedScreen() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-background p-6">
+      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10 mb-6">
+        <Wrench className="h-8 w-8 text-destructive" />
+      </div>
+      <h1 className="text-3xl font-bold tracking-tight mb-2 text-destructive">Account Suspended</h1>
+      <p className="text-muted-foreground text-center max-w-md mb-8">
+        Your access has been suspended. Please contact GymOS support or your administrator to resolve this issue.
+      </p>
+    </div>
+  );
+}
+
+export function InvalidDomainScreen() {
+  return (
+    <div className="flex items-center justify-center min-h-[70vh]">
+      <div className="flex flex-col items-center">
+        <EmptyState
+          title="Domain Not Found"
+          description="The domain you are trying to access is not registered or recognized by GymOS."
+        />
+      </div>
+    </div>
+  );
+}

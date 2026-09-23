@@ -2,6 +2,7 @@ import React from 'react';
 import { describe, it, expect } from '@jest/globals';
 import { render, screen, act } from '@testing-library/react';
 import { AuthProvider, useAuth } from '../src/contexts/AuthContext';
+import { DomainProvider } from '../src/contexts/DomainContext';
 import { WorkspaceProvider, useWorkspace } from '../src/contexts/WorkspaceContext';
 import { PermissionProvider, usePermissions } from '../src/contexts/PermissionContext';
 import { User } from '../src/types/identity';
@@ -63,6 +64,7 @@ describe('Permission Context (F2)', () => {
     
     render(
       <QueryClientProvider client={queryClient}>
+        <DomainProvider>
         <AuthProvider>
           <WorkspaceProvider>
             <PermissionProvider>
@@ -70,6 +72,7 @@ describe('Permission Context (F2)', () => {
             </PermissionProvider>
           </WorkspaceProvider>
         </AuthProvider>
+        </DomainProvider>
       </QueryClientProvider>
     );
 

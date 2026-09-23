@@ -20,7 +20,10 @@ import {
   NotFoundScreen,
   ForbiddenScreen,
   MaintenanceScreen,
+  SuspendedScreen,
+  InvalidDomainScreen,
 } from '@/features/system/SystemScreens';
+import { ApiErrorListener } from '@/components/layout/ApiErrorListener';
 import { ListArchitectureDemo, DestructiveActionDemo } from '@/features/demo/PatternScreens';
 import { AuthSimulator } from '@/features/auth/AuthSimulator';
 import { OwnerSignup } from '@/features/auth/components/OwnerSignup';
@@ -95,6 +98,7 @@ const PlaceholderScreen = ({ title }: { title: string }) => (
 const AppRoutes = () => {
   return (
     <BrowserRouter>
+      <ApiErrorListener />
       <Routes>
         {/* Public / Unauthenticated Routes */}
         <Route element={<RequireNoAuth />}>
@@ -112,6 +116,8 @@ const AppRoutes = () => {
         {/* Global Error/System Routes */}
         <Route path="/403" element={<ForbiddenScreen />} />
         <Route path="/maintenance" element={<MaintenanceScreen />} />
+        <Route path="/suspended" element={<SuspendedScreen />} />
+        <Route path="/invalid-domain" element={<InvalidDomainScreen />} />
 
         {/* Protected Authenticated Routes */}
         <Route element={<RequireAuth />}>

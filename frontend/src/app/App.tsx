@@ -6,6 +6,8 @@ import { ThemeProvider } from '@/contexts/ThemeContext';
 import { ErrorBoundary } from '@/components/layout/ErrorBoundary';
 import AppRoutes from '@/routes/AppRoutes';
 
+import { PermissionProvider } from '@/contexts/PermissionContext';
+
 const queryClient = new QueryClient();
 
 function App() {
@@ -14,10 +16,12 @@ function App() {
       <ThemeProvider>
         <AuthProvider>
           <WorkspaceProvider>
-            <ErrorBoundary>
-              <AppRoutes />
-            </ErrorBoundary>
-            <Toaster />
+            <PermissionProvider>
+              <ErrorBoundary>
+                <AppRoutes />
+              </ErrorBoundary>
+              <Toaster />
+            </PermissionProvider>
           </WorkspaceProvider>
         </AuthProvider>
       </ThemeProvider>

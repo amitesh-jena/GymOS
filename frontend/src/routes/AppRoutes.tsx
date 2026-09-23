@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { ROLES } from '@/types/roles';
-import { RequireAuth, RequireNoAuth, RequireRole, RedirectToRoleDashboard } from './Guards';
+// Removed unused ROLES
+import { RequireAuth, RequireNoAuth, RequirePermission, RedirectToRoleDashboard } from './Guards';
 import { AppShell } from '@/components/layout/AppShell';
 import React from 'react';
+import { PERMISSIONS } from '@/types/permissions';
 import { LoadingState } from '@/components/ux/LoadingState';
 
 const lazyRoute = (
@@ -125,7 +126,7 @@ const AppRoutes = () => {
               <Route path="appearance" element={<AppearanceSettingsView />} />
               <Route path="security" element={<SecuritySettingsView />} />
 
-              <Route element={<RequireRole allowedRoles={[ROLES.SUPER_ADMIN, ROLES.OWNER]} />}>
+              <Route element={<RequirePermission permission={[PERMISSIONS.TENANT_VIEW, PERMISSIONS.SUBSCRIPTION_MANAGE]} />}>
                 <Route path="organization" element={<TenantSettingsView />} />
                 <Route path="subscription" element={<SubscriptionSettingsView />} />
               </Route>
@@ -134,35 +135,32 @@ const AppRoutes = () => {
             {/* Owner / Admin Only Routes */}
             <Route
               element={
-                <RequireRole
-                  allowedRoles={[ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER]}
-                />
+                <RequirePermission permission={PERMISSIONS.REPORT_VIEW} />
               }
             >
               <Route path="/reports" element={<AnalyticsDashboard />} />
             </Route>
 
-            <Route element={<RequireRole allowedRoles={[ROLES.SUPER_ADMIN, ROLES.OWNER]} />}>
+            <Route element={<RequirePermission permission={PERMISSIONS.BRANCH_VIEW} />}>
               <Route path="/branches" element={<PlaceholderScreen title="Gym Branches" />} />
             </Route>
 
             {/* Platform Super Admin Only Routes */}
-            <Route element={<RequireRole allowedRoles={[ROLES.SUPER_ADMIN]} />}>
+            <Route element={<RequirePermission permission={PERMISSIONS.TENANT_VIEW} />}>
               <Route path="/admin/tenants">
                 <Route index element={<AdminTenantsList />} />
                 <Route path=":id" element={<AdminTenantDetail />} />
               </Route>
             </Route>
 
-            {/* Owner / Admin / Manager Branch Routes */}
+            {/* Staff / Manager Branch Routes */}
             <Route
               element={
-                <RequireRole
-                  allowedRoles={[
-                    ROLES.SUPER_ADMIN,
-                    ROLES.OWNER,
-                    ROLES.BRANCH_MANAGER,
-                    ROLES.RECEPTIONIST,
+                <RequirePermission
+                  permission={[
+                    PERMISSIONS.MEMBER_VIEW,
+                    PERMISSIONS.TRAINER_VIEW,
+                    PERMISSIONS.PAYMENT_VIEW
                   ]}
                 />
               }
@@ -200,7 +198,7 @@ const AppRoutes = () => {
             </Route>
 
             {/* Trainer Routes */}
-            <Route path="/trainer" element={<RequireRole allowedRoles={[ROLES.TRAINER]} />}>
+            <Route path="/trainer" element={<RequirePermission permission={PERMISSIONS.DASHBOARD_TRAINER} />}>
               <Route path="dashboard" element={<Navigate to="/trainer/members" replace />} />
               <Route path="members" element={<TrainerMembersList />} />
               <Route path="workouts" element={<TrainerWorkoutsWorkspace />} />
@@ -210,7 +208,7 @@ const AppRoutes = () => {
             </Route>
 
             {/* Member Routes */}
-            <Route path="/member" element={<RequireRole allowedRoles={[ROLES.MEMBER]} />}>
+            <Route path="/member" element={<RequirePermission permission={PERMISSIONS.DASHBOARD_MEMBER} />}>
               <Route path="dashboard" element={<MemberDashboard />} />
               <Route path="membership" element={<MemberMembershipView />} />
               <Route path="payments" element={<MemberPaymentsList />} />

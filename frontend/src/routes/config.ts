@@ -1,5 +1,5 @@
 import React from 'react';
-import { Role, ROLES } from '@/types/roles';
+import { Permission, PERMISSIONS } from '@/types/permissions';
 import {
   Home,
   Users,
@@ -23,7 +23,7 @@ export interface NavItem {
   label: string;
   route: string;
   icon?: React.ElementType;
-  allowedRoles?: Role[]; // If undefined, accessible to anyone logged in
+  permission?: Permission; // If undefined, accessible to anyone logged in
   group?: string; // Optional grouping for sidebars
 }
 
@@ -34,7 +34,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Payments',
     route: '/payments',
     icon: CreditCard,
-    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER, ROLES.RECEPTIONIST],
+    permission: PERMISSIONS.PAYMENT_VIEW,
     group: 'Revenue',
   },
   {
@@ -42,7 +42,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Invoices',
     route: '/invoices',
     icon: FileSignature,
-    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER, ROLES.RECEPTIONIST],
+    permission: PERMISSIONS.INVOICE_VIEW,
     group: 'Revenue',
   },
   {
@@ -50,7 +50,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Receipts',
     route: '/receipts',
     icon: ReceiptText,
-    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER, ROLES.RECEPTIONIST],
+    permission: PERMISSIONS.RECEIPT_VIEW,
     group: 'Revenue',
   },
   // --- SUPER ADMIN (PLATFORM) ---
@@ -59,7 +59,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Tenants',
     route: '/admin/tenants',
     icon: Database,
-    allowedRoles: [ROLES.SUPER_ADMIN],
+    permission: PERMISSIONS.TENANT_VIEW,
     group: 'Platform',
   },
   // --- OWNER / ADMIN ---
@@ -68,7 +68,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Dashboard',
     route: '/dashboard',
     icon: Home,
-    allowedRoles: [ROLES.OWNER],
+    permission: PERMISSIONS.DASHBOARD_OWNER,
     group: 'Core',
   },
   {
@@ -76,7 +76,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Members',
     route: '/members',
     icon: Users,
-    allowedRoles: [ROLES.OWNER, ROLES.BRANCH_MANAGER, ROLES.RECEPTIONIST],
+    permission: PERMISSIONS.MEMBER_VIEW,
     group: 'Core',
   },
   {
@@ -84,7 +84,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Trainers',
     route: '/trainers',
     icon: Dumbbell,
-    allowedRoles: [ROLES.OWNER, ROLES.BRANCH_MANAGER],
+    permission: PERMISSIONS.TRAINER_VIEW,
     group: 'Staff',
   },
   {
@@ -92,7 +92,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Branches',
     route: '/branches',
     icon: Store,
-    allowedRoles: [ROLES.OWNER],
+    permission: PERMISSIONS.BRANCH_VIEW,
     group: 'Admin',
   },
   {
@@ -100,7 +100,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Plans',
     route: '/plans',
     icon: FileText,
-    allowedRoles: [ROLES.OWNER],
+    permission: PERMISSIONS.PLAN_VIEW,
     group: 'Admin',
   },
   {
@@ -108,7 +108,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Attendance',
     route: '/attendance',
     icon: CalendarCheck,
-    allowedRoles: [ROLES.OWNER, ROLES.BRANCH_MANAGER, ROLES.RECEPTIONIST],
+    permission: PERMISSIONS.ATTENDANCE_VIEW,
     group: 'Operations',
   },
   {
@@ -116,7 +116,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Reports',
     route: '/reports',
     icon: Activity,
-    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER],
+    permission: PERMISSIONS.REPORT_VIEW,
     group: 'Analytics',
   },
   {
@@ -124,7 +124,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Settings',
     route: '/settings',
     icon: Settings,
-    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER],
+    permission: PERMISSIONS.SETTINGS_MANAGE,
     group: 'Admin',
   },
   {
@@ -132,7 +132,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Subscription',
     route: '/settings/subscription',
     icon: CreditCard,
-    allowedRoles: [ROLES.SUPER_ADMIN, ROLES.OWNER],
+    permission: PERMISSIONS.SUBSCRIPTION_MANAGE,
     group: 'Admin',
   },
 
@@ -142,7 +142,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Dashboard',
     route: '/trainer/dashboard',
     icon: Home,
-    allowedRoles: [ROLES.TRAINER],
+    permission: PERMISSIONS.DASHBOARD_TRAINER,
     group: 'Workspace',
   },
   {
@@ -150,7 +150,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'My Members',
     route: '/trainer/members',
     icon: Users,
-    allowedRoles: [ROLES.TRAINER],
+    permission: PERMISSIONS.MEMBER_VIEW,
     group: 'Workspace',
   },
   {
@@ -158,7 +158,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Workouts',
     route: '/trainer/workouts',
     icon: Dumbbell,
-    allowedRoles: [ROLES.TRAINER],
+    permission: PERMISSIONS.WORKOUT_VIEW,
     group: 'Coaching',
   },
   {
@@ -166,7 +166,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Diet Plans',
     route: '/trainer/diets',
     icon: Apple,
-    allowedRoles: [ROLES.TRAINER],
+    permission: PERMISSIONS.DIET_VIEW,
     group: 'Coaching',
   },
   {
@@ -174,7 +174,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Progress',
     route: '/trainer/progress',
     icon: Activity,
-    allowedRoles: [ROLES.TRAINER],
+    permission: PERMISSIONS.PROGRESS_VIEW,
     group: 'Coaching',
   },
 
@@ -184,7 +184,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'My Dashboard',
     route: '/member/dashboard',
     icon: Home,
-    allowedRoles: [ROLES.MEMBER],
+    permission: PERMISSIONS.DASHBOARD_MEMBER,
     group: 'Personal',
   },
   {
@@ -192,7 +192,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Membership',
     route: '/member/membership',
     icon: FileText,
-    allowedRoles: [ROLES.MEMBER],
+    permission: PERMISSIONS.MEMBERSHIP_VIEW,
     group: 'Personal',
   },
   {
@@ -200,7 +200,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Payments',
     route: '/member/payments',
     icon: CreditCard,
-    allowedRoles: [ROLES.MEMBER],
+    permission: PERMISSIONS.PAYMENT_VIEW,
     group: 'Personal',
   },
   {
@@ -208,7 +208,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Attendance',
     route: '/member/attendance',
     icon: CalendarCheck,
-    allowedRoles: [ROLES.MEMBER],
+    permission: PERMISSIONS.ATTENDANCE_VIEW,
     group: 'Personal',
   },
   {
@@ -216,7 +216,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Workouts',
     route: '/member/workouts',
     icon: Dumbbell,
-    allowedRoles: [ROLES.MEMBER],
+    permission: PERMISSIONS.WORKOUT_VIEW,
     group: 'Fitness',
   },
   {
@@ -224,7 +224,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'Diet',
     route: '/member/diet',
     icon: Apple,
-    allowedRoles: [ROLES.MEMBER],
+    permission: PERMISSIONS.DIET_VIEW,
     group: 'Fitness',
   },
   {
@@ -232,7 +232,7 @@ export const NAVIGATION_CONFIG: NavItem[] = [
     label: 'My Progress',
     route: '/member/progress',
     icon: Activity,
-    allowedRoles: [ROLES.MEMBER],
+    permission: PERMISSIONS.PROGRESS_VIEW,
     group: 'Fitness',
   },
 
@@ -247,7 +247,6 @@ export const NAVIGATION_CONFIG: NavItem[] = [
   { id: 'profile', label: 'Profile', route: '/settings/profile', icon: User, group: 'User' },
 ];
 
-export const getNavForRole = (role: Role | undefined): NavItem[] => {
-  if (!role) return [];
-  return NAVIGATION_CONFIG.filter((nav) => !nav.allowedRoles || nav.allowedRoles.includes(role));
+export const getNavForPermissions = (hasPermission: (p: Permission) => boolean): NavItem[] => {
+  return NAVIGATION_CONFIG.filter((nav) => !nav.permission || hasPermission(nav.permission));
 };

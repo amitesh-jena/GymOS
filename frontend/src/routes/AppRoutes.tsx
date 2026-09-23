@@ -23,6 +23,8 @@ import {
 } from '@/features/system/SystemScreens';
 import { ListArchitectureDemo, DestructiveActionDemo } from '@/features/demo/PatternScreens';
 import { AuthSimulator } from '@/features/auth/AuthSimulator';
+import { OwnerSignup } from '@/features/auth/components/OwnerSignup';
+import { OnboardingChecklist } from '@/features/onboarding/components/OnboardingChecklist';
 import { DesignSystemShowcase } from '@/app/_DesignSystemShowcase';
 import { SettingsLayout } from '@/features/settings/components/SettingsLayout';
 import { ProfileSettingsView } from '@/features/settings/components/ProfileSettingsView';
@@ -98,6 +100,7 @@ const AppRoutes = () => {
         <Route element={<RequireNoAuth />}>
           <Route path="/auth">
             <Route path="login" element={<AuthSimulator />} />
+            <Route path="signup" element={<OwnerSignup />} />
             <Route path="forgot-password" element={<div className="p-8">Forgot Password</div>} />
             <Route path="reset-password" element={<div className="p-8">Reset Password</div>} />
           </Route>
@@ -112,6 +115,8 @@ const AppRoutes = () => {
 
         {/* Protected Authenticated Routes */}
         <Route element={<RequireAuth />}>
+          <Route path="/onboarding" element={<OnboardingChecklist />} />
+          
           <Route element={<AppShell />}>
             {/* Base Redirect */}
             <Route path="/" element={<RedirectToRoleDashboard />} />

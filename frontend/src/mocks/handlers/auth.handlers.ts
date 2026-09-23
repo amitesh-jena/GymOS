@@ -101,6 +101,46 @@ export const authHandlers = [
     );
   }),
 
+  http.post('/api/v1/auth/signup', async ({ request }) => {
+    const payload = await request.clone().json();
+
+    const authUser: Omit<User, 'tenants'> & { tenants: TenantRelationship[] } = {
+      id: 'usr-' + Math.random().toString(36).substring(2, 9),
+      name: (payload as Record<string, string>).fullName || 'New Owner',
+      email: (payload as Record<string, string>).email,
+      tenants: [
+        {
+          tenantId: 'tnt-' + Math.random().toString(36).substring(2, 9),
+          tenantName: 'My New Gym',
+          staffProfile: {
+            id: 'staff-owner',
+            roleAssignments: [
+              {
+                id: 'assignment-owner',
+                role: ROLES.OWNER,
+                branches: []
+              }
+            ]
+          }
+        }
+      ]
+    };
+
+    const authRes: AuthResponse = {
+      token: 'mock-access-token-signup',
+      user: authUser as unknown as User,
+    };
+
+    return HttpResponse.json(
+      { success: true, data: authRes },
+      {
+        headers: {
+          'Set-Cookie': `refresh_token=mock-refresh-token-xyz; Path=/; HttpOnly; SameSite=Lax`,
+        },
+      }
+    );
+  }),
+
   http.post('/api/v1/auth/refresh', () => {
     // If we wanted to check cookies in a real MSW setup we could inspect request.headers.get('cookie')
     return HttpResponse.json({ success: true, data: { token: 'mock-access-token-refreshed' } });

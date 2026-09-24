@@ -17,8 +17,16 @@ test.describe('Responsive Layout & Visual QA', () => {
         id: '1',
         name: 'Admin Tester',
         email: 'admin@gymos.com',
-        role: 'SUPER_ADMIN',
-        tenantId: 'system',
+        tenants: [
+          {
+            tenantId: 'system',
+            tenantName: 'System',
+            staffProfile: {
+              id: 'staff-sys',
+              roleAssignments: [{ id: 'sys-role', role: 'SUPER_ADMIN', branches: [] }]
+            }
+          }
+        ]
       };
 
       await page.addInitScript((userData) => {
@@ -60,7 +68,21 @@ test.describe('Responsive Layout & Visual QA', () => {
       page,
     }) => {
       await page.setViewportSize({ width: vp.width, height: vp.height });
-      const user = { id: '1', name: 'Admin Tester', role: 'SUPER_ADMIN', tenantId: 'system' };
+      const user = {
+        id: '1',
+        name: 'Admin Tester',
+        email: 'admin@gymos.com',
+        tenants: [
+          {
+            tenantId: 'system',
+            tenantName: 'System',
+            staffProfile: {
+              id: 'staff-sys',
+              roleAssignments: [{ id: 'sys-role', role: 'SUPER_ADMIN', branches: [] }]
+            }
+          }
+        ]
+      };
       await page.addInitScript((userData) => {
         window.localStorage.setItem('user_data', JSON.stringify(userData));
       }, user);
@@ -78,7 +100,21 @@ test.describe('Responsive Layout & Visual QA', () => {
 
   test('Mobile navigation drawer is reachable and closeable', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    const user = { id: '1', name: 'Tester', role: 'SUPER_ADMIN', tenantId: 'system' };
+    const user = {
+      id: '1',
+      name: 'Admin Tester',
+      email: 'admin@gymos.com',
+      tenants: [
+        {
+          tenantId: 'system',
+          tenantName: 'System',
+          staffProfile: {
+            id: 'staff-sys',
+            roleAssignments: [{ id: 'sys-role', role: 'SUPER_ADMIN', branches: [] }]
+          }
+        }
+      ]
+    };
     await page.addInitScript((userData) => {
       window.localStorage.setItem('user_data', JSON.stringify(userData));
     }, user);
@@ -111,7 +147,21 @@ test.describe('Responsive Layout & Visual QA', () => {
 
   test('Dialogs bounded within viewport and can scroll', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    const user = { id: '1', name: 'Tester', role: 'SUPER_ADMIN', tenantId: 'tenant-1' };
+    const user = {
+      id: '1',
+      name: 'Tester',
+      email: 'admin@gymos.com',
+      tenants: [
+        {
+          tenantId: 'tenant-1',
+          tenantName: 'Tenant 1',
+          staffProfile: {
+            id: 'staff-1',
+            roleAssignments: [{ id: 'owner-role', role: 'OWNER', branches: [] }]
+          }
+        }
+      ]
+    };
     await page.addInitScript((userData) => {
       window.localStorage.setItem('user_data', JSON.stringify(userData));
     }, user);

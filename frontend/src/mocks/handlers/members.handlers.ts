@@ -1,11 +1,11 @@
-import { http, HttpResponse, delay } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { Member, CreateMemberPayload } from '@/features/members/types';
 
 export let mockMembers: Member[] = [
   {
     id: 'mem-101',
     tenantId: 'gym-demo',
-    branchId: 'branch-hk',
+    branchId: 'branch-1',
     firstName: 'Alex',
     lastName: 'Chen',
     email: 'alex.chen@example.com',
@@ -18,7 +18,7 @@ export let mockMembers: Member[] = [
   {
     id: 'mem-102',
     tenantId: 'gym-demo',
-    branchId: 'branch-hk',
+    branchId: 'branch-1',
     firstName: 'Sarah',
     lastName: 'Miller',
     email: 'sarah.m@example.com',
@@ -32,7 +32,7 @@ export let mockMembers: Member[] = [
 
 export const membersHandlers = [
   http.get('/api/v1/members', async () => {
-    await delay(300);
+    
     return HttpResponse.json({
       success: true,
       data: {
@@ -45,7 +45,7 @@ export const membersHandlers = [
   }),
 
   http.get('/api/v1/members/:id', async ({ params }) => {
-    await delay(300);
+    
     const member = mockMembers.find((m) => m.id === params.id);
     if (!member) {
       return HttpResponse.json(
@@ -57,7 +57,7 @@ export const membersHandlers = [
   }),
 
   http.post('/api/v1/members', async ({ request }) => {
-    await delay(600);
+    
     const body = (await request.json()) as CreateMemberPayload;
     const newMember: Member = {
       ...body,
@@ -71,7 +71,7 @@ export const membersHandlers = [
   }),
 
   http.put('/api/v1/members/:id', async ({ request, params }) => {
-    await delay(600);
+    
     const body = (await request.json()) as Partial<CreateMemberPayload>;
     const idx = mockMembers.findIndex((m) => m.id === params.id);
     if (idx < 0) {
@@ -85,7 +85,7 @@ export const membersHandlers = [
   }),
 
   http.delete('/api/v1/members/:id', async ({ params }) => {
-    await delay(400);
+    
     mockMembers = mockMembers.filter((m) => m.id !== params.id);
     return HttpResponse.json({ success: true, data: null });
   }),

@@ -16,12 +16,12 @@ describe('F7 Phase: Finance & Currency Formatter', () => {
       // 150000 in INR is â‚¹1,500.00
       const formattedValue = formatMoney(150000, 'INR');
       expect(formattedValue.includes('1,500.00')).toBe(true);
-      expect(formattedValue.includes('â‚¹')).toBe(true);
+      expect(formattedValue.includes('₹')).toBe(true);
     });
 
     it('correctly handles JPY (0 minor units)', () => {
       // JPY has no minor units, so 5000 is 5,000 Yen
-      expect(formatMoney(5000, 'JPY')).toMatch(/Â¥5,000/);
+      expect(formatMoney(5000, 'JPY')).toMatch(/¥5,000/);
     });
 
     it('correctly handles KWD (3 minor units)', () => {
@@ -32,7 +32,7 @@ describe('F7 Phase: Finance & Currency Formatter', () => {
 
     it('handles zero values appropriately', () => {
       expect(formatMoney(0, 'USD')).toMatch(/\$0\.00/);
-      expect(formatMoney(0, 'JPY')).toMatch(/Â¥0/);
+      expect(formatMoney(0, 'JPY')).toMatch(/¥0/);
     });
 
     it('handles extremely large values explicitly', () => {

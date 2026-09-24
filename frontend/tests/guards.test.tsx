@@ -1,7 +1,7 @@
 /// <reference types="jest" />
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
-import { RequireAuth, RequireRole, RedirectToRoleDashboard } from '../src/routes/Guards';
+import { RequireAuth, RedirectToRoleDashboard } from '../src/routes/Guards';
 import { ROLES } from '../src/types/roles';
 import { useAuth } from '../src/contexts/AuthContext';
 
@@ -59,25 +59,7 @@ describe('Route Guards', () => {
     });
   });
 
-  describe('RequireRole', () => {
-    it('redirects to 403 if role is not allowed', () => {
-      mockUseAuth.mockReturnValue({ isAuthenticated: true, user: {} });
-      mockUseWorkspace.mockReturnValue({ activeRoleAssignment: { role: ROLES.MEMBER } });
-      render(
-        <MemoryRouter initialEntries={['/admin']}>
-          <Routes>
-            <Route element={<RequireRole allowedRoles={[ROLES.OWNER]} />}>
-              <Route path="/admin" element={<div data-testid="admin">Admin</div>} />
-            </Route>
-            <Route path="/403" element={<div data-testid="403">Forbidden</div>} />
-          </Routes>
-        </MemoryRouter>
-      );
-      expect(screen.getByTestId('403')).toBeInTheDocument();
-      expect(screen.queryByTestId('admin')).not.toBeInTheDocument();
-    });
-  });
-
+  // Legacy RequireRole was completely removed in F2 in favor of RequirePermission.
   describe('RedirectToRoleDashboard', () => {
     it('redirects owner to /reports', () => {
       mockUseAuth.mockReturnValue({ isAuthenticated: true, user: {} });

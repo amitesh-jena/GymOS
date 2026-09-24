@@ -15,6 +15,7 @@ export interface SaaSPlan {
   description: string;
   billingCycle: 'MONTHLY' | 'YEARLY';
   price: number;
+  priceMinorUnits?: number; // Canonical minor units
   currency: string;
   entitlements: Entitlement[];
   isCurrent?: boolean;

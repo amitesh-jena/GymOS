@@ -1,15 +1,31 @@
+import { EntitlementProvider } from '../src/contexts/EntitlementContext';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemberForm } from '@/features/members/components/MemberForm';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { DomainProvider } from '@/contexts/DomainContext';
+import { WorkspaceProvider } from '@/contexts/WorkspaceContext';
+import { PermissionProvider } from '@/contexts/PermissionContext';
 import { server } from './server';
 import { http, HttpResponse } from 'msw';
+import { describe, it, expect, beforeEach } from '@jest/globals';
 
 const queryClient = new QueryClient();
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <QueryClientProvider client={queryClient}>
-    <BrowserRouter>{children}</BrowserRouter>
+    <DomainProvider>
+        <AuthProvider>
+      <WorkspaceProvider>
+        <PermissionProvider>
+              <EntitlementProvider>
+          <BrowserRouter>{children}</BrowserRouter>
+                      </EntitlementProvider>
+            </PermissionProvider>
+      </WorkspaceProvider>
+    </AuthProvider>
+        </DomainProvider>
   </QueryClientProvider>
 );
 

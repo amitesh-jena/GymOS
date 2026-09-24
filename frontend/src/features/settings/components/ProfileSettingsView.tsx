@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useAuth } from '@/contexts/AuthContext';
+import { useWorkspace } from '@/contexts/WorkspaceContext';
 import {
   Card,
   CardContent,
@@ -27,6 +28,7 @@ type ProfileFormValues = z.infer<typeof profileSchema>;
 
 export const ProfileSettingsView = () => {
   const { user } = useAuth();
+  const { activeRoleAssignment } = useWorkspace();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -115,7 +117,7 @@ export const ProfileSettingsView = () => {
 
             <div className="space-y-1">
               <Label className="text-muted-foreground">Account Role</Label>
-              <div className="font-medium capitalize">{user?.role?.replace('_', ' ')}</div>
+              <div className="font-medium capitalize">{activeRoleAssignment?.role?.replace('_', ' ') || 'Guest'}</div>
             </div>
           </CardContent>
           <CardFooter className="border-t px-6 py-4">

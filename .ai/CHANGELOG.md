@@ -1,6 +1,7 @@
 # Changelog
 
 ## [Unreleased]
+- Corrected Phase F1 architecture implementation in frontend (MemberProfile branchId, WorkspaceContext staff/member view isolation models).
 
 ### Added (Backend Handoff Documentation)
 - Extracted and codified a condensed, AI-friendly backend onboarding context inside `.ai/` dynamically mirroring all authoritative product rules (`docs/DOC-*`).

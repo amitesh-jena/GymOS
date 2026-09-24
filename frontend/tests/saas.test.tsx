@@ -2,10 +2,15 @@ import '@testing-library/jest-dom';
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { SubscriptionSettingsView } from '../src/features/saas/components/SubscriptionSettingsView';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { server } from './server';
 import { http, HttpResponse } from 'msw';
 
+jest.mock('../src/contexts/WorkspaceContext', () => ({
+  useWorkspace: () => ({
+    activeTenant: { tenantId: 'tenant-1' }
+  })
+}));
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: false } },
 });

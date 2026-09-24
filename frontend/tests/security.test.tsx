@@ -6,6 +6,7 @@ import { server } from './server';
 import { http, HttpResponse } from 'msw';
 import { AxiosError } from 'axios';
 import { AuthProvider, useAuth } from '../src/contexts/AuthContext';
+import { DomainProvider } from '../src/contexts/DomainContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 describe('Security: Error Normalization & Refresh', () => {
@@ -115,7 +116,11 @@ describe('Security: AuthContext Logout', () => {
     setAccessToken('fake-in-memory-token');
     localStorage.setItem(
       'user_data',
-      JSON.stringify({ id: '1', name: 'Test', role: 'ADMIN', tenantId: '1' })
+      JSON.stringify({
+        id: '1',
+        name: 'Test',
+        tenants: []
+      })
     );
 
     // Seed query cache
@@ -129,9 +134,11 @@ describe('Security: AuthContext Logout', () => {
 
     render(
       <QueryClientProvider client={queryClient}>
+        <DomainProvider>
         <AuthProvider>
           <TestComponent />
         </AuthProvider>
+        </DomainProvider>
       </QueryClientProvider>
     );
 

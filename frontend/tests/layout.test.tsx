@@ -1,9 +1,13 @@
+import { EntitlementProvider } from '../src/contexts/EntitlementContext';
 import React from 'react';
+import { describe, it, expect } from '@jest/globals';
 import { render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
-import { AuthProvider } from '@/contexts/AuthContext';
-import { TenantProvider } from '@/contexts/TenantContext';
+import { AuthProvider } from '../src/contexts/AuthContext';
+import { DomainProvider } from '../src/contexts/DomainContext';
+import { WorkspaceProvider } from '../src/contexts/WorkspaceContext';
+import { PermissionProvider } from '../src/contexts/PermissionContext';
 import { AppShell } from '@/components/layout/AppShell';
 import { Header } from '@/components/layout/Header';
 import { Sidebar } from '@/components/layout/Sidebar';
@@ -13,11 +17,17 @@ describe('Layout Components', () => {
     const queryClient = new QueryClient();
     return render(
       <QueryClientProvider client={queryClient}>
+        <DomainProvider>
         <AuthProvider>
-          <TenantProvider>
-            <MemoryRouter>{ui}</MemoryRouter>
-          </TenantProvider>
+          <WorkspaceProvider>
+            <PermissionProvider>
+              <EntitlementProvider>
+              <MemoryRouter>{ui}</MemoryRouter>
+                          </EntitlementProvider>
+            </PermissionProvider>
+          </WorkspaceProvider>
         </AuthProvider>
+        </DomainProvider>
       </QueryClientProvider>
     );
   };

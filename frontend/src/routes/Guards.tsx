@@ -1,7 +1,11 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useWorkspace } from '@/contexts/WorkspaceContext';
+import { usePermissions } from '@/contexts/PermissionContext';
 import { Role, ROLE_DEFAULT_DESTINATION } from '@/types/roles';
+import { Permission } from '@/types/permissions';
 import { LoadingState } from '@/components/ux/LoadingState';
+import { EntitlementGate } from '@/components/auth/EntitlementGate';
 
 export function RequireAuth() {
   const { isAuthenticated } = useAuth();
@@ -14,24 +18,29 @@ export function RequireAuth() {
 }
 
 export function RequireNoAuth() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const { activeRoleAssignment } = useWorkspace();
 
-  if (isAuthenticated && user?.role) {
-    const destination = ROLE_DEFAULT_DESTINATION[user.role as Role] || '/';
+  if (isAuthenticated && activeRoleAssignment?.role) {
+    const destination = ROLE_DEFAULT_DESTINATION[activeRoleAssignment.role as Role] || '/';
     return <Navigate to={destination} replace />;
   }
 
   return <Outlet />;
 }
 
-export function RequireRole({ allowedRoles }: { allowedRoles: Role[] }) {
+export function RequirePermission({ permission, requireAll = false }: { permission: Permission | Permission[], requireAll?: boolean }) {
   const { user } = useAuth();
+  const { hasAllPermissions, hasAnyPermission } = usePermissions();
 
-  if (!user || !user.role) {
+  if (!user) {
     return <Navigate to="/403" replace />;
   }
 
-  if (!allowedRoles.includes(user.role as Role)) {
+  const permissions = Array.isArray(permission) ? permission : [permission];
+  const hasAccess = requireAll ? hasAllPermissions(permissions) : hasAnyPermission(permissions);
+
+  if (!hasAccess) {
     return <Navigate to="/403" replace />;
   }
 
@@ -39,16 +48,31 @@ export function RequireRole({ allowedRoles }: { allowedRoles: Role[] }) {
 }
 
 export function RedirectToRoleDashboard() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const { activeRoleAssignment } = useWorkspace();
 
   if (!isAuthenticated) {
     return <Navigate to="/auth/login" replace />;
   }
 
-  if (user?.role) {
-    const destination = ROLE_DEFAULT_DESTINATION[user.role as Role] || '/404';
+  if (activeRoleAssignment?.role) {
+    const destination = ROLE_DEFAULT_DESTINATION[activeRoleAssignment.role as Role] || '/404';
     return <Navigate to={destination} replace />;
   }
 
   return <LoadingState text="Resolving session..." />;
+}
+
+export function RequireEntitlement({ feature, requireAll = false }: { feature: string | string[], requireAll?: boolean }) {
+  return (
+    <EntitlementGate
+      feature={feature}
+      requireAll={requireAll}
+      showUpgradePrompt
+      upgradeTitle="Feature Unavailable"
+      upgradeDescription="This feature is not included in your tenant's current plan. Please upgrade to access this functionality."
+    >
+      <Outlet />
+    </EntitlementGate>
+  );
 }

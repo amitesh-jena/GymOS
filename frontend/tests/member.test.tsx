@@ -1,8 +1,14 @@
+import { EntitlementProvider } from '../src/contexts/EntitlementContext';
 import React from 'react';
+import { describe, it, expect, beforeEach } from '@jest/globals';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { DomainProvider } from '@/contexts/DomainContext';
+import { WorkspaceProvider } from '@/contexts/WorkspaceContext';
+import { PermissionProvider } from '@/contexts/PermissionContext';
 
 import { MemberDashboard } from '@/features/member-dashboard/components/MemberDashboard';
 import { MemberMembershipView } from '@/features/memberships/components/MemberMembershipView';
@@ -23,7 +29,17 @@ beforeEach(() => {
 const renderWithProviders = (ui: React.ReactElement) => {
   return render(
     <QueryClientProvider client={queryClient}>
-      <MemoryRouter>{ui}</MemoryRouter>
+      <DomainProvider>
+        <AuthProvider>
+        <WorkspaceProvider>
+          <PermissionProvider>
+              <EntitlementProvider>
+            <MemoryRouter>{ui}</MemoryRouter>
+                        </EntitlementProvider>
+            </PermissionProvider>
+        </WorkspaceProvider>
+      </AuthProvider>
+        </DomainProvider>
     </QueryClientProvider>
   );
 };

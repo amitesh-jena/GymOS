@@ -100,6 +100,10 @@ export function MemberDetail() {
               <p className="font-medium">{member.phone}</p>
             </div>
             <div>
+              <p className="text-sm text-muted-foreground mb-1">Branch</p>
+              <p className="font-medium">{member.branchId}</p>
+            </div>
+            <div>
               <p className="text-sm text-muted-foreground mb-1">Join Date</p>
               <p className="font-medium">{new Date(member.joinDate).toLocaleDateString()}</p>
             </div>

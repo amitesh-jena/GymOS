@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/componen
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Check, X } from 'lucide-react';
+import { Money } from '@/components/finance/Money';
 
 interface SaaSPlanCardProps {
   plan: SaaSPlan;
@@ -30,10 +31,7 @@ export const SaaSPlanCard: React.FC<SaaSPlanCardProps> = ({
         <p className="text-sm text-muted-foreground mt-1">{plan.description}</p>
         <div className="mt-4">
           <span className="text-4xl font-bold">
-            {new Intl.NumberFormat('en-US', {
-              style: 'currency',
-              currency: plan.currency,
-            }).format(plan.price)}
+            <Money amountMinorUnits={plan.priceMinorUnits!} currencyCode={plan.currency} />
           </span>
           <span className="text-muted-foreground">/{plan.billingCycle.toLowerCase()}</span>
         </div>

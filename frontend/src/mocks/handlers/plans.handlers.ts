@@ -1,4 +1,4 @@
-import { http, HttpResponse, delay } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { MembershipPlan, CreatePlanPayload } from '@/features/plans/types';
 
 let mockPlans: MembershipPlan[] = [
@@ -30,7 +30,7 @@ let mockPlans: MembershipPlan[] = [
 
 export const plansHandlers = [
   http.get('/api/v1/plans', async () => {
-    await delay(300);
+
     return HttpResponse.json({
       success: true,
       data: {
@@ -43,7 +43,7 @@ export const plansHandlers = [
   }),
 
   http.get('/api/v1/plans/:id', async ({ params }) => {
-    await delay(300);
+
     const plan = mockPlans.find((p) => p.id === params.id);
     if (!plan) {
       return HttpResponse.json(
@@ -55,7 +55,7 @@ export const plansHandlers = [
   }),
 
   http.post('/api/v1/plans', async ({ request }) => {
-    await delay(600);
+
     const body = (await request.json()) as CreatePlanPayload;
     const newPlan: MembershipPlan = {
       ...body,
@@ -69,7 +69,7 @@ export const plansHandlers = [
   }),
 
   http.put('/api/v1/plans/:id', async ({ request, params }) => {
-    await delay(600);
+
     const body = (await request.json()) as Partial<CreatePlanPayload>;
     const idx = mockPlans.findIndex((p) => p.id === params.id);
     if (idx < 0) {
@@ -83,7 +83,7 @@ export const plansHandlers = [
   }),
 
   http.delete('/api/v1/plans/:id', async ({ params }) => {
-    await delay(400);
+
     mockPlans = mockPlans.filter((p) => p.id !== params.id);
     return HttpResponse.json({ success: true, data: null });
   }),

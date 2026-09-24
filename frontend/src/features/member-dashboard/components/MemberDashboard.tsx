@@ -91,12 +91,12 @@ export const MemberDashboard: React.FC = () => {
                     currency: latestPayment.currency || 'USD',
                   }).format(Number(latestPayment.amount))}
                 </div>
-                <p className="text-xs text-muted-foreground">
+                <div className="text-xs text-muted-foreground">
                   Paid on {new Date(latestPayment.paymentDate).toLocaleDateString()}{' '}
                   <Badge variant="outline" className="ml-1 text-[10px] uppercase">
                     {latestPayment.status}
                   </Badge>
-                </p>
+                </div>
               </div>
             ) : (
               <div className="text-muted-foreground text-sm">No recent payments</div>

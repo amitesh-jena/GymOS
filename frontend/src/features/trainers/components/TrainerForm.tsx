@@ -4,6 +4,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { trainerSchema, TrainerFormData } from '../schemas';
 import { useTrainer, useCreateTrainer, useUpdateTrainer } from '../hooks/useTrainers';
+import { useWorkspace } from '@/contexts/WorkspaceContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,6 +29,8 @@ export function TrainerForm() {
   const createMutation = useCreateTrainer();
   const updateMutation = useUpdateTrainer(id || '');
 
+  const { activeBranch } = useWorkspace();
+
   const form = useForm<TrainerFormData>({
     resolver: zodResolver(trainerSchema),
     defaultValues: {
@@ -35,7 +38,7 @@ export function TrainerForm() {
       lastName: '',
       email: '',
       phone: '',
-      branchId: 'branch-hk',
+      branchId: activeBranch?.branchId || '',
       specialization: '',
       status: 'ACTIVE',
     },

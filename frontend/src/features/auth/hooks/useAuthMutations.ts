@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { authApi, LoginPayload } from '../api/auth';
+import { authApi, LoginPayload, SignupPayload } from '../api/auth';
 import { useAuth } from '@/contexts/AuthContext';
 import { setAccessToken } from '@/services/api';
 
@@ -8,6 +8,18 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: (payload: LoginPayload) => authApi.login(payload),
+    onSuccess: (data) => {
+      setAccessToken(data.token);
+      login(data.user);
+    },
+  });
+};
+
+export const useSignup = () => {
+  const { login } = useAuth();
+
+  return useMutation({
+    mutationFn: (payload: SignupPayload) => authApi.signup(payload),
     onSuccess: (data) => {
       setAccessToken(data.token);
       login(data.user);

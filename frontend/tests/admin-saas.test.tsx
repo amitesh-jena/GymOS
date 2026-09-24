@@ -6,6 +6,7 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { AdminTenantsList } from '../src/features/saas/components/AdminTenantsList';
 import { AdminTenantDetail } from '../src/features/saas/components/AdminTenantDetail';
 import { AuthProvider } from '../src/contexts/AuthContext';
+import { DomainProvider } from '../src/contexts/DomainContext';
 import { server } from './server';
 import { adminHandlers } from '../src/mocks/handlers/admin.handlers';
 
@@ -24,7 +25,8 @@ const renderWithProviders = (ui: React.ReactElement, initialRoute = '/admin/tena
 
   return render(
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
+      <DomainProvider>
+        <AuthProvider>
         <MemoryRouter initialEntries={[initialRoute]}>
           <Routes>
             <Route path="/admin/tenants" element={ui} />
@@ -32,6 +34,7 @@ const renderWithProviders = (ui: React.ReactElement, initialRoute = '/admin/tena
           </Routes>
         </MemoryRouter>
       </AuthProvider>
+        </DomainProvider>
     </QueryClientProvider>
   );
 };

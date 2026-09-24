@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { ROLES } from '@/types/roles';
-import { RequireAuth, RequireNoAuth, RequireRole, RedirectToRoleDashboard } from './Guards';
+// Removed unused ROLES
+import { RequireAuth, RequireNoAuth, RequirePermission, RedirectToRoleDashboard, RequireEntitlement } from './Guards';
 import { AppShell } from '@/components/layout/AppShell';
 import React from 'react';
+import { PERMISSIONS } from '@/types/permissions';
 import { LoadingState } from '@/components/ux/LoadingState';
 
 const lazyRoute = (
@@ -19,9 +20,14 @@ import {
   NotFoundScreen,
   ForbiddenScreen,
   MaintenanceScreen,
+  SuspendedScreen,
+  InvalidDomainScreen,
 } from '@/features/system/SystemScreens';
+import { ApiErrorListener } from '@/components/layout/ApiErrorListener';
 import { ListArchitectureDemo, DestructiveActionDemo } from '@/features/demo/PatternScreens';
 import { AuthSimulator } from '@/features/auth/AuthSimulator';
+import { OwnerSignup } from '@/features/auth/components/OwnerSignup';
+import { OnboardingChecklist } from '@/features/onboarding/components/OnboardingChecklist';
 import { DesignSystemShowcase } from '@/app/_DesignSystemShowcase';
 import { SettingsLayout } from '@/features/settings/components/SettingsLayout';
 import { ProfileSettingsView } from '@/features/settings/components/ProfileSettingsView';
@@ -69,6 +75,10 @@ const AnalyticsDashboard = lazyRoute(() =>
 import { NotificationInbox } from '@/features/notifications/components/NotificationInbox';
 import { AdminTenantsList } from '@/features/saas/components/AdminTenantsList';
 import { AdminTenantDetail } from '@/features/saas/components/AdminTenantDetail';
+import { AdminDashboard } from '@/features/saas/components/AdminDashboard';
+import { AdminPlansList } from '@/features/saas/components/AdminPlansList';
+import { AdminAuditLogs } from '@/features/saas/components/AdminAuditLogs';
+import { AdminSystemHealth } from '@/features/saas/components/AdminSystemHealth';
 import { TrainerMembersList } from '@/features/trainers/components/TrainerMembersList';
 const TrainerWorkoutsWorkspace = lazyRoute(() =>
   import('@/features/workouts/components/TrainerWorkoutsWorkspace').then((m) => ({
@@ -92,11 +102,13 @@ const PlaceholderScreen = ({ title }: { title: string }) => (
 const AppRoutes = () => {
   return (
     <BrowserRouter>
+      <ApiErrorListener />
       <Routes>
         {/* Public / Unauthenticated Routes */}
         <Route element={<RequireNoAuth />}>
           <Route path="/auth">
             <Route path="login" element={<AuthSimulator />} />
+            <Route path="signup" element={<OwnerSignup />} />
             <Route path="forgot-password" element={<div className="p-8">Forgot Password</div>} />
             <Route path="reset-password" element={<div className="p-8">Reset Password</div>} />
           </Route>
@@ -108,9 +120,13 @@ const AppRoutes = () => {
         {/* Global Error/System Routes */}
         <Route path="/403" element={<ForbiddenScreen />} />
         <Route path="/maintenance" element={<MaintenanceScreen />} />
+        <Route path="/suspended" element={<SuspendedScreen />} />
+        <Route path="/invalid-domain" element={<InvalidDomainScreen />} />
 
         {/* Protected Authenticated Routes */}
         <Route element={<RequireAuth />}>
+          <Route path="/onboarding" element={<OnboardingChecklist />} />
+          
           <Route element={<AppShell />}>
             {/* Base Redirect */}
             <Route path="/" element={<RedirectToRoleDashboard />} />
@@ -125,7 +141,7 @@ const AppRoutes = () => {
               <Route path="appearance" element={<AppearanceSettingsView />} />
               <Route path="security" element={<SecuritySettingsView />} />
 
-              <Route element={<RequireRole allowedRoles={[ROLES.SUPER_ADMIN, ROLES.OWNER]} />}>
+              <Route element={<RequirePermission permission={[PERMISSIONS.TENANT_VIEW, PERMISSIONS.SUBSCRIPTION_MANAGE]} />}>
                 <Route path="organization" element={<TenantSettingsView />} />
                 <Route path="subscription" element={<SubscriptionSettingsView />} />
               </Route>
@@ -134,35 +150,42 @@ const AppRoutes = () => {
             {/* Owner / Admin Only Routes */}
             <Route
               element={
-                <RequireRole
-                  allowedRoles={[ROLES.SUPER_ADMIN, ROLES.OWNER, ROLES.BRANCH_MANAGER]}
-                />
+                <RequirePermission permission={PERMISSIONS.REPORT_VIEW} />
               }
             >
-              <Route path="/reports" element={<AnalyticsDashboard />} />
-            </Route>
-
-            <Route element={<RequireRole allowedRoles={[ROLES.SUPER_ADMIN, ROLES.OWNER]} />}>
-              <Route path="/branches" element={<PlaceholderScreen title="Gym Branches" />} />
-            </Route>
-
-            {/* Platform Super Admin Only Routes */}
-            <Route element={<RequireRole allowedRoles={[ROLES.SUPER_ADMIN]} />}>
-              <Route path="/admin/tenants">
-                <Route index element={<AdminTenantsList />} />
-                <Route path=":id" element={<AdminTenantDetail />} />
+              <Route element={<RequireEntitlement feature={['reports.basic', 'reports.advanced']} />}>
+                <Route path="/reports" element={<AnalyticsDashboard />} />
               </Route>
             </Route>
 
-            {/* Owner / Admin / Manager Branch Routes */}
+            <Route element={<RequirePermission permission={PERMISSIONS.BRANCH_VIEW} />}>
+              <Route element={<RequireEntitlement feature="multi_branch" />}>
+                <Route path="/branches" element={<PlaceholderScreen title="Gym Branches" />} />
+              </Route>
+            </Route>
+
+            {/* Platform Super Admin Only Routes */}
+            <Route element={<RequirePermission permission={PERMISSIONS.TENANT_VIEW} />}>
+              <Route path="/admin">
+                <Route path="dashboard" element={<AdminDashboard />} />
+                <Route path="tenants" element={<AdminTenantsList />} />
+                <Route path="tenants/:id" element={<AdminTenantDetail />} />
+                <Route path="audit" element={<AdminAuditLogs />} />
+                <Route path="health" element={<AdminSystemHealth />} />
+                <Route element={<RequirePermission permission={PERMISSIONS.PLAN_MANAGE_SAAS} />}>
+                  <Route path="plans" element={<AdminPlansList />} />
+                </Route>
+              </Route>
+            </Route>
+
+            {/* Staff / Manager Branch Routes */}
             <Route
               element={
-                <RequireRole
-                  allowedRoles={[
-                    ROLES.SUPER_ADMIN,
-                    ROLES.OWNER,
-                    ROLES.BRANCH_MANAGER,
-                    ROLES.RECEPTIONIST,
+                <RequirePermission
+                  permission={[
+                    PERMISSIONS.MEMBER_VIEW,
+                    PERMISSIONS.TRAINER_VIEW,
+                    PERMISSIONS.PAYMENT_VIEW
                   ]}
                 />
               }
@@ -200,22 +223,26 @@ const AppRoutes = () => {
             </Route>
 
             {/* Trainer Routes */}
-            <Route path="/trainer" element={<RequireRole allowedRoles={[ROLES.TRAINER]} />}>
+            <Route path="/trainer" element={<RequirePermission permission={PERMISSIONS.DASHBOARD_TRAINER} />}>
               <Route path="dashboard" element={<Navigate to="/trainer/members" replace />} />
               <Route path="members" element={<TrainerMembersList />} />
-              <Route path="workouts" element={<TrainerWorkoutsWorkspace />} />
+              <Route element={<RequireEntitlement feature="workouts" />}>
+                <Route path="workouts" element={<TrainerWorkoutsWorkspace />} />
+              </Route>
               <Route path="diets" element={<PlaceholderScreen title="Diet Plans" />} />
               <Route path="progress" element={<PlaceholderScreen title="Client Progress" />} />
               <Route path="sessions" element={<PlaceholderScreen title="My Coaching Sessions" />} />
             </Route>
 
             {/* Member Routes */}
-            <Route path="/member" element={<RequireRole allowedRoles={[ROLES.MEMBER]} />}>
+            <Route path="/member" element={<RequirePermission permission={PERMISSIONS.DASHBOARD_MEMBER} />}>
               <Route path="dashboard" element={<MemberDashboard />} />
               <Route path="membership" element={<MemberMembershipView />} />
               <Route path="payments" element={<MemberPaymentsList />} />
               <Route path="attendance" element={<MemberAttendanceList />} />
-              <Route path="workouts" element={<MemberWorkoutsList />} />
+              <Route element={<RequireEntitlement feature="workouts" />}>
+                <Route path="workouts" element={<MemberWorkoutsList />} />
+              </Route>
               <Route path="diet" element={<MemberDietView />} />
               <Route path="progress" element={<MemberProgressView />} />
             </Route>

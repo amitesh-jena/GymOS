@@ -17,6 +17,7 @@ export interface MembershipPlan {
   description?: string;
   type: PlanType;
   price: string; // Monetary values represented as decimal strings
+  priceMinorUnits?: number; // Canonical frontend model (e.g. 150000)
   durationDays: number;
   status: PlanStatus;
   createdAt: string;

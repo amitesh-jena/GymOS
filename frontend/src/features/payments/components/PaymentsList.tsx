@@ -10,7 +10,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
+import { PaymentStatusBadge } from '@/components/finance/PaymentStatusBadge';
+import { Money } from '@/components/finance/Money';
 import { LoadingState } from '@/components/ux/LoadingState';
 import { ErrorState } from '@/components/ux/ErrorState';
 import { EmptyState } from '@/components/ux/EmptyState';
@@ -71,24 +72,11 @@ export const PaymentsList: React.FC = () => {
                   <TableCell className="font-medium">{payment.memberName}</TableCell>
                   <TableCell>{new Date(payment.paymentDate).toLocaleDateString()}</TableCell>
                   <TableCell>
-                    {new Intl.NumberFormat('en-US', {
-                      style: 'currency',
-                      currency: payment.currency,
-                    }).format(Number(payment.amount))}
+                    <Money amountMinorUnits={payment.amountMinorUnits!} currencyCode={payment.currency} />
                   </TableCell>
                   <TableCell>{payment.method}</TableCell>
                   <TableCell>
-                    <Badge
-                      variant={
-                        payment.status === 'COMPLETED'
-                          ? 'default'
-                          : payment.status === 'FAILED'
-                            ? 'destructive'
-                            : 'secondary'
-                      }
-                    >
-                      {payment.status}
-                    </Badge>
+                    <PaymentStatusBadge status={payment.status} />
                   </TableCell>
                   <TableCell className="text-muted-foreground">
                     {payment.transactionId || '-'}

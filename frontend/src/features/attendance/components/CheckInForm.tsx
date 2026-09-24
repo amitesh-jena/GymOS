@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { checkInSchema, CheckInFormData } from '../schemas';
 import { useCheckIn } from '../hooks/useAttendance';
 import { useMembers } from '@/features/members/hooks/useMembers';
+import { useWorkspace } from '@/contexts/WorkspaceContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -24,12 +25,15 @@ export function CheckInForm() {
 
   const { data: membersObj, isLoading: isLoadingMembers } = useMembers(); // Fetch all members
   const checkInMutation = useCheckIn();
+  const { availableBranches, activeBranch, workspaceView } = useWorkspace();
+  
+  const defaultBranchId = activeBranch?.branchId || availableBranches[0]?.branchId || '';
 
   const form = useForm<CheckInFormData>({
     resolver: zodResolver(checkInSchema),
     defaultValues: {
       memberId: '',
-      branchId: 'branch-hk',
+      branchId: defaultBranchId,
       checkInTime: new Date().toISOString(),
       source: 'MANUAL',
       notes: '',
@@ -37,6 +41,7 @@ export function CheckInForm() {
   });
 
   const memberIdValue = useWatch({ control: form.control, name: 'memberId' });
+  const branchIdValue = useWatch({ control: form.control, name: 'branchId' });
 
   const onSubmit = async (values: CheckInFormData) => {
     // Inject current ISO timestamp at the moment of submission
@@ -90,6 +95,35 @@ export function CheckInForm() {
               {form.formState.errors.memberId && (
                 <p id="memberId-error" className="text-xs text-destructive">
                   {form.formState.errors.memberId.message}
+                </p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="branchId">Branch location</Label>
+              <Select
+                value={branchIdValue}
+                onValueChange={(val: string) => form.setValue('branchId', val)}
+                disabled={availableBranches.length <= 1 || workspaceView === 'MEMBER'}
+              >
+                <SelectTrigger
+                  id="branchId"
+                  aria-invalid={!!form.formState.errors.branchId}
+                  aria-describedby="branchId-error"
+                >
+                  <SelectValue placeholder="Select branch" />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableBranches.map((b) => (
+                    <SelectItem key={b.branchId} value={b.branchId}>
+                      {b.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {form.formState.errors.branchId && (
+                <p id="branchId-error" className="text-xs text-destructive">
+                  {form.formState.errors.branchId.message}
                 </p>
               )}
             </div>

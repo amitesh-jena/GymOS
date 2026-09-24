@@ -6,7 +6,7 @@ test('App routing and responsive navigation flow', async ({ page }) => {
   // 1. Visit root, should redirect to login because we are unauthenticated.
   await page.goto('/');
   await expect(page).toHaveURL(/.*\/auth\/login/);
-  await expect(page.locator('text=Authentication Simulator')).toBeVisible();
+  await expect(page.getByRole('button', { name: /Login as Member/i })).toBeVisible();
 
   // 2. Login as Member
   await page.click('button:has-text("Login as Member")');
@@ -21,7 +21,7 @@ test('App routing and responsive navigation flow', async ({ page }) => {
 
   // 4. Navigate using Sidebar
   // Sidebar should have "Workouts" for Member
-  await page.click('text=Workouts');
+  await page.click('a[href="/member/workouts"]');
   await expect(page).toHaveURL(/.*\/member\/workouts/);
   await expect(page.locator('h2', { hasText: 'My Workouts' })).toBeVisible();
 

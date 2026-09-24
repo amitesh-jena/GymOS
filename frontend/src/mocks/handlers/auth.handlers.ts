@@ -1,30 +1,134 @@
 import { http, HttpResponse } from 'msw';
 import { AuthResponse } from '@/features/auth/api/auth';
-import { ROLES } from '@/types/roles';
+import { ROLES, Role } from '@/types/roles';
+import { User, TenantRelationship } from '@/types/identity';
 
 export const authHandlers = [
   http.post('/api/v1/auth/login', async ({ request }) => {
-    const payload = (await request.json()) as Record<string, string>;
+    const payload = (await request.clone().json()) as Record<string, string>;
 
     // Simulate finding a user
-    const userRole = payload.roleHint || ROLES.MEMBER;
-    const nameMap: Record<string, string> = {
-      [ROLES.SUPER_ADMIN]: 'Super Admin',
-      [ROLES.OWNER]: 'Gym Owner',
-      [ROLES.BRANCH_MANAGER]: 'Branch Manager',
-      [ROLES.RECEPTIONIST]: 'Receptionist',
-      [ROLES.TRAINER]: 'Trainer',
-      [ROLES.MEMBER]: 'Member',
+    const userRole = (payload.roleHint as Role) || ROLES.MEMBER;
+    
+    // Simulate F1A identity model
+    let authUser: Omit<User, 'tenants'> & { tenants: TenantRelationship[] } = {
+      id: 'usr-' + Math.random().toString(36).substring(2, 9),
+      name: `Mock ${userRole}`,
+      email: payload.email,
+      tenants: [
+        {
+          tenantId: 'tnt-gym-001',
+          tenantName: 'Gym C',
+          staffProfile: {
+            id: 'staff-001',
+            roleAssignments: [
+              {
+                id: 'assignment-001',
+                role: userRole,
+                branches: [{ branchId: 'branch-1', name: 'Branch 1' }]
+              }
+            ]
+          },
+          memberProfile: { id: 'member-001', branchId: 'branch-1' }
+        }
+      ]
     };
+
+    // F1A complex user scenario: Trainer + Member at exactly "Gym C"
+    if (payload.email === 'rahul@gymc.local') {
+      authUser = {
+        id: 'usr-rahul-001',
+        name: 'Rahul',
+        email: 'rahul@gymc.local',
+        tenants: [
+          {
+            tenantId: 'tnt-gymc',
+            tenantName: 'Gym C',
+            staffProfile: {
+              id: 'staff-rahul',
+              roleAssignments: [
+                {
+                  id: 'assignment-trainer',
+                  role: ROLES.TRAINER,
+                  branches: [{ branchId: 'branch-1', name: 'Branch 1' }]
+                },
+                {
+                  id: 'assignment-manager',
+                  role: ROLES.BRANCH_MANAGER,
+                  branches: [
+                    { branchId: 'branch-1', name: 'Branch 1' },
+                    { branchId: 'branch-2', name: 'Branch 2' }
+                  ]
+                }
+              ]
+            },
+            memberProfile: { 
+              id: 'member-rahul',
+              branchId: 'branch-1' 
+            }
+          },
+          {
+            // Second tenant relationship exactly as requested
+            tenantId: 'tnt-gymd',
+            tenantName: 'Gym D',
+            staffProfile: {
+              id: 'staff-rahul-d',
+              roleAssignments: [
+                {
+                  id: 'assignment-trainer-d',
+                  role: ROLES.TRAINER,
+                  branches: [{ branchId: 'branch-3', name: 'Branch 3' }]
+                }
+              ]
+            }
+          }
+        ]
+      };
+    }
 
     const authRes: AuthResponse = {
       token: 'mock-access-token-12345',
-      user: {
-        id: 'usr-' + Math.random().toString(36).substring(2, 9),
-        name: `Mock ${nameMap[userRole] || 'User'}`,
-        role: userRole,
-        tenantId: 'tnt-gym-001',
-      },
+      user: authUser as unknown as User,
+    };
+
+    return HttpResponse.json(
+      { success: true, data: authRes },
+      {
+        headers: {
+          'Set-Cookie': `refresh_token=mock-refresh-token-xyz; Path=/; HttpOnly; SameSite=Lax`,
+        },
+      }
+    );
+  }),
+
+  http.post('/api/v1/auth/signup', async ({ request }) => {
+    const payload = await request.clone().json();
+
+    const authUser: Omit<User, 'tenants'> & { tenants: TenantRelationship[] } = {
+      id: 'usr-' + Math.random().toString(36).substring(2, 9),
+      name: (payload as Record<string, string>).fullName || 'New Owner',
+      email: (payload as Record<string, string>).email,
+      tenants: [
+        {
+          tenantId: 'tnt-' + Math.random().toString(36).substring(2, 9),
+          tenantName: 'My New Gym',
+          staffProfile: {
+            id: 'staff-owner',
+            roleAssignments: [
+              {
+                id: 'assignment-owner',
+                role: ROLES.OWNER,
+                branches: []
+              }
+            ]
+          }
+        }
+      ]
+    };
+
+    const authRes: AuthResponse = {
+      token: 'mock-access-token-signup',
+      user: authUser as unknown as User,
     };
 
     return HttpResponse.json(

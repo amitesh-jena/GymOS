@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { Loader2 } from 'lucide-react';
-import { useTenant } from '@/contexts/TenantContext';
+import { useWorkspace } from '@/contexts/WorkspaceContext';
 
 const tenantSchema = z.object({
   name: z.string().min(2, 'Organization name must be at least 2 characters'),
@@ -26,7 +26,8 @@ const tenantSchema = z.object({
 type TenantFormValues = z.infer<typeof tenantSchema>;
 
 export const TenantSettingsView = () => {
-  const { tenantId } = useTenant();
+  const { activeTenant } = useWorkspace();
+  const tenantId = activeTenant?.tenantId || null;
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 

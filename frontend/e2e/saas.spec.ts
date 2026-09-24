@@ -4,7 +4,7 @@ test.describe('SaaS Subscription E2E', () => {
   test.beforeEach(async ({ page }) => {
     // We navigate directly to the settings/subscription URL
     await page.goto('/auth/login');
-    await page.waitForSelector('text=Authentication Simulator', { state: 'visible' });
+    await page.waitForSelector('button:has-text("Login as")', { state: 'visible' });
 
     // Click to login as owner
     if (await page.isVisible('button:has-text("Login as Gym Owner")')) {

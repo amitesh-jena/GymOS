@@ -41,6 +41,7 @@ describe('API Functions', () => {
 
   describe('Plans API', () => {
     it('fetches plans', async () => {
+      (api.get as jest.Mock).mockResolvedValueOnce({ data: { success: true, data: { results: [], total: 0 } } });
       await plansApi.getPlans();
       expect(api.get).toHaveBeenCalledWith('/plans', { params: undefined });
     });

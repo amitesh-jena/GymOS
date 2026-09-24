@@ -5,6 +5,7 @@ import { usePermissions } from '@/contexts/PermissionContext';
 import { Role, ROLE_DEFAULT_DESTINATION } from '@/types/roles';
 import { Permission } from '@/types/permissions';
 import { LoadingState } from '@/components/ux/LoadingState';
+import { EntitlementGate } from '@/components/auth/EntitlementGate';
 
 export function RequireAuth() {
   const { isAuthenticated } = useAuth();
@@ -60,4 +61,18 @@ export function RedirectToRoleDashboard() {
   }
 
   return <LoadingState text="Resolving session..." />;
+}
+
+export function RequireEntitlement({ feature, requireAll = false }: { feature: string | string[], requireAll?: boolean }) {
+  return (
+    <EntitlementGate
+      feature={feature}
+      requireAll={requireAll}
+      showUpgradePrompt
+      upgradeTitle="Feature Unavailable"
+      upgradeDescription="This feature is not included in your tenant's current plan. Please upgrade to access this functionality."
+    >
+      <Outlet />
+    </EntitlementGate>
+  );
 }

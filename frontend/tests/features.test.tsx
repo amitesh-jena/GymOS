@@ -1,8 +1,13 @@
+import { EntitlementProvider } from '../src/contexts/EntitlementContext';
 import React from 'react';
+import { describe, it, expect } from '@jest/globals';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { DomainProvider } from '@/contexts/DomainContext';
+import { WorkspaceProvider } from '@/contexts/WorkspaceContext';
+import { PermissionProvider } from '@/contexts/PermissionContext';
 
 import { MembersList } from '@/features/members/components/MembersList';
 import { TrainersList } from '@/features/trainers/components/TrainersList';
@@ -18,9 +23,17 @@ const queryClient = new QueryClient({
 const renderWithProviders = (ui: React.ReactElement) => {
   return render(
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <MemoryRouter>{ui}</MemoryRouter>
+      <DomainProvider>
+        <AuthProvider>
+        <WorkspaceProvider>
+          <PermissionProvider>
+              <EntitlementProvider>
+            <MemoryRouter>{ui}</MemoryRouter>
+                        </EntitlementProvider>
+            </PermissionProvider>
+        </WorkspaceProvider>
       </AuthProvider>
+        </DomainProvider>
     </QueryClientProvider>
   );
 };

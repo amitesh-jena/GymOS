@@ -1,3 +1,4 @@
+import { EntitlementProvider } from '../src/contexts/EntitlementContext';
 import React from 'react';
 import { describe, it, expect } from '@jest/globals';
 import { render, screen, act } from '@testing-library/react';
@@ -68,7 +69,9 @@ describe('Permission Context (F2)', () => {
         <AuthProvider>
           <WorkspaceProvider>
             <PermissionProvider>
+              <EntitlementProvider>
               <TestComponent />
+                          </EntitlementProvider>
             </PermissionProvider>
           </WorkspaceProvider>
         </AuthProvider>

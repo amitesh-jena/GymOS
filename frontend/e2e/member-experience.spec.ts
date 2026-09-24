@@ -5,7 +5,7 @@ test.describe('Member Experience E2E', () => {
     // 1. Authenticate as Member
     await page.goto('/auth/login');
     // Ensure mock renders
-    await page.waitForSelector('text=Authentication Simulator', { state: 'visible' });
+    await page.waitForSelector('button:has-text("Login as")', { state: 'visible' });
     await page.click('button:has-text("Login as Member")');
 
     // 2. Navigate to Dashboard

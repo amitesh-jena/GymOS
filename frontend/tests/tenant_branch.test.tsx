@@ -2,6 +2,7 @@ import React from 'react';
 import { describe, it, expect, beforeEach } from '@jest/globals';
 import { render, screen, act } from '@testing-library/react';
 import { AuthProvider, useAuth } from '../src/contexts/AuthContext';
+import { DomainProvider } from '../src/contexts/DomainContext';
 import { WorkspaceProvider, useWorkspace } from '../src/contexts/WorkspaceContext';
 import { TenantSelector, BranchSelector } from '../src/components/layout/WorkspaceSelectors';
 import { CheckInForm } from '../src/features/attendance/components/CheckInForm';
@@ -98,11 +99,13 @@ describe('Tenant & Branch Selectors (F3)', () => {
     
     render(
       <QueryClientProvider client={queryClient}>
+        <DomainProvider>
         <AuthProvider>
           <WorkspaceProvider>
             <TestComponent />
           </WorkspaceProvider>
         </AuthProvider>
+        </DomainProvider>
       </QueryClientProvider>
     );
 
@@ -126,12 +129,14 @@ describe('Tenant & Branch Selectors (F3)', () => {
     const queryClient = new QueryClient();
     render(
       <QueryClientProvider client={queryClient}>
+        <DomainProvider>
         <AuthProvider>
           <WorkspaceProvider>
             <TestComponent />
             <TestInternals />
           </WorkspaceProvider>
         </AuthProvider>
+        </DomainProvider>
       </QueryClientProvider>
     );
 
@@ -156,12 +161,14 @@ describe('F3C - Attendance Branch Scoping', () => {
     render(
       <MemoryRouter>
         <QueryClientProvider client={queryClient}>
-          <AuthProvider>
+          <DomainProvider>
+        <AuthProvider>
             <WorkspaceProvider>
               <TestComponent />
               <CheckInForm />
             </WorkspaceProvider>
           </AuthProvider>
+        </DomainProvider>
         </QueryClientProvider>
       </MemoryRouter>
     );

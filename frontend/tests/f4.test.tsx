@@ -1,3 +1,4 @@
+import { EntitlementProvider } from '../src/contexts/EntitlementContext';
 import React from 'react';
 import '@testing-library/jest-dom';
 import { describe, it, expect, jest, beforeEach } from '@jest/globals';
@@ -14,6 +15,7 @@ import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from '../src/contexts/AuthContext';
+import { DomainProvider } from '../src/contexts/DomainContext';
 import { WorkspaceProvider } from '../src/contexts/WorkspaceContext';
 import { PermissionProvider } from '../src/contexts/PermissionContext';
 import { OwnerSignup } from '../src/features/auth/components/OwnerSignup';
@@ -28,13 +30,17 @@ const renderWithProviders = (ui: React.ReactElement) => {
   return render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <DomainProvider>
         <AuthProvider>
           <WorkspaceProvider>
             <PermissionProvider>
+              <EntitlementProvider>
               {ui}
+                          </EntitlementProvider>
             </PermissionProvider>
           </WorkspaceProvider>
         </AuthProvider>
+        </DomainProvider>
       </BrowserRouter>
     </QueryClientProvider>
   );

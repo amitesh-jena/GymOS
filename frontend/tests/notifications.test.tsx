@@ -7,6 +7,7 @@ import { handlers } from '../src/mocks/handlers';
 import { setupServer } from 'msw/node';
 import { ToastProvider } from '@/components/ui/toast';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { DomainProvider } from '@/contexts/DomainContext';
 import { WorkspaceProvider } from '@/contexts/WorkspaceContext';
 
 const server = setupServer(...handlers);
@@ -29,11 +30,13 @@ const renderWithProviders = (ui: React.ReactElement) => {
   return render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <DomainProvider>
         <AuthProvider>
           <WorkspaceProvider>
             <ToastProvider>{ui}</ToastProvider>
           </WorkspaceProvider>
         </AuthProvider>
+        </DomainProvider>
       </BrowserRouter>
     </QueryClientProvider>
   );

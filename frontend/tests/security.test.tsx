@@ -6,6 +6,7 @@ import { server } from './server';
 import { http, HttpResponse } from 'msw';
 import { AxiosError } from 'axios';
 import { AuthProvider, useAuth } from '../src/contexts/AuthContext';
+import { DomainProvider } from '../src/contexts/DomainContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 describe('Security: Error Normalization & Refresh', () => {
@@ -133,9 +134,11 @@ describe('Security: AuthContext Logout', () => {
 
     render(
       <QueryClientProvider client={queryClient}>
+        <DomainProvider>
         <AuthProvider>
           <TestComponent />
         </AuthProvider>
+        </DomainProvider>
       </QueryClientProvider>
     );
 

@@ -3,6 +3,7 @@ import { describe, it, expect } from '@jest/globals';
 import { render, screen, act } from '@testing-library/react';
 import { AuthProvider, useAuth } from '../src/contexts/AuthContext';
 import { WorkspaceProvider, useWorkspace } from '../src/contexts/WorkspaceContext';
+import { DomainProvider } from '../src/contexts/DomainContext';
 import { User, TenantRelationship } from '../src/types/identity';
 import { ROLES } from '../src/types/roles';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -95,11 +96,13 @@ describe('Workspace Context', () => {
     
     render(
       <QueryClientProvider client={queryClient}>
+        <DomainProvider>
         <AuthProvider>
           <WorkspaceProvider>
             <TestComponent />
           </WorkspaceProvider>
         </AuthProvider>
+        </DomainProvider>
       </QueryClientProvider>
     );
 

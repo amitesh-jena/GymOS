@@ -6,10 +6,11 @@ import {
   changePlan,
 } from '../api/saas.api';
 
-export const useCurrentSubscription = () => {
+export const useCurrentSubscription = (tenantId: string | undefined) => {
   return useQuery({
-    queryKey: ['saas-subscription', 'current'],
-    queryFn: getCurrentSubscription,
+    queryKey: ['saas-subscription', 'current', tenantId],
+    queryFn: () => getCurrentSubscription(tenantId as string),
+    enabled: !!tenantId,
   });
 };
 
@@ -20,22 +21,22 @@ export const useAvailablePlans = () => {
   });
 };
 
-export const useCancelSubscription = () => {
+export const useCancelSubscription = (tenantId: string | undefined) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: cancelSubscription,
+    mutationFn: () => cancelSubscription(tenantId as string),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['saas-subscription', 'current'] });
+      queryClient.invalidateQueries({ queryKey: ['saas-subscription', 'current', tenantId] });
     },
   });
 };
 
-export const useChangePlan = () => {
+export const useChangePlan = (tenantId: string | undefined) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (planId: string) => changePlan(planId),
+    mutationFn: (planId: string) => changePlan(planId, tenantId as string),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['saas-subscription', 'current'] });
+      queryClient.invalidateQueries({ queryKey: ['saas-subscription', 'current', tenantId] });
     },
   });
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCurrentSubscription, useAvailablePlans, useCancelSubscription } from '../hooks/useSaaS';
+import { useWorkspace } from '@/contexts/WorkspaceContext';
 import { SaaSPlanCard } from './SaaSPlanCard';
 import { LoadingState } from '@/components/ux/LoadingState';
 import { ErrorState } from '@/components/ux/ErrorState';
@@ -22,9 +23,10 @@ import { AlertTriangle } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 
 export const SubscriptionSettingsView: React.FC = () => {
-  const { data: sub, isLoading: subLoading, error: subError } = useCurrentSubscription();
+  const { activeTenant } = useWorkspace();
+  const { data: sub, isLoading: subLoading, error: subError } = useCurrentSubscription(activeTenant?.tenantId);
   const { data: plans, isLoading: plansLoading } = useAvailablePlans();
-  const cancelMutation = useCancelSubscription();
+  const cancelMutation = useCancelSubscription(activeTenant?.tenantId);
   const { toast } = useToast();
 
   if (subLoading || plansLoading) return <LoadingState text="Loading subscription details..." />;

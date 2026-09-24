@@ -44,7 +44,6 @@ export function OwnerSignup() {
   const termsAccepted = watch('termsAccepted');
   const marketingAccepted = watch('marketingAccepted');
 
-  // eslint-disable-next-line react-hooks/incompatible-library
   const onSubmit: SubmitHandler<SignupForm> = (data) => {
     doSignup(
       {
